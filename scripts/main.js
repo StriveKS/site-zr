@@ -1,4 +1,4 @@
-const FORM_ENDPOINT = "COLE_AQUI_A_URL_DO_WEB_APP_DO_APPS_SCRIPT";
+const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwdVWAzgHf5WKfGZeq424hoAflLc3XMUHSi_-_3UOHIndxLY5ooHlCCODaw_D5y56O9iw/exec";
 const WHATSAPP_URL = "https://wa.me/5554993805657";
 
 const reveals = document.querySelectorAll(".reveal");
