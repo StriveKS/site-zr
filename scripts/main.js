@@ -44,6 +44,21 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function animateOnIntersect(selector, callback, threshold = 0.3) {
+  const element = document.querySelector(selector);
+  if (!element || typeof callback !== "function") return;
+
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      callback();
+      sectionObserver.disconnect();
+    });
+  }, { threshold });
+
+  sectionObserver.observe(element);
+}
+
 initAnalytics();
 
 const reveals = document.querySelectorAll(".reveal");
@@ -108,6 +123,28 @@ function initGsapMotion() {
     stagger: 0.28,
     ease: "sine.inOut"
   });
+
+  animateOnIntersect(".operation-shell", () => {
+    gsap.fromTo(
+      ".operation-stage",
+      { autoAlpha: 0, x: -18 },
+      { autoAlpha: 1, x: 0, duration: 0.55, stagger: 0.12, ease: "power2.out" }
+    );
+
+    gsap.fromTo(
+      ".operation-notes article",
+      { autoAlpha: 0, y: 14 },
+      { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out", delay: 0.12 }
+    );
+  }, 0.24);
+
+  animateOnIntersect(".faq-list", () => {
+    gsap.fromTo(
+      ".faq-item",
+      { autoAlpha: 0, y: 14 },
+      { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.08, ease: "power2.out" }
+    );
+  }, 0.22);
 
   animateCounters(gsap);
 }
