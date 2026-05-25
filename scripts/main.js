@@ -1,5 +1,4 @@
 const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwdVWAzgHf5WKfGZeq424hoAflLc3XMUHSi_-_3UOHIndxLY5ooHlCCODaw_D5y56O9iw/exec";
-const WHATSAPP_URL = "https://wa.me/5554993805657";
 const GA4_ID = "G-3TFKER5ZGK";
 const CLARITY_ID = "wwf25gobgk";
 
@@ -20,8 +19,6 @@ function loadStylesheet(href, id) {
   if (id) link.id = id;
   document.head.appendChild(link);
 }
-
-loadStylesheet("premium.css", "zr-premium-css");
 
 function initAnalytics() {
   window.dataLayer = window.dataLayer || [];
@@ -44,49 +41,169 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function animateOnIntersect(selector, callback, threshold = 0.3) {
-  const element = document.querySelector(selector);
-  if (!element || typeof callback !== "function") return;
-
-  const sectionObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      callback();
-      sectionObserver.disconnect();
-    });
-  }, { threshold });
-
-  sectionObserver.observe(element);
+function cloneMarqueeTrack() {
+  const marquee = document.querySelector(".marquee-track");
+  if (!marquee || marquee.dataset.cloned === "true") return;
+  const clone = marquee.cloneNode(true);
+  clone.setAttribute("aria-hidden", "true");
+  marquee.parentElement.appendChild(clone);
+  marquee.dataset.cloned = "true";
 }
 
-initAnalytics();
+function initParticles() {
+  const canvas = document.getElementById("heroParticles");
+  if (!canvas || prefersReducedMotion()) return;
 
-const reveals = document.querySelectorAll(".reveal");
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
+  const ctx = canvas.getContext("2d");
+  let width = 0;
+  let height = 0;
+  const particles = Array.from({ length: 44 }, () => ({
+    x: 0,
+    y: 0,
+    radius: Math.random() * 1.4 + 0.5,
+    vx: (Math.random() - 0.5) * 0.18,
+    vy: (Math.random() - 0.5) * 0.18,
+    opacity: Math.random() * 0.34 + 0.1
+  }));
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = Math.max(window.innerHeight, document.getElementById("inicio")?.offsetHeight || window.innerHeight);
+    particles.forEach(particle => {
+      if (!particle.x && !particle.y) {
+        particle.x = Math.random() * width;
+        particle.y = Math.random() * height;
       }
     });
-  },
-  { threshold: 0.14 }
-);
+  }
 
-reveals.forEach(element => observer.observe(element));
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    particles.forEach(particle => {
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+
+      if (particle.x < 0) particle.x = width;
+      if (particle.x > width) particle.x = 0;
+      if (particle.y < 0) particle.y = height;
+      if (particle.y > height) particle.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(181,139,52,${particle.opacity})`;
+      ctx.fill();
+    });
+
+    window.requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener("resize", resize, { passive: true });
+  draw();
+}
+
+function initRevealObserver() {
+  const reveals = document.querySelectorAll(".reveal");
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.14 }
+  );
+
+  reveals.forEach(element => observer.observe(element));
+}
+
+function animateCounters(gsap) {
+  document.querySelectorAll("[data-count]").forEach(counter => {
+    let hasAnimated = false;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting || hasAnimated) return;
+        hasAnimated = true;
+        const target = Number(counter.dataset.count || 0);
+        const state = { value: 0 };
+        gsap.to(state, {
+          value: target,
+          duration: 1.35,
+          ease: "power2.out",
+          onUpdate: () => {
+            counter.textContent = `+${Math.round(state.value)}`;
+          }
+        });
+        observer.disconnect();
+      });
+    }, { threshold: 0.5 });
+
+    observer.observe(counter);
+  });
+}
+
+function initPreloader(onComplete) {
+  const preloader = document.getElementById("preloader");
+  const logo = document.querySelector(".preloader-logo");
+  const line = document.querySelector(".preloader-line");
+  const text = document.querySelector(".preloader-text");
+  const gsap = window.gsap;
+
+  if (!preloader || !gsap || prefersReducedMotion()) {
+    document.body.classList.add("is-loaded");
+    onComplete?.();
+    return;
+  }
+
+  const timeline = gsap.timeline({
+    onComplete: () => {
+      document.body.classList.add("is-loaded");
+      onComplete?.();
+    }
+  });
+
+  timeline
+    .to(logo, { autoAlpha: 1, y: 0, scale: 1, duration: 0.72, ease: "power3.out" })
+    .to(line, { scaleX: 1, duration: 0.9, ease: "power3.inOut" }, "-=0.28")
+    .to(text, { autoAlpha: 1, duration: 0.42, ease: "power2.out" }, "-=0.48")
+    .to(preloader, { autoAlpha: 0, duration: 0.65, ease: "power2.inOut", delay: 0.34 });
+}
 
 function initGsapMotion() {
-  if (prefersReducedMotion() || typeof window.gsap !== "object") {
+  if (typeof window.gsap !== "object") return;
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+  if (ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  if (prefersReducedMotion()) {
     document.querySelector(".route-path")?.style.setProperty("stroke-dashoffset", "0");
-    document.querySelectorAll(".route-node").forEach(node => {
+    document.querySelectorAll(".route-node, .signature-monogram, .signature-script").forEach(node => {
       node.style.opacity = "1";
+      node.style.transform = "none";
+    });
+    document.querySelectorAll(".signature-frame, .signature-accent, .signature-sweep").forEach(path => {
+      path.style.strokeDashoffset = "0";
     });
     return;
   }
 
-  const { gsap } = window;
   document.documentElement.classList.add("is-motion-ready");
+
+  gsap.set(".hero-word-inner", { yPercent: 110, autoAlpha: 0 });
+  gsap.set(".hero-eyebrow, .hero-title-secondary, .hero-subtitle, .hero-actions, .hero-assurance, .route-panel", { autoAlpha: 0, y: 20 });
+
+  const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+  intro
+    .to(".hero-eyebrow", { autoAlpha: 1, y: 0, duration: 0.78 }, 0.08)
+    .to(".hero-word-inner", { yPercent: 0, autoAlpha: 1, duration: 0.82, stagger: 0.12, ease: "power4.out" }, 0.22)
+    .to(".hero-title-secondary", { autoAlpha: 1, y: 0, duration: 0.72 }, 0.88)
+    .to(".hero-subtitle", { autoAlpha: 1, y: 0, duration: 0.72 }, 1.02)
+    .to(".hero-actions", { autoAlpha: 1, y: 0, duration: 0.64 }, 1.14)
+    .to(".hero-assurance", { autoAlpha: 1, y: 0, duration: 0.6 }, 1.28)
+    .to(".route-panel", { autoAlpha: 1, y: 0, duration: 0.84 }, 0.52);
 
   const routeTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
   routeTimeline
@@ -94,18 +211,12 @@ function initGsapMotion() {
     .fromTo(".route-node", { autoAlpha: 0, scale: 0.78 }, { autoAlpha: 1, scale: 1, duration: 0.55, stagger: 0.18 }, 0.38)
     .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 0.82);
 
-  const signatureTimeline = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.18 });
+  const signatureTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
   signatureTimeline
-    .to(".signature-frame, .signature-accent, .signature-sweep", { strokeDashoffset: 0, duration: 1.55, stagger: 0.08 }, 0)
-    .fromTo(".signature-monogram", { autoAlpha: 0, scale: 0.96 }, { autoAlpha: 1, scale: 1, duration: 0.72 }, 0.28)
+    .to(".signature-frame, .signature-accent, .signature-sweep", { strokeDashoffset: 0, duration: 1.55, stagger: 0.08 }, 0.12)
+    .fromTo(".signature-monogram", { autoAlpha: 0, scale: 0.96 }, { autoAlpha: 1, scale: 1, duration: 0.72 }, 0.34)
     .fromTo(".signature-script", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.58 }, 0.56)
-    .fromTo(".signature-points > div", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.1 }, 0.72);
-
-  gsap.fromTo(
-    ".trust-list span",
-    { y: 10, autoAlpha: 0 },
-    { y: 0, autoAlpha: 1, duration: 0.4, stagger: 0.08, ease: "power2.out", delay: 0.5 }
-  );
+    .fromTo(".signature-points > div", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.1 }, 0.74);
 
   gsap.to(".method-core", {
     scale: 1.035,
@@ -124,85 +235,88 @@ function initGsapMotion() {
     ease: "sine.inOut"
   });
 
-  animateOnIntersect(".operation-shell", () => {
+  gsap.to(".orb-1", {
+    y: -72,
+    ease: "none",
+    scrollTrigger: ScrollTrigger ? { trigger: "#inicio", start: "top top", end: "bottom top", scrub: 1.5 } : undefined
+  });
+  gsap.to(".orb-2", {
+    y: -36,
+    ease: "none",
+    scrollTrigger: ScrollTrigger ? { trigger: "#inicio", start: "top top", end: "bottom top", scrub: 2 } : undefined
+  });
+
+  if (ScrollTrigger) {
+    gsap.utils.toArray(".section-heading, .friction-card, .situation-card, .solution-card, .faq-item").forEach((element, index) => {
+      gsap.fromTo(
+        element,
+        { autoAlpha: 0, y: 36 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.8,
+          delay: index % 5 === 0 ? 0 : 0.04,
+          ease: "power3.out",
+          scrollTrigger: { trigger: element, start: "top 84%" }
+        }
+      );
+    });
+
     gsap.fromTo(
-      ".operation-stage",
-      { autoAlpha: 0, x: -18 },
-      { autoAlpha: 1, x: 0, duration: 0.55, stagger: 0.12, ease: "power2.out" }
+      ".steps > div",
+      { autoAlpha: 0, x: -28 },
+      {
+        autoAlpha: 1,
+        x: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".steps", start: "top 78%" }
+      }
     );
 
     gsap.fromTo(
-      ".operation-notes article",
-      { autoAlpha: 0, y: 14 },
-      { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out", delay: 0.12 }
+      ".structure-box, .lead-form",
+      { autoAlpha: 0, y: 34 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.82,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: "#estrutura", start: "top 82%" }
+      }
     );
-  }, 0.24);
-
-  animateOnIntersect(".faq-list", () => {
-    gsap.fromTo(
-      ".faq-item",
-      { autoAlpha: 0, y: 14 },
-      { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.08, ease: "power2.out" }
-    );
-  }, 0.22);
+  }
 
   animateCounters(gsap);
 }
 
-function animateCounters(gsap) {
-  const counter = document.querySelector("[data-count]");
-  if (!counter) return;
-
-  let hasAnimated = false;
-  const counterObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting || hasAnimated) return;
-      hasAnimated = true;
-      const target = Number(counter.dataset.count || 0);
-      const value = { current: 0 };
-      gsap.to(value, {
-        current: target,
-        duration: 1.2,
-        ease: "power2.out",
-        onUpdate: () => {
-          counter.textContent = `+${Math.round(value.current)}`;
-        }
-      });
-      counterObserver.disconnect();
-    });
-  }, { threshold: 0.5 });
-
-  counterObserver.observe(counter);
+function initHeaderState() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  const syncHeader = () => {
+    header.classList.toggle("is-scrolled", window.scrollY > 40);
+  };
+  syncHeader();
+  window.addEventListener("scroll", syncHeader, { passive: true });
 }
 
-window.addEventListener("load", initGsapMotion);
+function initCardTilt() {
+  if (prefersReducedMotion() || !window.matchMedia("(pointer: fine)").matches) return;
 
-document.querySelectorAll("a[href^='https://wa.me']").forEach(link => {
-  link.addEventListener("click", () => {
-    trackEvent("click_whatsapp", {
-      event_category: "lead",
-      event_label: link.textContent.trim() || "whatsapp",
-      link_url: link.href
+  document.querySelectorAll(".solution-card").forEach(card => {
+    card.addEventListener("mousemove", event => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(900px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-2px)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
     });
   });
-});
-
-document.querySelectorAll("a[href='#diagnostico'], a[href='#contato']").forEach(link => {
-  link.addEventListener("click", () => {
-    trackEvent("click_cta_contato", {
-      event_category: "lead",
-      event_label: link.textContent.trim() || "cta_contato"
-    });
-  });
-});
-
-const form = document.getElementById("leadForm");
-const statusEl = document.getElementById("formStatus");
-
-function setStatus(message, isError = false) {
-  if (!statusEl) return;
-  statusEl.textContent = message;
-  statusEl.style.color = isError ? "#ffb4a8" : "#b9ad9d";
 }
 
 function getPayload(formElement) {
@@ -220,14 +334,18 @@ function getPayload(formElement) {
   };
 }
 
-function validateEndpoint() {
-  return FORM_ENDPOINT && !FORM_ENDPOINT.includes("COLE_AQUI");
-}
+function initForm() {
+  const form = document.getElementById("leadForm");
+  const statusEl = document.getElementById("formStatus");
+  if (!form || !statusEl) return;
 
-if (form) {
+  function setStatus(message, isError = false) {
+    statusEl.textContent = message;
+    statusEl.style.color = isError ? "#c97b68" : "#776c60";
+  }
+
   form.addEventListener("submit", async event => {
     event.preventDefault();
-
     const payload = getPayload(form);
     const button = form.querySelector("button[type='submit']");
 
@@ -237,16 +355,9 @@ if (form) {
       problema: payload.problema
     });
 
-    if (!validateEndpoint()) {
-      setStatus("Formulario ainda nao conectado. Fale com a ZR pelo WhatsApp.", true);
-      trackEvent("lead_form_endpoint_missing", { event_category: "lead_error" });
-      window.open(WHATSAPP_URL, "_blank", "noopener");
-      return;
-    }
-
     try {
       if (button) button.disabled = true;
-      setStatus("Enviando seu diagnostico...");
+      setStatus("Enviando sua analise...");
 
       await fetch(FORM_ENDPOINT, {
         method: "POST",
@@ -256,7 +367,7 @@ if (form) {
       });
 
       form.reset();
-      setStatus("Recebemos seus dados. A equipe ZR vai avaliar seu cenario e retornar com os proximos passos.");
+      setStatus("Analise recebida. A equipe ZR vai entrar em contato.");
       trackEvent("lead_form_submit_success", {
         event_category: "lead",
         objetivo: payload.objetivo,
@@ -264,7 +375,7 @@ if (form) {
       });
     } catch (error) {
       console.error(error);
-      setStatus("Nao foi possivel enviar agora. Tente novamente ou fale pelo WhatsApp.", true);
+      setStatus("Nao foi possivel enviar agora. Tente novamente em instantes.", true);
       trackEvent("lead_form_submit_error", {
         event_category: "lead_error",
         error_message: error.message || "unknown_error"
@@ -274,3 +385,19 @@ if (form) {
     }
   });
 }
+
+function init() {
+  loadStylesheet("premium.css", "zr-premium-css");
+  initAnalytics();
+  cloneMarqueeTrack();
+  initParticles();
+  initRevealObserver();
+  initHeaderState();
+  initCardTilt();
+  initForm();
+  initPreloader(() => {
+    initGsapMotion();
+  });
+}
+
+window.addEventListener("load", init);
