@@ -1,27 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="140 56 590 410" role="img" aria-label="ZR Investimentos">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" role="img" aria-label="ZR Investimentos">
   <defs>
-    <linearGradient id="zrGold" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0" stop-color="#fff4b6"/>
-      <stop offset="0.28" stop-color="#f0cf70"/>
-      <stop offset="0.54" stop-color="#d5a549"/>
-      <stop offset="0.78" stop-color="#f1d98b"/>
-      <stop offset="1" stop-color="#8f5d18"/>
+    <linearGradient id="zrAccent" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#d8b868"/>
+      <stop offset="0.55" stop-color="#b58b34"/>
+      <stop offset="1" stop-color="#8a6824"/>
     </linearGradient>
-    <linearGradient id="zrLine" x1="0" x2="1">
-      <stop offset="0" stop-color="#775114"/>
-      <stop offset="0.5" stop-color="#f2d986"/>
-      <stop offset="1" stop-color="#7e5618"/>
+    <linearGradient id="zrInk" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#111111"/>
+      <stop offset="1" stop-color="#26211c"/>
     </linearGradient>
-    <filter id="zrGlow" x="-25%" y="-25%" width="150%" height="150%">
-      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#d9ad58" flood-opacity="0.42"/>
-      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000000" flood-opacity="0.22"/>
-    </filter>
   </defs>
 
-  <path d="M247 66H720V468H148V383H168V448H699V87H267V66Z" fill="none" stroke="url(#zrLine)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M168 173H402" fill="none" stroke="url(#zrLine)" stroke-width="4.5" stroke-linecap="round"/>
-  <path d="M148 383C171 383 181 368 190 344" fill="none" stroke="url(#zrLine)" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M290 86H584V454H178V391" fill="none" stroke="#161514" stroke-width="5" stroke-linecap="square"/>
+  <path d="M290 86H584" fill="none" stroke="url(#zrAccent)" stroke-width="5" stroke-linecap="square"/>
+  <path d="M178 391V454H584" fill="none" stroke="#161514" stroke-width="5" stroke-linecap="square"/>
 
-  <text x="156" y="352" font-family="Georgia, 'Times New Roman', serif" font-size="286" font-weight="700" letter-spacing="-34" fill="url(#zrGold)" filter="url(#zrGlow)">ZR</text>
-  <text x="188" y="438" font-family="'Snell Roundhand', 'Brush Script MT', cursive" font-size="92" fill="url(#zrGold)" filter="url(#zrGlow)">Investimentos</text>
+  <text x="184" y="318" font-family="'Bodoni MT', Didot, 'Playfair Display', Georgia, serif" font-size="252" font-weight="700" letter-spacing="-26" fill="url(#zrInk)">ZR</text>
+  <path d="M367 243H392" fill="none" stroke="url(#zrAccent)" stroke-width="6" stroke-linecap="round"/>
+  <text x="214" y="394" font-family="'Bickham Script Pro', 'Edwardian Script ITC', 'Snell Roundhand', cursive" font-size="90" fill="#1d1a17">Investimentos</text>
 </svg>
