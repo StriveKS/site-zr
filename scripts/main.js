@@ -1,5 +1,35 @@
 const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwdVWAzgHf5WKfGZeq424hoAflLc3XMUHSi_-_3UOHIndxLY5ooHlCCODaw_D5y56O9iw/exec";
 const WHATSAPP_URL = "https://wa.me/5554993805657";
+const GA4_ID = "G-3TFKER5ZGK";
+const CLARITY_ID = "wwf25gobgk";
+
+function loadScript(src, id) {
+  if (id && document.getElementById(id)) return;
+  const script = document.createElement("script");
+  script.async = true;
+  if (id) script.id = id;
+  script.src = src;
+  document.head.appendChild(script);
+}
+
+function initAnalytics() {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
+  loadScript(`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`, "zr-ga4");
+  window.gtag("js", new Date());
+  window.gtag("config", GA4_ID);
+
+  window.clarity = window.clarity || function clarity(){ (window.clarity.q = window.clarity.q || []).push(arguments); };
+  loadScript(`https://www.clarity.ms/tag/${CLARITY_ID}`, "zr-clarity");
+}
+
+function trackEvent(eventName, params = {}) {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", eventName, params);
+  }
+}
+
+initAnalytics();
 
 const reveals = document.querySelectorAll(".reveal");
 const observer = new IntersectionObserver(
@@ -15,6 +45,25 @@ const observer = new IntersectionObserver(
 );
 
 reveals.forEach(element => observer.observe(element));
+
+document.querySelectorAll("a[href^='https://wa.me']").forEach(link => {
+  link.addEventListener("click", () => {
+    trackEvent("click_whatsapp", {
+      event_category: "lead",
+      event_label: link.textContent.trim() || "whatsapp",
+      link_url: link.href
+    });
+  });
+});
+
+document.querySelectorAll("a[href='#contato']").forEach(link => {
+  link.addEventListener("click", () => {
+    trackEvent("click_cta_contato", {
+      event_category: "lead",
+      event_label: link.textContent.trim() || "cta_contato"
+    });
+  });
+});
 
 const form = document.getElementById("leadForm");
 const statusEl = document.getElementById("formStatus");
@@ -51,8 +100,15 @@ if (form) {
     const payload = getPayload(form);
     const button = form.querySelector("button[type='submit']");
 
+    trackEvent("lead_form_submit_attempt", {
+      event_category: "lead",
+      objetivo: payload.objetivo,
+      problema: payload.problema
+    });
+
     if (!validateEndpoint()) {
       setStatus("Formulário ainda não conectado. Fale com a ZR pelo WhatsApp.", true);
+      trackEvent("lead_form_endpoint_missing", { event_category: "lead_error" });
       window.open(WHATSAPP_URL, "_blank", "noopener");
       return;
     }
@@ -70,9 +126,18 @@ if (form) {
 
       form.reset();
       setStatus("Recebemos seus dados. A equipe ZR vai avaliar seu cenário.");
+      trackEvent("lead_form_submit_success", {
+        event_category: "lead",
+        objetivo: payload.objetivo,
+        problema: payload.problema
+      });
     } catch (error) {
       console.error(error);
       setStatus("Não foi possível enviar agora. Tente novamente ou fale pelo WhatsApp.", true);
+      trackEvent("lead_form_submit_error", {
+        event_category: "lead_error",
+        error_message: error.message || "unknown_error"
+      });
     } finally {
       if (button) button.disabled = false;
     }
