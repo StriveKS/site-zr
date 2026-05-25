@@ -30,8 +30,32 @@
 
 .network-node,
 .network-line,
-.method-core {
+.method-core,
+.signature-shell {
   will-change: transform;
+}
+
+.signature-frame,
+.signature-accent,
+.signature-sweep {
+  stroke-dasharray: 1100;
+  stroke-dashoffset: 1100;
+}
+
+.signature-monogram,
+.signature-script {
+  opacity: 0;
+  transform-origin: center;
+}
+
+.signature-shell::after {
+  content: "";
+  position: absolute;
+  inset: auto -16% 8% auto;
+  width: 42%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(243, 213, 143, 0.54), transparent);
+  opacity: 0.45;
 }
 
 @keyframes logoReveal {
