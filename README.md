@@ -1,59 +1,75 @@
 # Site ZR
 
-MVP da landing page/site da ZR Investimentos.
+Site premium da ZR Investimentos.
+
+## Status Atual
+
+- Site publicado em `https://zrinvestimentosltda.com`.
+- Repositorio GitHub: `StriveKS/site-zr`.
+- Deploy: GitHub Pages com workflow em `.github/workflows/pages.yml`.
+- Dominio proprio: `zrinvestimentosltda.com`.
+- Captura de leads: formulario do site -> Google Apps Script -> Google Sheets + e-mail.
+- Notificacao de leads: `contato.eduardokeitel@gmail.com`.
+- WhatsApp oficial: `+55 54 9 9380-5657`.
+- GA4 instalado: `G-3TFKER5ZGK`.
+- Microsoft Clarity instalado: `wwf25gobgk`.
+- Formulario validado com leads reais de teste.
 
 ## Objetivo
 
-Criar uma presença digital premium para reposicionar a ZR como consultoria financeira focada em:
+Criar uma presenca digital premium para reposicionar a ZR como consultoria financeira focada em:
 
-- consórcio e cartas contempladas;
-- crédito com garantia;
+- consorcio e cartas contempladas;
+- credito com garantia;
 - capital para PF/PJ;
-- preparação de perfil para análise de crédito;
-- captação de leads qualificados.
+- preparacao de perfil para analise de credito;
+- captacao de leads qualificados.
 
-O projeto é LP-first: aparência de site, lógica de landing page e foco em conversão.
+O projeto e LP-first: aparencia de site, logica de landing page e foco em conversao.
 
-## Stack inicial
+## Stack
 
-- Site estático: HTML, CSS e JavaScript
-- Hospedagem: GitHub Pages
-- Domínio: `zrinvestimentosltda.com`
-- Formulário: Google Apps Script
-- CRM inicial: Google Sheets
-- Notificação: Gmail/MailApp
-- Métricas futuras: GA4, Microsoft Clarity e Search Console
+- Site estatico: HTML, CSS e JavaScript.
+- Motion design: CSS e JavaScript, sem build obrigatorio.
+- Hospedagem: GitHub Pages.
+- Dominio: `zrinvestimentosltda.com`.
+- Formulario: Google Apps Script.
+- CRM inicial: Google Sheets.
+- Notificacao: Gmail/MailApp.
+- Metricas: GA4 e Microsoft Clarity.
 
-## Estrutura
+## Estrutura Publicada
 
 ```text
 .
-├── index.html
-├── styles.css
-├── scripts/
-│   └── main.js
-├── apps-script/
-│   ├── Code.gs
-│   └── appsscript.json
-├── docs/
-│   ├── 01-deploy-github-pages.md
-│   ├── 02-apps-script-deploy.md
-│   └── 03-project-status.md
-├── CNAME
-└── .github/workflows/pages.yml
+|-- index.html
+|-- styles.css
+|-- premium.css
+|-- CNAME
+|-- assets/
+|   |-- favicon.svg
+|   `-- zr-logo-gold.svg
+|-- scripts/
+|   `-- main.js
+|-- apps-script/
+|   |-- Code.gs
+|   `-- appsscript.json
+|-- docs/
+|   `-- 03-project-status.md
+`-- .github/workflows/pages.yml
 ```
 
-## Pendências críticas
+## Eventos de Analytics
 
-1. Publicar o Apps Script como Web App.
-2. Copiar a URL do Web App.
-3. Substituir `FORM_ENDPOINT` em `scripts/main.js`.
-4. Ativar GitHub Pages.
-5. Configurar DNS do domínio.
-6. Testar formulário real.
+- `click_whatsapp`
+- `click_cta_contato`
+- `lead_form_submit_attempt`
+- `lead_form_submit_success`
+- `lead_form_submit_error`
+- `lead_form_endpoint_missing`
 
-## Guardrails de comunicação
+## Guardrails de Comunicacao
 
-Usar: análise personalizada, rota financeira, estruturação financeira, crédito sujeito à análise, instituições reguladas, diagnóstico de aprovação.
+Usar: analise personalizada, rota financeira, estruturacao financeira, credito sujeito a analise, instituicoes reguladas, diagnostico de aprovacao.
 
-Evitar: aprovação garantida, limpa Bacen, score garantido, remoção garantida de restrições, crédito garantido para negativado.
+Evitar: aprovacao garantida, limpa Bacen, score garantido, remocao garantida de restricoes, credito garantido para negativado.
