@@ -12,6 +12,17 @@ function loadScript(src, id) {
   document.head.appendChild(script);
 }
 
+function loadStylesheet(href, id) {
+  if (id && document.getElementById(id)) return;
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = href;
+  if (id) link.id = id;
+  document.head.appendChild(link);
+}
+
+loadStylesheet("premium.css", "zr-premium-css");
+
 function initAnalytics() {
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
