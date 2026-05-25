@@ -40,6 +40,10 @@ function trackEvent(eventName, params = {}) {
   }
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 initAnalytics();
 
 const reveals = document.querySelectorAll(".reveal");
@@ -57,6 +61,91 @@ const observer = new IntersectionObserver(
 
 reveals.forEach(element => observer.observe(element));
 
+function initGsapMotion() {
+  if (prefersReducedMotion() || typeof window.gsap !== "object") {
+    document.querySelector(".route-path")?.style.setProperty("stroke-dashoffset", "0");
+    document.querySelectorAll(".route-node").forEach(node => {
+      node.style.opacity = "1";
+    });
+    return;
+  }
+
+  const { gsap } = window;
+  document.documentElement.classList.add("is-motion-ready");
+
+  const routeTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+  routeTimeline
+    .to(".route-path", { strokeDashoffset: 0, duration: 1.8 }, 0.15)
+    .fromTo(".route-node", { autoAlpha: 0, scale: 0.78 }, { autoAlpha: 1, scale: 1, duration: 0.55, stagger: 0.18 }, 0.38)
+    .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 0.82);
+
+  gsap.utils.toArray(".situation-card, .solution-card").forEach(card => {
+    card.addEventListener("mousemove", event => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left - rect.width / 2) / rect.width;
+      const y = (event.clientY - rect.top - rect.height / 2) / rect.height;
+      gsap.to(card, {
+        rotationY: x * 2.8,
+        rotationX: y * -2.8,
+        transformPerspective: 900,
+        duration: 0.35,
+        overwrite: "auto",
+        ease: "power2.out"
+      });
+    });
+    card.addEventListener("mouseleave", () => {
+      gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.45, overwrite: "auto", ease: "power2.out" });
+    });
+  });
+
+  gsap.to(".method-core", {
+    scale: 1.035,
+    duration: 2.8,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut"
+  });
+
+  gsap.to(".network-node:not(.center)", {
+    y: -5,
+    duration: 2.6,
+    repeat: -1,
+    yoyo: true,
+    stagger: 0.28,
+    ease: "sine.inOut"
+  });
+
+  animateCounters(gsap);
+}
+
+function animateCounters(gsap) {
+  const counter = document.querySelector("[data-count]");
+  if (!counter) return;
+
+  let hasAnimated = false;
+  const counterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting || hasAnimated) return;
+      hasAnimated = true;
+      const target = Number(counter.dataset.count || 0);
+      const value = { current: 0 };
+      gsap.to(value, {
+        current: target,
+        duration: 1.2,
+        ease: "power2.out",
+        onUpdate: () => {
+          counter.textContent = `+${Math.round(value.current)}`;
+        }
+      });
+      counterObserver.disconnect();
+    });
+  }, { threshold: 0.5 });
+
+  counterObserver.observe(counter);
+}
+
+window.addEventListener("load", initGsapMotion);
+
 document.querySelectorAll("a[href^='https://wa.me']").forEach(link => {
   link.addEventListener("click", () => {
     trackEvent("click_whatsapp", {
@@ -67,7 +156,7 @@ document.querySelectorAll("a[href^='https://wa.me']").forEach(link => {
   });
 });
 
-document.querySelectorAll("a[href='#contato']").forEach(link => {
+document.querySelectorAll("a[href='#diagnostico'], a[href='#contato']").forEach(link => {
   link.addEventListener("click", () => {
     trackEvent("click_cta_contato", {
       event_category: "lead",
@@ -118,7 +207,7 @@ if (form) {
     });
 
     if (!validateEndpoint()) {
-      setStatus("Formulário ainda não conectado. Fale com a ZR pelo WhatsApp.", true);
+      setStatus("Formulario ainda nao conectado. Fale com a ZR pelo WhatsApp.", true);
       trackEvent("lead_form_endpoint_missing", { event_category: "lead_error" });
       window.open(WHATSAPP_URL, "_blank", "noopener");
       return;
@@ -126,7 +215,7 @@ if (form) {
 
     try {
       if (button) button.disabled = true;
-      setStatus("Enviando sua análise...");
+      setStatus("Enviando seu diagnostico...");
 
       await fetch(FORM_ENDPOINT, {
         method: "POST",
@@ -136,7 +225,7 @@ if (form) {
       });
 
       form.reset();
-      setStatus("Recebemos seus dados. A equipe ZR vai avaliar seu cenário.");
+      setStatus("Recebemos seus dados. A equipe ZR vai avaliar seu cenario e retornar com os proximos passos.");
       trackEvent("lead_form_submit_success", {
         event_category: "lead",
         objetivo: payload.objetivo,
@@ -144,7 +233,7 @@ if (form) {
       });
     } catch (error) {
       console.error(error);
-      setStatus("Não foi possível enviar agora. Tente novamente ou fale pelo WhatsApp.", true);
+      setStatus("Nao foi possivel enviar agora. Tente novamente ou fale pelo WhatsApp.", true);
       trackEvent("lead_form_submit_error", {
         event_category: "lead_error",
         error_message: error.message || "unknown_error"
