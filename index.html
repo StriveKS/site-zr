@@ -3,16 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ZR Investimentos | Rota financeira para credito, consorcio e capital</title>
-  <meta name="description" content="A ZR estrutura rotas financeiras entre credito, consorcio, cartas contempladas e capital para PF e PJ, com diagnostico consultivo antes da decisao." />
+  <title>ZR Investimentos - Consultoria Financeira Estrategica</title>
+  <meta name="description" content="A ZR Investimentos estrutura caminhos financeiros para quem quer comprar, captar credito, gerar capital ou preparar o proximo passo." />
   <link rel="canonical" href="https://zrinvestimentosltda.com/" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&family=Cormorant+SC:wght@300;400;500;600&family=Jost:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div id="preloader" aria-hidden="true">
+    <img class="preloader-logo" src="assets/zr-logo-gold.svg" alt="" />
+    <div class="preloader-line"></div>
+    <p class="preloader-text">Consultoria financeira estrategica</p>
+  </div>
   <header class="site-header">
     <a class="brand" href="#inicio" aria-label="ZR Investimentos">
       <img class="brand-logo" src="assets/zr-logo-gold.svg" alt="ZR Investimentos" />
@@ -27,38 +32,58 @@
 
   <main>
     <section id="inicio" class="hero section">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <canvas id="heroParticles"></canvas>
+        <svg class="hero-grid-svg" preserveAspectRatio="none" viewBox="0 0 1440 900" role="presentation">
+          <defs>
+            <pattern id="heroGridPattern" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
+              <path d="M72 0L0 0 0 72" fill="none" stroke="#b58b34" stroke-width="0.55" />
+            </pattern>
+          </defs>
+          <rect width="1440" height="900" fill="url(#heroGridPattern)" />
+        </svg>
+      </div>
       <div class="hero-copy reveal">
-        <p class="eyebrow">Consultoria financeira para decisoes patrimoniais</p>
-        <h1>Credito, consorcio ou capital: a rota certa vem antes da proposta.</h1>
-        <p class="hero-subtitle">A ZR orienta pessoas e empresas em decisoes que envolvem compra patrimonial, liquidez, garantias e prazo. Antes de indicar um caminho, lemos objetivo, perfil, patrimonio, contexto e enquadramento.</p>
+        <p class="eyebrow hero-eyebrow">Consultoria Financeira Estrategica</p>
+        <h1 class="hero-title" aria-label="Seu proximo passo comeca aqui.">
+          <span class="hero-word"><span class="hero-word-inner">Seu</span></span>
+          <span class="hero-word"><span class="hero-word-inner hero-accent">proximo</span></span>
+          <span class="hero-word"><span class="hero-word-inner">passo</span></span>
+          <span class="hero-word break"><span class="hero-word-inner">comeca</span></span>
+          <span class="hero-word"><span class="hero-word-inner hero-accent">aqui.</span></span>
+        </h1>
+        <p class="hero-title-secondary">A rota certa, nao o produto mais facil de vender.</p>
+        <p class="hero-subtitle">A ZR analisa seu cenario antes de qualquer indicacao: credito, consorcio, capital ou estruturacao. Diagnostico primeiro. Produto depois.</p>
         <div class="hero-microproof" aria-label="Focos de atuacao">
           <span>PF e PJ</span>
           <span>Compra patrimonial</span>
           <span>Capital com garantia</span>
         </div>
         <div class="hero-actions">
-          <a class="primary-btn" href="#diagnostico">Iniciar diagnostico consultivo</a>
-          <a class="secondary-btn" href="#metodo">Ver como funciona</a>
+          <a class="primary-btn" href="#diagnostico">Quero minha analise ZR</a>
+          <a class="secondary-btn" href="#solucoes">Como a ZR atua</a>
         </div>
         <div class="hero-assurance">
           <span>Sem promessa de aprovacao</span>
           <span>Credito sujeito a analise</span>
-          <span>Decisao com criterio</span>
+          <span>Diagnostico antes da indicacao</span>
         </div>
       </div>
 
       <aside class="hero-panel route-panel reveal" aria-label="Rota financeira ZR">
-        <div class="panel-kicker">Rota financeira</div>
-        <h2>Diagnostico antes da indicacao.</h2>
-        <p>Cada operacao passa por uma leitura de perfil, objetivo, garantias e enquadramento antes de qualquer proposta.</p>
+        <div class="panel-kicker">Rota financeira ZR</div>
+        <h2>Diagnostico primeiro. Produto depois.</h2>
+        <p>Cada operacao passa por leitura de objetivo, prazo, perfil, garantias e enquadramento antes de qualquer proposta comercial.</p>
 
         <div class="route-map" aria-hidden="true">
           <svg class="route-svg" viewBox="0 0 520 360" role="presentation">
             <defs>
               <linearGradient id="routeGold" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0" stop-color="#ecd389" />
-                <stop offset="0.45" stop-color="#d0a24b" />
-                <stop offset="1" stop-color="#8e6824" />
+                <stop offset="0" stop-color="#fff0a8" />
+                <stop offset="0.45" stop-color="#d9ad58" />
+                <stop offset="1" stop-color="#9c6a22" />
               </linearGradient>
             </defs>
             <path class="route-path" d="M78 270 C118 168 168 114 242 146 C315 178 318 64 432 86 C472 94 476 160 422 190 C352 230 260 218 232 278" />
@@ -85,16 +110,23 @@
           <span>Objetivo</span>
           <span>Perfil</span>
           <span>Garantia</span>
-          <span>Enquadramento</span>
+          <span>Estrutura</span>
         </div>
       </aside>
     </section>
 
-    <section class="proof-strip" aria-label="Indicadores ZR">
-      <div class="proof-item reveal"><strong data-count="50">+50</strong><span>instituicoes, cooperativas e estruturas analisadas conforme perfil, garantia e objetivo</span></div>
-      <div class="proof-item reveal"><strong>Aut.</strong><span>consorcios e operacoes avaliados com leitura de enquadramento e regras aplicaveis</span></div>
-      <div class="proof-item reveal"><strong>PF/PJ</strong><span>atuacao consultiva em compra patrimonial, capital, reorganizacao e preparacao de perfil</span></div>
-    </section>
+    <div class="marquee-strip" aria-label="Indicadores ZR">
+      <div class="marquee-track">
+        <span class="mq-item"><span class="mq-sep"></span>+50 bancos e cooperativas</span>
+        <span class="mq-item"><span class="mq-sep"></span>Consorcios autorizados pelo BACEN</span>
+        <span class="mq-item"><span class="mq-sep"></span>Cartas contempladas disponiveis</span>
+        <span class="mq-item"><span class="mq-sep"></span>Credito com garantia</span>
+        <span class="mq-item"><span class="mq-sep"></span>Capital PF e PJ</span>
+        <span class="mq-item"><span class="mq-sep"></span>Diagnostico de aprovacao</span>
+        <span class="mq-item"><span class="mq-sep"></span>Atendimento em todo o Brasil</span>
+        <span class="mq-item"><span class="mq-sep"></span>Passo Fundo - RS</span>
+      </div>
+    </div>
 
     <section class="section signature-section">
       <div class="signature-shell reveal">
@@ -119,13 +151,13 @@
           </svg>
         </div>
         <div class="signature-copy">
-          <p class="eyebrow">Assinatura ZR</p>
-          <h2>Uma consultoria feita para ler estrutura, nao para empurrar produto.</h2>
-          <p>O posicionamento da ZR combina tres coisas que quase nunca aparecem juntas no mercado: leitura consultiva, acesso a alternativas e disciplina de enquadramento antes da indicacao.</p>
+          <p class="eyebrow">Sobre a ZR</p>
+          <h2>A ZR nao vende produto. Vende estrategia.</h2>
+          <p>A ZR nasceu como escritorio de consorcio. Evoluiu para algo que os bancos tradicionais nao conseguem oferecer: uma analise consultiva que coloca o objetivo do cliente antes de qualquer produto.</p>
           <div class="signature-points">
-            <div><strong>Leitura</strong><span>Entender o caso antes de sugerir uma rota.</span></div>
-            <div><strong>Estrutura</strong><span>Comparar caminhos por objetivo, prazo, garantia e contexto.</span></div>
-            <div><strong>Criterio</strong><span>Trabalhar sem promessa facil e com responsabilidade financeira.</span></div>
+            <div><strong>Leitura</strong><span>Diagnostico antes de qualquer indicacao comercial.</span></div>
+            <div><strong>Acesso</strong><span>Mais de 50 instituicoes, cooperativas e administradoras no radar.</span></div>
+            <div><strong>Criterio</strong><span>Sem pressao de venda do produto que paga mais.</span></div>
           </div>
         </div>
       </div>
@@ -256,34 +288,34 @@
     <section id="solucoes" class="section solutions-section">
       <div class="section-heading reveal">
         <p class="eyebrow">Solucoes</p>
-        <h2>Oferta organizada por decisao financeira, nao por catalogo de produto.</h2>
-        <p>A recomendacao parte da finalidade do recurso, do perfil, das garantias disponiveis e do nivel de urgencia da operacao.</p>
+        <h2>Voce nao precisa saber qual produto quer. So o objetivo.</h2>
+        <p>A ZR avalia o cenario antes de indicar qualquer rota. O produto certo vem depois da analise correta, nunca antes.</p>
       </div>
       <div class="premium-grid">
         <article class="solution-card reveal">
           <span class="card-index">01</span>
           <h3>Aquisicao patrimonial</h3>
-          <p>Planejamento para compra de imoveis, veiculos, pesados e projetos relevantes com estrategia de prazo, liquidez e estrutura.</p>
+          <p>Imovel, veiculo ou bem de maior valor com mais estrategia e menos custo. A comparacao entre consorcio, carta contemplada e credito parte do seu prazo, capital e objetivo.</p>
         </article>
         <article class="solution-card reveal">
           <span class="card-index">02</span>
           <h3>Capital com garantia</h3>
-          <p>Estruturacao para gerar liquidez sem desmontar patrimonio, com leitura de risco, garantias e finalidade do recurso.</p>
+          <p>Tem imovel ou veiculo quitado e precisa de capital sem vender o patrimonio. Home Equity e Auto Equity comparados com leitura real de enquadramento.</p>
         </article>
         <article class="solution-card reveal">
           <span class="card-index">03</span>
           <h3>Capital para empresas</h3>
-          <p>Rotas para caixa, giro, reorganizacao financeira e operacoes com instituicoes de forma mais organizada e comparavel.</p>
+          <p>Capital de giro, expansao ou reorganizacao financeira para PJ com acesso a bancos, cooperativas e linhas estruturadas de forma mais fria e comparavel.</p>
         </article>
         <article class="solution-card reveal">
           <span class="card-index">04</span>
-          <h3>Consorcio e cartas</h3>
-          <p>Leitura de consorcio, carta contemplada e administradoras autorizadas conforme prazo, liquidez e objetivo da compra.</p>
+          <h3>Diagnostico de aprovacao</h3>
+          <p>Credito negado ou perfil mal preparado. A ZR mapeia o que trava a analise, organiza a documentacao e estrutura o melhor momento para avancar.</p>
         </article>
         <article class="solution-card reveal">
           <span class="card-index">05</span>
           <h3>Preparacao de perfil</h3>
-          <p>Organizacao de documentacao, narrativa financeira e pontos de atencao antes de entrar em uma analise mais exigente.</p>
+          <p>Antes de pedir algo ao mercado, organizamos documentacao, narrativa financeira e pontos de atencao para melhorar a qualidade do enquadramento.</p>
         </article>
       </div>
     </section>
@@ -292,12 +324,12 @@
       <div class="structure-box reveal">
         <div>
           <p class="eyebrow">Estrutura e confianca</p>
-          <h2>Mais alternativas, com criterio e sem promessa facil.</h2>
-          <p>A ZR atua conectada a instituicoes financeiras, bancos, cooperativas e administradoras de consorcio autorizadas. A funcao da consultoria e organizar caminhos possiveis e orientar o enquadramento compativel com perfil, prazo e objetivo. Operacoes sujeitas a analise.</p>
+          <h2>Acesso a caminhos que vao alem de um banco.</h2>
+          <p>A ZR atua com acesso estruturado a uma rede de bancos, cooperativas e administradoras autorizadas. Isso permite avaliar rotas que seu banco simplesmente nao tem no portfolio, com analise real antes de qualquer indicacao.</p>
           <div class="trust-list" aria-label="Principios de atuacao">
-            <span>Diagnostico antes da indicacao</span>
-            <span>Sem promessa de aprovacao</span>
-            <span>Leitura consultiva de enquadramento</span>
+            <span>Bancos regulados pelo BACEN</span>
+            <span>Administradoras autorizadas</span>
+            <span>Atendimento em todo o Brasil</span>
           </div>
         </div>
         <div class="network-map" aria-hidden="true">
@@ -316,9 +348,9 @@
 
     <section id="diagnostico" class="section contact-section">
       <div class="section-heading reveal">
-        <p class="eyebrow">Diagnostico ZR</p>
-        <h2>Conte onde voce esta agora. A ZR avalia a rota mais coerente.</h2>
-        <p>As respostas abaixo ajudam a equipe a entender objetivo, urgencia e contexto antes do contato.</p>
+        <p class="eyebrow">Analise personalizada</p>
+        <h2>Conte onde voce esta. A ZR analisa o proximo passo.</h2>
+        <p>Preencha o formulario. A equipe ZR vai analisar seu cenario e entrar em contato com a rota mais adequada ao seu objetivo.</p>
       </div>
       <form id="leadForm" class="lead-form reveal">
         <div class="form-intro">
@@ -357,7 +389,7 @@
         <label class="full">Quando resolver isso, qual sera seu proximo passo?
           <textarea name="proximo_passo" rows="4" placeholder="Exemplo: comprar um imovel, investir na empresa, trocar de carro, reorganizar dividas, expandir meu negocio..." required></textarea>
         </label>
-        <button class="primary-btn form-submit" type="submit">Solicitar leitura inicial</button>
+        <button class="primary-btn form-submit" type="submit">Receber minha analise ZR</button>
         <p id="formStatus" class="form-status" role="status"></p>
         <p class="form-note">Credito, consorcio e operacoes financeiras dependem de analise, documentacao e enquadramento.</p>
       </form>
@@ -387,10 +419,11 @@
 
   <footer class="footer">
     <img class="footer-logo" src="assets/zr-logo-gold.svg" alt="ZR Investimentos" />
-    <p>ZR Investimentos. Credito sujeito a analise e enquadramento. Consorcio sujeito as regras da administradora e legislacao aplicavel.</p>
+    <p>ZR Investimentos. Consultoria financeira estrategica. Credito sujeito a analise e enquadramento. Consorcio sujeito as regras da administradora e legislacao aplicavel.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="scripts/main.js" defer></script>
 </body>
 </html>
