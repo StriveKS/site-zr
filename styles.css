@@ -397,6 +397,95 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 .section-heading { max-width: 1020px; margin-bottom: 2.3rem; }
 .section-heading p { max-width: 760px; margin: 1rem 0 0; font-size: 1.08rem; }
 
+.signature-section { padding-top: clamp(3.6rem, 6vw, 5rem); }
+
+.signature-shell {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.1fr);
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  align-items: center;
+  padding: clamp(1.35rem, 3.6vw, 2.4rem);
+  border: 1px solid rgba(243, 213, 143, 0.16);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(243, 213, 143, 0.08), transparent 22rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.signature-visual {
+  position: relative;
+  min-height: 360px;
+  border: 1px solid rgba(243, 213, 143, 0.14);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(217, 173, 88, 0.08), transparent 36%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.signature-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+}
+
+.signature-frame,
+.signature-accent,
+.signature-sweep {
+  fill: none;
+  stroke: url("#signatureGold");
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.82;
+}
+
+.signature-monogram,
+.signature-script {
+  fill: url("#signatureGold");
+}
+
+.signature-monogram {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 220px;
+  font-weight: 700;
+  letter-spacing: -24px;
+}
+
+.signature-script {
+  font-family: "Snell Roundhand", "Brush Script MT", cursive;
+  font-size: 72px;
+}
+
+.signature-copy p { max-width: 720px; color: var(--muted); font-size: 1.06rem; }
+
+.signature-points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.45rem;
+}
+
+.signature-points div {
+  display: grid;
+  gap: 0.38rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(243, 213, 143, 0.14);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.024);
+}
+
+.signature-points strong {
+  color: var(--gold-light);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.signature-points span { color: var(--muted-strong); }
+
 .friction-section { padding-top: clamp(3.4rem, 6vw, 5rem); }
 
 .friction-grid {
@@ -751,6 +840,7 @@ textarea { resize: vertical; }
 }
 
 @media (max-width: 1120px) {
+  .signature-points,
   .friction-grid,
   .situation-grid, .premium-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .solution-card { min-height: 240px; }
@@ -758,7 +848,7 @@ textarea { resize: vertical; }
 
 @media (max-width: 920px) {
   .nav { display: none; }
-  .hero, .method-layout, .structure-box { grid-template-columns: 1fr; }
+  .hero, .method-layout, .structure-box, .signature-shell { grid-template-columns: 1fr; }
   .hero { min-height: auto; overflow-x: clip; }
   .proof-strip { grid-template-columns: 1fr; }
   .method-visual { min-height: 360px; }
@@ -799,6 +889,9 @@ textarea { resize: vertical; }
   .route-map, .route-svg { min-height: 220px; }
   .route-panel h2 { font-size: clamp(2rem, 8vw, 2.55rem); }
   .proof-strip { margin-inline: 1rem; border-radius: 20px; }
+  .signature-visual,
+  .signature-svg { min-height: 280px; }
+  .signature-points,
   .friction-grid, .situation-grid, .premium-grid, .lead-form { grid-template-columns: 1fr; }
   .situation-card, .solution-card { min-height: auto; }
   .steps > div { padding-left: 3.75rem; }
