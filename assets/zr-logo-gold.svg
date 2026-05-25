@@ -1,21 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" role="img" aria-label="ZR Investimentos">
   <defs>
     <linearGradient id="zrAccent" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0" stop-color="#d8b868"/>
-      <stop offset="0.55" stop-color="#b58b34"/>
+      <stop offset="0" stop-color="#dbc27d"/>
+      <stop offset="0.5" stop-color="#b58b34"/>
       <stop offset="1" stop-color="#8a6824"/>
-    </linearGradient>
-    <linearGradient id="zrInk" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0" stop-color="#111111"/>
-      <stop offset="1" stop-color="#26211c"/>
     </linearGradient>
   </defs>
 
-  <path d="M290 86H584V454H178V391" fill="none" stroke="#161514" stroke-width="5" stroke-linecap="square"/>
-  <path d="M290 86H584" fill="none" stroke="url(#zrAccent)" stroke-width="5" stroke-linecap="square"/>
-  <path d="M178 391V454H584" fill="none" stroke="#161514" stroke-width="5" stroke-linecap="square"/>
+  <path d="M286 86H583V454H175V385" fill="none" stroke="#141311" stroke-width="4.2" stroke-linecap="square"/>
+  <path d="M286 86H583" fill="none" stroke="url(#zrAccent)" stroke-width="4.2" stroke-linecap="square"/>
+  <path d="M175 385V454H583" fill="none" stroke="#141311" stroke-width="4.2" stroke-linecap="square"/>
 
-  <text x="184" y="318" font-family="'Bodoni MT', Didot, 'Playfair Display', Georgia, serif" font-size="252" font-weight="700" letter-spacing="-26" fill="url(#zrInk)">ZR</text>
-  <path d="M367 243H392" fill="none" stroke="url(#zrAccent)" stroke-width="6" stroke-linecap="round"/>
-  <text x="214" y="394" font-family="'Bickham Script Pro', 'Edwardian Script ITC', 'Snell Roundhand', cursive" font-size="90" fill="#1d1a17">Investimentos</text>
+  <text x="186" y="320" font-family="'Bodoni MT', Didot, 'Playfair Display', Georgia, serif" font-size="252" font-weight="700" letter-spacing="-28" fill="#111111">ZR</text>
+  <path d="M365 243H392" fill="none" stroke="url(#zrAccent)" stroke-width="5.2" stroke-linecap="round"/>
+  <text x="214" y="394" font-family="'Bickham Script Pro', 'Edwardian Script ITC', 'Snell Roundhand', cursive" font-size="88" fill="#111111">Investimentos</text>
 </svg>
