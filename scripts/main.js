@@ -79,6 +79,13 @@ function initGsapMotion() {
     .fromTo(".route-node", { autoAlpha: 0, scale: 0.78 }, { autoAlpha: 1, scale: 1, duration: 0.55, stagger: 0.18 }, 0.38)
     .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 0.82);
 
+  const signatureTimeline = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.18 });
+  signatureTimeline
+    .to(".signature-frame, .signature-accent, .signature-sweep", { strokeDashoffset: 0, duration: 1.55, stagger: 0.08 }, 0)
+    .fromTo(".signature-monogram", { autoAlpha: 0, scale: 0.96 }, { autoAlpha: 1, scale: 1, duration: 0.72 }, 0.28)
+    .fromTo(".signature-script", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.58 }, 0.56)
+    .fromTo(".signature-points > div", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.1 }, 0.72);
+
   gsap.fromTo(
     ".trust-list span",
     { y: 10, autoAlpha: 0 },
