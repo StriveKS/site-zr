@@ -79,24 +79,11 @@ function initGsapMotion() {
     .fromTo(".route-node", { autoAlpha: 0, scale: 0.78 }, { autoAlpha: 1, scale: 1, duration: 0.55, stagger: 0.18 }, 0.38)
     .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 0.82);
 
-  gsap.utils.toArray(".situation-card, .solution-card").forEach(card => {
-    card.addEventListener("mousemove", event => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left - rect.width / 2) / rect.width;
-      const y = (event.clientY - rect.top - rect.height / 2) / rect.height;
-      gsap.to(card, {
-        rotationY: x * 2.8,
-        rotationX: y * -2.8,
-        transformPerspective: 900,
-        duration: 0.35,
-        overwrite: "auto",
-        ease: "power2.out"
-      });
-    });
-    card.addEventListener("mouseleave", () => {
-      gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.45, overwrite: "auto", ease: "power2.out" });
-    });
-  });
+  gsap.fromTo(
+    ".trust-list span",
+    { y: 10, autoAlpha: 0 },
+    { y: 0, autoAlpha: 1, duration: 0.4, stagger: 0.08, ease: "power2.out", delay: 0.5 }
+  );
 
   gsap.to(".method-core", {
     scale: 1.035,
