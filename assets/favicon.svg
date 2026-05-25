@@ -7,8 +7,8 @@
     </linearGradient>
   </defs>
   <rect width="512" height="512" rx="118" fill="#f6f3ed"/>
-  <path d="M162 112H386V394H104V348" fill="none" stroke="#161514" stroke-width="10"/>
-  <path d="M162 112H386" fill="none" stroke="url(#favAccent)" stroke-width="10"/>
-  <text x="112" y="296" font-family="'Bodoni MT', Didot, 'Playfair Display', Georgia, serif" font-size="182" font-weight="700" letter-spacing="-16" fill="#121110">ZR</text>
-  <path d="M245 243H268" fill="none" stroke="url(#favAccent)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M162 112H386V394H104V348" fill="none" stroke="#141311" stroke-width="9"/>
+  <path d="M162 112H386" fill="none" stroke="url(#favAccent)" stroke-width="9"/>
+  <text x="112" y="296" font-family="'Bodoni MT', Didot, 'Playfair Display', Georgia, serif" font-size="182" font-weight="700" letter-spacing="-18" fill="#111111">ZR</text>
+  <path d="M245 243H268" fill="none" stroke="url(#favAccent)" stroke-width="9" stroke-linecap="round"/>
 </svg>
