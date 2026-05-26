@@ -180,7 +180,7 @@ function initGsapMotion() {
 
   if (prefersReducedMotion()) {
     document.querySelector(".route-path")?.style.setProperty("stroke-dashoffset", "0");
-    document.querySelectorAll(".route-node, .signature-monogram, .signature-script").forEach(node => {
+    document.querySelectorAll(".route-node, .signature-monogram").forEach(node => {
       node.style.opacity = "1";
       node.style.transform = "none";
     });
@@ -215,8 +215,7 @@ function initGsapMotion() {
   signatureTimeline
     .to(".signature-frame, .signature-accent, .signature-sweep", { strokeDashoffset: 0, duration: 1.55, stagger: 0.08 }, 0.12)
     .fromTo(".signature-monogram", { autoAlpha: 0, scale: 0.96 }, { autoAlpha: 1, scale: 1, duration: 0.72 }, 0.34)
-    .fromTo(".signature-script", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.58 }, 0.56)
-    .fromTo(".signature-points > div", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.1 }, 0.74);
+    .fromTo(".signature-points > div", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.46, stagger: 0.1 }, 0.64);
 
   gsap.to(".method-core", {
     scale: 1.035,
@@ -357,7 +356,7 @@ function initForm() {
 
     try {
       if (button) button.disabled = true;
-      setStatus("Enviando sua analise...");
+      setStatus("Enviando sua análise...");
 
       await fetch(FORM_ENDPOINT, {
         method: "POST",
@@ -367,7 +366,7 @@ function initForm() {
       });
 
       form.reset();
-      setStatus("Analise recebida. A equipe ZR vai entrar em contato.");
+      setStatus("Análise recebida. A equipe ZR vai entrar em contato.");
       trackEvent("lead_form_submit_success", {
         event_category: "lead",
         objetivo: payload.objetivo,
@@ -375,7 +374,7 @@ function initForm() {
       });
     } catch (error) {
       console.error(error);
-      setStatus("Nao foi possivel enviar agora. Tente novamente em instantes.", true);
+      setStatus("Não foi possível enviar agora. Tente novamente em instantes.", true);
       trackEvent("lead_form_submit_error", {
         event_category: "lead_error",
         error_message: error.message || "unknown_error"

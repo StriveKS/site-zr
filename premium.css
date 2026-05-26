@@ -42,8 +42,7 @@
   stroke-dashoffset: 1100;
 }
 
-.signature-monogram,
-.signature-script {
+.signature-monogram {
   opacity: 0;
   transform-origin: center;
 }
