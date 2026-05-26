@@ -4,6 +4,19 @@
 
 Construir uma presenca digital de consultoria financeira premium: sobria, clara, confiavel e estrategica. O site deve parecer menos "landing page de produto financeiro" e mais "mesa consultiva privada", com motion design discreto, vetores financeiros e copy orientada a diagnostico.
 
+## Approved Direction - 2026-05-26
+
+A base aprovada do site segue uma direcao clara, premium e consultiva:
+
+- fundo off-white, preto, cinzas quentes e dourado como detalhe;
+- logo reduzida ao monograma `ZR`;
+- headline editorial com a fonte anterior do modelo validado;
+- camadas tipograficas no hero com descendentes preservadas;
+- copy com foco em criterio, clareza e conducao;
+- menos comparacao com bancos e menos enfase repetitiva em quantidade de parceiros.
+
+Essa direcao prevalece sobre registros anteriores que recomendavam predominancia dark/gold.
+
 ## Brand Positioning
 
 ZR Investimentos e uma consultoria que ajuda pessoas e empresas a organizar decisoes financeiras relevantes: compra patrimonial, capital com garantia, consorcio, carta contemplada, capital para empresas e preparacao para analise de credito.
@@ -19,34 +32,30 @@ Mensagem central:
 - Sofisticado, limpo e objetivo.
 - Dourado como acento, nao como excesso.
 - Movimento com sentido: rota, analise, enquadramento, comparacao, aprovacao.
+- Base clara/off-white como direcao principal da versao aprovada.
 
 ## Color System
 
-- `#050504` - fundo principal, quase preto quente.
-- `#0B0A08` - fundo secundario.
-- `#FFF8EA` - texto principal.
-- `#C9BBA5` - texto secundario.
-- `#F3D58F` - dourado claro para highlights.
-- `#D9AD58` - dourado principal.
-- `#9C6A22` - dourado profundo para gradientes.
-- `#1A1711` - superficies elevadas.
-- `#2A251B` - linhas e divisorias discretas.
+- Fundo principal: off-white quente.
+- Texto principal: preto sofisticado.
+- Texto secundario: cinzas quentes.
+- Dourado: acento de marca, linhas, microinteracoes e destaques.
+- Superficies: branco/off-white com bordas suaves.
+- O dark/gold permanece como referencia historica, mas nao e mais a direcao principal.
 
 ## Typography
 
-Opcao recomendada para o site:
+Direcao aprovada no hero:
 
-- Display/Headlines: `Instrument Serif` ou `Fraunces`.
-- Interface e texto: `Manrope` ou `Inter`.
+- Manter a fonte anterior do modelo validado.
+- Preservar a composicao editorial da headline.
+- Evitar gradiente recortado diretamente no texto quando prejudicar descendentes.
+- Garantir area vertical para `p`, `q`, `g`, `j` e cedilha.
 
-Direcao preferida:
+Direcao historica ainda valida para futuras secoes, se necessario:
 
-- `Instrument Serif` para headlines de alto impacto, porque combina com consultoria premium e traz contraste editorial.
-- `Manrope` para corpo, botoes e formularios, por ser limpo, contemporaneo e mais distintivo que uma UI padrao.
-
-Fallback conservador:
-
-- `Inter` para tudo, se a prioridade for performance e previsibilidade maxima.
+- Display/Headlines: serif editorial.
+- Interface e texto: sans limpa e legivel.
 
 ## Layout Principles
 

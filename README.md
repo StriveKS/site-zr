@@ -8,6 +8,8 @@ Site premium da ZR Investimentos.
 - Repositorio GitHub: `StriveKS/site-zr`.
 - Deploy: GitHub Pages com workflow em `.github/workflows/pages.yml`.
 - Dominio proprio: `zrinvestimentosltda.com`.
+- Base visual/copy aprovada em 2026-05-26.
+- Commit de referencia da base aprovada: `c656c8f`.
 - Captura de leads: formulario do site -> Google Apps Script -> Google Sheets + e-mail.
 - Notificacao de leads: `contato.eduardokeitel@gmail.com`.
 - WhatsApp oficial: `+55 54 9 9380-5657`.
@@ -17,7 +19,7 @@ Site premium da ZR Investimentos.
 
 ## Objetivo
 
-Criar uma presenca digital premium para reposicionar a ZR como consultoria financeira focada em:
+Criar uma presenca digital premium para posicionar a ZR como consultoria financeira e prestadora de servico, focada em:
 
 - consorcio e cartas contempladas;
 - credito com garantia;
@@ -26,6 +28,18 @@ Criar uma presenca digital premium para reposicionar a ZR como consultoria finan
 - captacao de leads qualificados.
 
 O projeto e LP-first: aparencia de site, logica de landing page e foco em conversao.
+
+## Base Aprovada
+
+A direcao aprovada combina:
+
+- visual claro premium com preto, off-white, cinzas quentes e dourado como detalhe;
+- logo simplificada no monograma `ZR`;
+- copy consultiva, sem promessa agressiva de credito;
+- headline principal `Seu proximo passo comeca aqui.`;
+- motion design discreto para reforcar clareza, rota e conducao.
+
+Registro detalhado: `docs/10-base-aprovada-2026-05-26.md`.
 
 ## Stack
 
@@ -59,6 +73,10 @@ O projeto e LP-first: aparencia de site, logica de landing page e foco em conver
 `-- .github/workflows/pages.yml
 ```
 
+## Observacao Local
+
+A pasta `site/` permanece no workspace como versao inicial/legado do MVP. A versao publicada e sincronizada com o GitHub fica na raiz do projeto.
+
 ## Eventos de Analytics
 
 - `click_whatsapp`
@@ -70,6 +88,6 @@ O projeto e LP-first: aparencia de site, logica de landing page e foco em conver
 
 ## Guardrails de Comunicacao
 
-Usar: analise personalizada, rota financeira, estruturacao financeira, credito sujeito a analise, instituicoes reguladas, diagnostico de aprovacao.
+Usar: analise personalizada, rota financeira, estruturacao financeira, criterio, clareza, conducao, credito sujeito a analise, instituicoes reguladas.
 
-Evitar: aprovacao garantida, limpa Bacen, score garantido, remocao garantida de restricoes, credito garantido para negativado.
+Evitar: aprovacao garantida, limpa Bacen, score garantido, remocao garantida de restricoes, credito garantido para negativado, comparacao repetitiva com bancos, excesso de foco em numero de parceiros.
