@@ -358,11 +358,11 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 }
 
 .hero-line-middle {
-  margin-top: -0.01em;
+  margin-top: -0.16em;
 }
 
 .hero-line-final {
-  margin-top: -0.045em;
+  margin-top: -0.13em;
   padding-left: 0;
 }
 
@@ -1237,8 +1237,8 @@ textarea { resize: vertical; }
     font-size: clamp(2.35rem, 10vw, 3rem);
     line-height: 0.96;
   }
-  .hero-line-middle { margin-top: -0.02em; }
-  .hero-line-final { margin-top: -0.02em; padding-left: 0; }
+  .hero-line-middle { margin-top: -0.1em; }
+  .hero-line-final { margin-top: -0.08em; padding-left: 0; }
   h2 { font-size: clamp(2.05rem, 8.8vw, 2.8rem); }
   .hero-title-secondary { font-size: clamp(1.35rem, 7vw, 2rem); }
   .hero-actions { flex-direction: column; }
