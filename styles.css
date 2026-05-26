@@ -520,8 +520,8 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 .route-map {
   position: relative;
   min-height: 220px;
-  margin-top: -0.35rem;
-  margin-bottom: -1.3rem;
+  margin-top: -0.55rem;
+  margin-bottom: -1.8rem;
 }
 
 .route-svg {
@@ -537,83 +537,93 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
   stroke-width: 3.5;
   stroke-linecap: round;
   stroke-dasharray: 760;
-  stroke-dashoffset: 760;
+  stroke-dashoffset: 0;
   opacity: 0.88;
 }
 
-.ascent-svg {
+.insight-svg {
   filter: saturate(1.02);
-  transform: translateY(-28px) scale(1.06);
+  transform: translateY(-52px) scale(0.98);
   transform-origin: center top;
 }
 
-.ascent-grid path {
+.insight-grid path {
   fill: none;
   stroke: rgba(20, 19, 17, 0.05);
   stroke-width: 1;
 }
 
-.ascent-step {
-  fill: url("#stepFace");
-  stroke: rgba(181, 139, 52, 0.24);
-  stroke-width: 1;
-  opacity: 0.96;
-}
-
-.ascent-step-cap {
+.insight-line,
+.asset-line {
   fill: none;
   stroke: url("#routeGold");
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-dasharray: 420;
-  stroke-dashoffset: 420;
-  opacity: 0.86;
-}
-
-.ascent-figure {
-  color: #151311;
-  transform-box: fill-box;
-  transform-origin: center;
-  filter: drop-shadow(0 12px 18px rgba(42, 32, 18, 0.16));
-}
-
-.figure-head,
-.figure-point {
-  fill: #151311;
-}
-
-.figure-body,
-.figure-arm,
-.figure-leg {
-  fill: none;
-  stroke: #151311;
-  stroke-width: 7;
+  stroke-width: 2.7;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 620;
+  stroke-dashoffset: 0;
+  opacity: 0.9;
 }
 
-.arm-back,
-.figure-point {
-  opacity: 0.62;
+.route-path.insight-route {
+  fill: none;
+  stroke-width: 3.2;
+  stroke-dasharray: 680;
+  stroke-dashoffset: 0;
 }
 
-.leg-front {
-  stroke: var(--gold);
+.eye-outline {
+  fill: rgba(255, 255, 255, 0.74);
 }
 
-.ascent-sun {
-  color: var(--gold);
-  filter: drop-shadow(0 0 22px rgba(181, 139, 52, 0.24));
+.insight-dot,
+.route-dot {
+  fill: var(--gold);
+  opacity: 1;
+  filter: drop-shadow(0 0 14px rgba(181, 139, 52, 0.25));
 }
 
-.sun-ring {
-  fill: rgba(255, 255, 255, 0.78);
-  stroke: currentColor;
-  stroke-width: 2;
+.analysis-eye,
+.strategy-map,
+.outcome-assets,
+.asset {
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
-.sun-core {
-  fill: currentColor;
+.scan-line,
+.scan-line-2 {
+  stroke: #151311;
+  opacity: 0.72;
+}
+
+.map-flag {
+  stroke: #151311;
+  opacity: 0.74;
+}
+
+.asset-line {
+  stroke-width: 2.4;
+}
+
+.asset-house .asset-line,
+.asset-money .asset-line {
+  stroke: #151311;
+  opacity: 0.78;
+}
+
+.asset-car .asset-line,
+.asset-moto .asset-line {
+  stroke: url("#routeGold");
+}
+
+.asset-money path {
+  fill: url("#softGoldFill");
+}
+
+.asset-house path:nth-child(2),
+.asset-car path:nth-child(2) {
+  fill: rgba(255, 255, 255, 0.62);
 }
 
 .route-node circle {
@@ -1341,7 +1351,7 @@ textarea { resize: vertical; }
   .primary-btn, .secondary-btn { width: 100%; }
   .route-panel { min-height: 430px; }
   .route-map, .route-svg { min-height: 200px; }
-  .ascent-svg { transform: translateY(-18px) scale(1.04); }
+  .insight-svg { transform: translateY(-28px) scale(0.98); }
   .route-panel h2 { font-size: clamp(2rem, 8vw, 2.55rem); }
   .marquee-strip { margin-inline: 1rem; }
   .signature-visual,

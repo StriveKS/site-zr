@@ -180,8 +180,10 @@ function initGsapMotion() {
 
   if (prefersReducedMotion()) {
     document.querySelector(".route-path")?.style.setProperty("stroke-dashoffset", "0");
-    document.querySelector(".ascent-step-cap")?.style.setProperty("stroke-dashoffset", "0");
-    document.querySelectorAll(".route-node, .signature-monogram, .ascent-step, .ascent-figure, .ascent-sun").forEach(node => {
+    document.querySelectorAll(".insight-line, .asset-line").forEach(path => {
+      path.style.strokeDashoffset = "0";
+    });
+    document.querySelectorAll(".route-node, .signature-monogram, .insight-dot, .route-dot, .asset").forEach(node => {
       node.style.opacity = "1";
       node.style.transform = "none";
     });
@@ -195,6 +197,10 @@ function initGsapMotion() {
 
   gsap.set(".hero-word-inner", { yPercent: 110, autoAlpha: 0 });
   gsap.set(".hero-eyebrow, .hero-title-secondary, .hero-subtitle, .hero-actions, .hero-assurance, .route-panel", { autoAlpha: 0, y: 20 });
+  gsap.set(".insight-line, .asset-line", { strokeDashoffset: 620 });
+  gsap.set(".insight-route", { strokeDashoffset: 680 });
+  gsap.set(".route-path:not(.insight-route)", { strokeDashoffset: 760 });
+  gsap.set(".insight-dot, .route-dot, .asset", { autoAlpha: 0 });
 
   const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
   intro
@@ -208,35 +214,37 @@ function initGsapMotion() {
 
   const routeTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
   routeTimeline
-    .fromTo(".ascent-grid path", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, stagger: 0.05 }, 0)
-    .fromTo(".ascent-step", { autoAlpha: 0, y: 18, scaleY: 0.86 }, { autoAlpha: 1, y: 0, scaleY: 1, duration: 0.62, stagger: 0.12 }, 0.12)
-    .to(".ascent-step-cap", { strokeDashoffset: 0, duration: 1.1 }, 0.22)
-    .to(".route-path", { strokeDashoffset: 0, duration: 1.55 }, 0.38)
-    .fromTo(".route-node", { autoAlpha: 0, scale: 0.72 }, { autoAlpha: 1, scale: 1, duration: 0.5, stagger: 0.16 }, 0.56)
-    .fromTo(".ascent-figure", { autoAlpha: 0, x: 0, y: 28, rotation: -3 }, { autoAlpha: 1, x: 0, y: 0, rotation: 0, duration: 0.58 }, 0.46)
-    .to(".ascent-figure", { x: 92, y: -28, rotation: 2, duration: 0.62, ease: "power2.inOut" }, 1.02)
-    .to(".ascent-figure", { x: 184, y: -58, rotation: -1, duration: 0.62, ease: "power2.inOut" }, 1.52)
-    .to(".ascent-figure", { x: 278, y: -88, rotation: 2, duration: 0.62, ease: "power2.inOut" }, 2.02)
-    .fromTo(".ascent-sun", { autoAlpha: 0, scale: 0.72 }, { autoAlpha: 1, scale: 1, duration: 0.72, ease: "back.out(1.7)" }, 2.14)
-    .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 1.02);
+    .fromTo(".insight-grid path", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, stagger: 0.04 }, 0)
+    .to(".analysis-eye .insight-line", { strokeDashoffset: 0, duration: 0.88, stagger: 0.08 }, 0.14)
+    .fromTo(".eye-core", { autoAlpha: 0, scale: 0.5 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 0.58)
+    .to(".scan-line", { x: 14, duration: 0.58, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.92)
+    .to(".insight-route", { strokeDashoffset: 0, duration: 1.35, ease: "power2.inOut" }, 1.06)
+    .fromTo(".route-dot", { autoAlpha: 0, scale: 0.42 }, { autoAlpha: 1, scale: 1, duration: 0.4, stagger: 0.18 }, 1.22)
+    .to(".map-flag", { strokeDashoffset: 0, duration: 0.52 }, 1.92)
+    .fromTo(".route-node", { autoAlpha: 0, scale: 0.72 }, { autoAlpha: 1, scale: 1, duration: 0.48, stagger: 0.16 }, 0.5)
+    .to(".asset-line", { strokeDashoffset: 0, duration: 0.9, stagger: 0.045 }, 2.18)
+    .fromTo(".asset", { autoAlpha: 0, y: 14, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.58, stagger: 0.12 }, 2.12)
+    .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 2.28);
 
-  gsap.to(".ascent-figure", {
-    y: "-=5",
-    duration: 1.35,
+  gsap.to(".eye-core", {
+    scale: 1.22,
+    transformOrigin: "center",
+    duration: 1.4,
     repeat: -1,
     yoyo: true,
     ease: "sine.inOut",
     delay: 3.1
   });
 
-  gsap.to(".sun-ring", {
-    scale: 1.08,
+  gsap.to(".route-dot", {
+    scale: 1.18,
     transformOrigin: "center",
-    duration: 1.8,
+    duration: 1.2,
     repeat: -1,
     yoyo: true,
+    stagger: 0.18,
     ease: "sine.inOut",
-    delay: 2.6
+    delay: 3.2
   });
 
   const signatureTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
