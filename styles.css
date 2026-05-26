@@ -325,16 +325,16 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 }
 
 .hero-title {
-  max-width: 760px;
-  font-size: clamp(3.35rem, 7.6vw, 8.8rem);
+  max-width: 700px;
+  font-size: clamp(3.15rem, 6.55vw, 7.25rem);
   font-weight: 900;
-  line-height: 0.92;
-  letter-spacing: -0.03em;
+  line-height: 0.98;
+  letter-spacing: -0.012em;
 }
 
 .hero-word {
   display: inline-block;
-  margin-right: 0.22em;
+  margin-right: 0.17em;
   overflow: hidden;
 }
 
@@ -353,15 +353,17 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-style: italic;
+  letter-spacing: 0;
 }
 
 .hero-title-secondary {
-  margin: 1rem 0 0;
+  max-width: 620px;
+  margin: 1.35rem 0 0;
   color: #635d55;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 3rem);
+  font-size: clamp(1.32rem, 2.25vw, 2.35rem);
   font-style: italic;
-  line-height: 1.15;
+  line-height: 1.24;
 }
 
 .hero-subtitle,
