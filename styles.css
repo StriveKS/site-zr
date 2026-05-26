@@ -330,7 +330,7 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
   max-width: 760px;
   font-size: clamp(2.85rem, 5.45vw, 6.05rem);
   font-weight: 700;
-  line-height: 0.86;
+  line-height: 0.98;
   letter-spacing: 0.014em;
   font-kerning: normal;
   font-feature-settings: "kern" 1, "liga" 0;
@@ -364,12 +364,12 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 }
 
 .hero-line-middle {
-  margin-top: -0.08em;
+  margin-top: 0.015em;
   z-index: 2;
 }
 
 .hero-line-final {
-  margin-top: -0.075em;
+  margin-top: 0.015em;
   padding-left: 0;
   z-index: 1;
 }
@@ -1243,10 +1243,10 @@ textarea { resize: vertical; }
   .hero-title {
     max-width: 100%;
     font-size: clamp(2.35rem, 10vw, 3rem);
-    line-height: 0.96;
+    line-height: 1.04;
   }
-  .hero-line-middle { margin-top: -0.055em; }
-  .hero-line-final { margin-top: -0.05em; padding-left: 0; }
+  .hero-line-middle { margin-top: 0; }
+  .hero-line-final { margin-top: 0; padding-left: 0; }
   h2 { font-size: clamp(2.05rem, 8.8vw, 2.8rem); }
   .hero-title-secondary { font-size: clamp(1.35rem, 7vw, 2rem); }
   .hero-actions { flex-direction: column; }
