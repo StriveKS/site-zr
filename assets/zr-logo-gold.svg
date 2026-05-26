@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" role="img" aria-label="ZR Investimentos">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" role="img" aria-label="ZR">
   <defs>
     <linearGradient id="zrAccent" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#dbc27d"/>
@@ -7,11 +7,10 @@
     </linearGradient>
   </defs>
 
-  <path d="M286 86H583V454H175V385" fill="none" stroke="#141311" stroke-width="4.2" stroke-linecap="square"/>
-  <path d="M286 86H583" fill="none" stroke="url(#zrAccent)" stroke-width="4.2" stroke-linecap="square"/>
-  <path d="M175 385V454H583" fill="none" stroke="#141311" stroke-width="4.2" stroke-linecap="square"/>
+  <path d="M174 54H438V354H78V292" fill="none" stroke="#141311" stroke-width="5.2" stroke-linecap="square"/>
+  <path d="M174 54H438" fill="none" stroke="url(#zrAccent)" stroke-width="5.2" stroke-linecap="square"/>
+  <path d="M78 292V354H438" fill="none" stroke="#141311" stroke-width="5.2" stroke-linecap="square"/>
 
-  <text x="186" y="320" font-family="'Bodoni MT', Didot, 'Playfair Display', Georgia, serif" font-size="252" font-weight="700" letter-spacing="-28" fill="#111111">ZR</text>
-  <path d="M365 243H392" fill="none" stroke="url(#zrAccent)" stroke-width="5.2" stroke-linecap="round"/>
-  <text x="214" y="394" font-family="'Bickham Script Pro', 'Edwardian Script ITC', 'Snell Roundhand', cursive" font-size="88" fill="#111111">Investimentos</text>
+  <text x="74" y="279" font-family="'Bodoni MT', Didot, 'Playfair Display', Georgia, serif" font-size="252" font-weight="700" letter-spacing="-28" fill="#111111">ZR</text>
+  <path d="M253 201H280" fill="none" stroke="url(#zrAccent)" stroke-width="5.8" stroke-linecap="round"/>
 </svg>
