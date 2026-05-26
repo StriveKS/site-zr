@@ -180,7 +180,8 @@ function initGsapMotion() {
 
   if (prefersReducedMotion()) {
     document.querySelector(".route-path")?.style.setProperty("stroke-dashoffset", "0");
-    document.querySelectorAll(".route-node, .signature-monogram").forEach(node => {
+    document.querySelector(".ascent-step-cap")?.style.setProperty("stroke-dashoffset", "0");
+    document.querySelectorAll(".route-node, .signature-monogram, .ascent-step, .ascent-figure, .ascent-sun").forEach(node => {
       node.style.opacity = "1";
       node.style.transform = "none";
     });
@@ -207,9 +208,36 @@ function initGsapMotion() {
 
   const routeTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
   routeTimeline
-    .to(".route-path", { strokeDashoffset: 0, duration: 1.8 }, 0.15)
-    .fromTo(".route-node", { autoAlpha: 0, scale: 0.78 }, { autoAlpha: 1, scale: 1, duration: 0.55, stagger: 0.18 }, 0.38)
-    .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 0.82);
+    .fromTo(".ascent-grid path", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, stagger: 0.05 }, 0)
+    .fromTo(".ascent-step", { autoAlpha: 0, y: 18, scaleY: 0.86 }, { autoAlpha: 1, y: 0, scaleY: 1, duration: 0.62, stagger: 0.12 }, 0.12)
+    .to(".ascent-step-cap", { strokeDashoffset: 0, duration: 1.1 }, 0.22)
+    .to(".route-path", { strokeDashoffset: 0, duration: 1.55 }, 0.38)
+    .fromTo(".route-node", { autoAlpha: 0, scale: 0.72 }, { autoAlpha: 1, scale: 1, duration: 0.5, stagger: 0.16 }, 0.56)
+    .fromTo(".ascent-figure", { autoAlpha: 0, x: 0, y: 28, rotation: -3 }, { autoAlpha: 1, x: 0, y: 0, rotation: 0, duration: 0.58 }, 0.46)
+    .to(".ascent-figure", { x: 92, y: -28, rotation: 2, duration: 0.62, ease: "power2.inOut" }, 1.02)
+    .to(".ascent-figure", { x: 184, y: -58, rotation: -1, duration: 0.62, ease: "power2.inOut" }, 1.52)
+    .to(".ascent-figure", { x: 278, y: -88, rotation: 2, duration: 0.62, ease: "power2.inOut" }, 2.02)
+    .fromTo(".ascent-sun", { autoAlpha: 0, scale: 0.72 }, { autoAlpha: 1, scale: 1, duration: 0.72, ease: "back.out(1.7)" }, 2.14)
+    .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 1.02);
+
+  gsap.to(".ascent-figure", {
+    y: "-=5",
+    duration: 1.35,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+    delay: 3.1
+  });
+
+  gsap.to(".sun-ring", {
+    scale: 1.08,
+    transformOrigin: "center",
+    duration: 1.8,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+    delay: 2.6
+  });
 
   const signatureTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
   signatureTimeline

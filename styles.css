@@ -488,7 +488,7 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 
 .route-panel {
   position: relative;
-  min-height: 520px;
+  min-height: 500px;
   padding: clamp(1.3rem, 3vw, 2rem);
   border-radius: 30px;
   overflow: hidden;
@@ -519,15 +519,16 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 
 .route-map {
   position: relative;
-  min-height: 278px;
-  margin-top: 1rem;
+  min-height: 220px;
+  margin-top: -0.35rem;
+  margin-bottom: -1.3rem;
 }
 
 .route-svg {
   width: 100%;
   height: 100%;
-  min-height: 278px;
-  overflow: hidden;
+  min-height: 220px;
+  overflow: visible;
 }
 
 .route-path {
@@ -538,6 +539,81 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
   stroke-dasharray: 760;
   stroke-dashoffset: 760;
   opacity: 0.88;
+}
+
+.ascent-svg {
+  filter: saturate(1.02);
+  transform: translateY(-28px) scale(1.06);
+  transform-origin: center top;
+}
+
+.ascent-grid path {
+  fill: none;
+  stroke: rgba(20, 19, 17, 0.05);
+  stroke-width: 1;
+}
+
+.ascent-step {
+  fill: url("#stepFace");
+  stroke: rgba(181, 139, 52, 0.24);
+  stroke-width: 1;
+  opacity: 0.96;
+}
+
+.ascent-step-cap {
+  fill: none;
+  stroke: url("#routeGold");
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  opacity: 0.86;
+}
+
+.ascent-figure {
+  color: #151311;
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 12px 18px rgba(42, 32, 18, 0.16));
+}
+
+.figure-head,
+.figure-point {
+  fill: #151311;
+}
+
+.figure-body,
+.figure-arm,
+.figure-leg {
+  fill: none;
+  stroke: #151311;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.arm-back,
+.figure-point {
+  opacity: 0.62;
+}
+
+.leg-front {
+  stroke: var(--gold);
+}
+
+.ascent-sun {
+  color: var(--gold);
+  filter: drop-shadow(0 0 22px rgba(181, 139, 52, 0.24));
+}
+
+.sun-ring {
+  fill: rgba(255, 255, 255, 0.78);
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.sun-core {
+  fill: currentColor;
 }
 
 .route-node circle {
@@ -559,6 +635,7 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
   display: flex;
   flex-wrap: wrap;
   gap: 0.58rem;
+  margin-top: 0.2rem;
 }
 
 .route-legend span {
@@ -1263,7 +1340,8 @@ textarea { resize: vertical; }
   .hero-actions { flex-direction: column; }
   .primary-btn, .secondary-btn { width: 100%; }
   .route-panel { min-height: 430px; }
-  .route-map, .route-svg { min-height: 220px; }
+  .route-map, .route-svg { min-height: 200px; }
+  .ascent-svg { transform: translateY(-18px) scale(1.04); }
   .route-panel h2 { font-size: clamp(2rem, 8vw, 2.55rem); }
   .marquee-strip { margin-inline: 1rem; }
   .signature-visual,
