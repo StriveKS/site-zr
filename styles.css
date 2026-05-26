@@ -60,6 +60,7 @@ body {
 body.is-loaded #preloader {
   opacity: 0;
   visibility: hidden;
+  display: none;
 }
 
 .preloader-logo {
@@ -325,23 +326,47 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 }
 
 .hero-title {
-  max-width: 720px;
-  font-size: clamp(2.85rem, 5.6vw, 6.25rem);
+  position: relative;
+  max-width: 760px;
+  font-size: clamp(2.85rem, 5.45vw, 6.05rem);
   font-weight: 700;
-  line-height: 1.16;
-  letter-spacing: 0.024em;
+  line-height: 1.02;
+  letter-spacing: 0.014em;
   font-kerning: normal;
   font-feature-settings: "kern" 1, "liga" 0;
 }
 
+.hero-title::after {
+  content: "";
+  display: block;
+  width: clamp(92px, 14vw, 170px);
+  height: 1px;
+  margin-top: clamp(0.7rem, 1vw, 1.05rem);
+  background: linear-gradient(90deg, rgba(181, 139, 52, 0.72), rgba(181, 139, 52, 0));
+  transform-origin: left center;
+  animation: heroTitleRule 3.6s var(--ease, ease) infinite;
+}
+
 .hero-word {
   display: inline-block;
-  margin-right: 0.24em;
+  margin-right: 0.16em;
   overflow: hidden;
 }
 
-.hero-word.break {
+.hero-line {
   display: block;
+}
+
+.hero-line-middle {
+  margin-top: -0.04em;
+}
+
+.hero-line-final {
+  margin-top: -0.08em;
+  padding-left: clamp(3.8rem, 9vw, 7.8rem);
+}
+
+.hero-line .hero-word:last-child {
   margin-right: 0;
 }
 
@@ -355,17 +380,22 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-style: normal;
-  letter-spacing: 0.038em;
+  letter-spacing: 0.025em;
 }
 
 .hero-title-secondary {
-  max-width: 620px;
-  margin: 1.35rem 0 0;
+  max-width: 650px;
+  margin: 1rem 0 0;
   color: #635d55;
   font-family: var(--font-display);
   font-size: clamp(1.32rem, 2.25vw, 2.35rem);
   font-style: italic;
   line-height: 1.24;
+}
+
+@keyframes heroTitleRule {
+  0%, 100% { transform: scaleX(0.78); opacity: 0.45; }
+  45% { transform: scaleX(1); opacity: 0.86; }
 }
 
 .hero-subtitle,
@@ -1202,11 +1232,13 @@ textarea { resize: vertical; }
   .hero-subtitle,
   .section-heading,
   .lead-form { max-width: 100%; }
-  h1 {
-    max-width: 8.1ch;
-    font-size: clamp(2.55rem, 11vw, 3.05rem);
-    line-height: 1.02;
+  .hero-title {
+    max-width: 100%;
+    font-size: clamp(2.35rem, 10vw, 3rem);
+    line-height: 1.12;
   }
+  .hero-line-middle { margin-top: 0; }
+  .hero-line-final { padding-left: clamp(2rem, 16vw, 4rem); }
   h2 { font-size: clamp(2.05rem, 8.8vw, 2.8rem); }
   .hero-title-secondary { font-size: clamp(1.35rem, 7vw, 2rem); }
   .hero-actions { flex-direction: column; }
