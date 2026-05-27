@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ZR Investimentos - HighEngine Light Prototype</title>
+  <meta name="description" content="Prototipo separado para validar uma direcao high-end clara da ZR Investimentos com fundo vivo, motion narrativo e duas secoes." />
+  <style>
+    :root {
+      --paper: #f6f1e8;
+      --paper-2: #ebe4d8;
+      --ink: #11100e;
+      --ink-2: #2d2923;
+      --muted: #71695f;
+      --line: rgba(17, 16, 14, 0.12);
+      --line-strong: rgba(17, 16, 14, 0.18);
+      --gold: #b98b2d;
+      --gold-2: #d4b05e;
+      --gold-3: #8c651f;
+      --white: rgba(255, 255, 255, 0.74);
+      --shadow: 0 30px 90px rgba(47, 38, 24, 0.13);
+      --display: "Playfair Display", Georgia, "Times New Roman", serif;
+      --ui: Jost, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: var(--ui);
+      background:
+        radial-gradient(circle at 14% 18%, rgba(212, 176, 94, 0.13), transparent 30vw),
+        radial-gradient(circle at 86% 10%, rgba(17, 16, 14, 0.055), transparent 34vw),
+        linear-gradient(180deg, #f8f3eb 0%, #f2ece1 52%, #ebe4d8 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #livingField {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+
+    .grain,
+    .page-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .grain {
+      opacity: 0.22;
+      mix-blend-mode: multiply;
+      background-image:
+        repeating-radial-gradient(circle at 20% 30%, rgba(17, 16, 14, 0.045) 0 1px, transparent 1px 5px),
+        linear-gradient(115deg, rgba(255, 255, 255, 0.4), transparent 44%);
+      filter: contrast(130%);
+    }
+
+    .page-grid {
+      opacity: 0.42;
+      background-image:
+        linear-gradient(rgba(17, 16, 14, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 16, 14, 0.045) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.18) 82%, transparent);
+    }
+
+    .site-shell {
+      position: relative;
+      z-index: 4;
+    }
+
+    .topbar {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px clamp(20px, 5vw, 72px);
+      pointer-events: none;
+    }
+
+    .brand,
+    .nav a {
+      pointer-events: auto;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .brand-mark {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(17, 16, 14, 0.18);
+      background: rgba(255, 255, 255, 0.38);
+      box-shadow: 0 18px 42px rgba(47, 38, 24, 0.08);
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.09em;
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 2px;
+      text-transform: uppercase;
+    }
+
+    .brand-copy strong {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.64rem;
+      letter-spacing: 0.15em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px;
+      border: 1px solid rgba(17, 16, 14, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 20px 60px rgba(47, 38, 24, 0.08);
+      backdrop-filter: blur(18px) saturate(130%);
+    }
+
+    .nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 13px;
+      border-radius: 999px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      transition: color 0.25s ease, background 0.25s ease;
+    }
+
+    .nav a:hover {
+      color: var(--ink);
+      background: rgba(185, 139, 45, 0.08);
+    }
+
+    .scene {
+      min-height: 100vh;
+      position: relative;
+      display: grid;
+      place-items: center;
+      padding: 130px clamp(20px, 6vw, 92px) 76px;
+    }
+
+    .scene-inner {
+      width: min(1280px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(360px, 0.78fr);
+      align-items: center;
+      gap: clamp(40px, 7vw, 92px);
+    }
+
+    .scene.alt .scene-inner {
+      grid-template-columns: minmax(360px, 0.74fr) minmax(0, 1.08fr);
+    }
+
+    .scene.alt .copy { order: 2; }
+    .scene.alt .motion-card { order: 1; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 22px;
+      color: var(--gold);
+      font-size: 0.69rem;
+      font-weight: 600;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 44px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      max-width: 850px;
+      font-family: var(--display);
+      font-weight: 700;
+      line-height: 0.94;
+      letter-spacing: 0.006em;
+      text-wrap: balance;
+    }
+
+    h1 {
+      font-size: clamp(3.7rem, 7.35vw, 7.9rem);
+    }
+
+    h2 {
+      font-size: clamp(3rem, 6.2vw, 6.9rem);
+    }
+
+    .gold {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .lead {
+      max-width: 650px;
+      margin: 30px 0 0;
+      color: #544d44;
+      font-size: clamp(1.05rem, 1.45vw, 1.24rem);
+      line-height: 1.78;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      transition: transform 0.28s var(--ease), box-shadow 0.28s ease, background 0.28s ease;
+    }
+
+    .btn.primary {
+      color: #16120a;
+      background: linear-gradient(135deg, #efcf78, #c79a3e 48%, #93691e);
+      box-shadow: 0 18px 45px rgba(185, 139, 45, 0.22);
+    }
+
+    .btn.secondary {
+      color: var(--ink);
+      border: 1px solid rgba(17, 16, 14, 0.14);
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 58px rgba(47, 38, 24, 0.14);
+    }
+
+    .motion-card {
+      position: relative;
+      min-height: 560px;
+      padding: clamp(24px, 3.2vw, 38px);
+      overflow: hidden;
+      border: 1px solid rgba(17, 16, 14, 0.13);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 78% 16%, rgba(185, 139, 45, 0.12), transparent 34%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.76), rgba(246, 241, 232, 0.48));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px) saturate(118%);
+      transform-style: preserve-3d;
+    }
+
+    .motion-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(17, 16, 14, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 16, 14, 0.04) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.75), transparent 90%);
+      pointer-events: none;
+    }
+
+    .card-head,
+    .card-foot {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .card-foot {
+      position: absolute;
+      left: clamp(24px, 3.2vw, 38px);
+      right: clamp(24px, 3.2vw, 38px);
+      bottom: clamp(22px, 3vw, 34px);
+    }
+
+    .card-foot span:nth-child(2) {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(185, 139, 45, 0.7), transparent);
+    }
+
+    .viz {
+      position: absolute;
+      inset: 84px 24px 70px;
+      z-index: 2;
+    }
+
+    .viz svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .stroke-gold,
+    .stroke-ink,
+    .stroke-soft {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .stroke-gold {
+      stroke: url(#goldLine);
+      stroke-width: 2.8;
+    }
+
+    .stroke-ink {
+      stroke: rgba(17, 16, 14, 0.82);
+      stroke-width: 2.2;
+    }
+
+    .stroke-soft {
+      stroke: rgba(17, 16, 14, 0.13);
+      stroke-width: 1;
+    }
+
+    .node {
+      fill: rgba(255, 255, 255, 0.92);
+      stroke: var(--gold);
+      stroke-width: 1.7;
+      filter: drop-shadow(0 10px 18px rgba(47, 38, 24, 0.12));
+    }
+
+    .node-core,
+    .gold-fill {
+      fill: var(--gold);
+    }
+
+    .asset-fill {
+      fill: rgba(255, 255, 255, 0.62);
+    }
+
+    .floating-copy {
+      position: absolute;
+      z-index: 3;
+      top: 116px;
+      right: 34px;
+      max-width: 170px;
+      color: #5f574d;
+      font-size: 0.74rem;
+      line-height: 1.55;
+      padding: 12px 14px;
+      border: 1px solid rgba(17, 16, 14, 0.08);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.48);
+      backdrop-filter: blur(10px);
+    }
+
+    .floating-copy strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .stack-list {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 12px;
+      margin-top: 42px;
+    }
+
+    .stack-item {
+      display: grid;
+      grid-template-columns: 46px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      border: 1px solid rgba(17, 16, 14, 0.1);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.52);
+      box-shadow: 0 16px 36px rgba(47, 38, 24, 0.06);
+    }
+
+    .stack-item b {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(185, 139, 45, 0.35);
+      color: var(--gold);
+      font-family: var(--display);
+      font-size: 1.28rem;
+    }
+
+    .stack-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+
+    .stack-item span {
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 0 rgba(185, 139, 45, 0.4);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      50% {
+        box-shadow: 0 0 0 12px rgba(185, 139, 45, 0);
+        transform: scale(1.22);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      filter: blur(8px);
+      transition:
+        opacity 0.8s ease,
+        transform 0.95s var(--ease),
+        filter 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .draw {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: drawLine 1.8s var(--ease) forwards;
+    }
+
+    .draw.d2 { animation-delay: 0.18s; }
+    .draw.d3 { animation-delay: 0.36s; }
+    .draw.d4 { animation-delay: 0.54s; }
+
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .float {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .float.slow {
+      animation-duration: 7s;
+      animation-delay: -1.4s;
+    }
+
+    @keyframes float {
+      50% { transform: translateY(-8px); }
+    }
+
+    @media (max-width: 980px) {
+      .topbar {
+        padding: 16px 18px;
+      }
+
+      .brand-copy,
+      .nav {
+        display: none;
+      }
+
+      .scene {
+        min-height: auto;
+        padding: 112px 18px 64px;
+      }
+
+      .scene-inner,
+      .scene.alt .scene-inner {
+        display: block;
+      }
+
+      .scene.alt .copy,
+      .scene.alt .motion-card {
+        order: initial;
+      }
+
+      h1 {
+        font-size: clamp(3.35rem, 13vw, 5.25rem);
+      }
+
+      h2 {
+        font-size: clamp(2.85rem, 12vw, 4.8rem);
+      }
+
+      .motion-card {
+        min-height: 470px;
+        margin-top: 40px;
+        border-radius: 26px;
+      }
+
+      .viz {
+        inset: 74px 12px 64px;
+      }
+
+      .floating-copy {
+        top: 94px;
+        right: 18px;
+        max-width: 145px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+      #livingField { opacity: 0.42; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="livingField" aria-hidden="true"></canvas>
+  <div class="page-grid" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="ZR Investimentos">
+        <span class="brand-mark">ZR</span>
+        <span class="brand-copy">
+          <strong>Investimentos</strong>
+          <span>HighEngine light lab</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Navegacao do prototipo">
+        <a href="#inicio">Analise</a>
+        <a href="#metodo">Estrategia</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="scene" id="inicio" data-scene="analysis">
+        <div class="scene-inner">
+          <div class="copy reveal">
+            <p class="eyebrow">Consultoria financeira estrategica</p>
+            <h1>Antes da decisao, a ZR cria <span class="gold">campo de visao.</span></h1>
+            <p class="lead">
+              Um modelo high-end para a primeira dobra: fundo vivo claro, linhas financeiras reagindo ao scroll, olho de analise e rota estrategica sem perder a sobriedade da base atual.
+            </p>
+            <div class="actions">
+              <a class="btn primary" href="#metodo">Ver segunda cena</a>
+              <a class="btn secondary" href="https://zrinvestimentosltda.com/" target="_blank" rel="noopener">Site atual</a>
+            </div>
+          </div>
+
+          <aside class="motion-card reveal" data-tilt>
+            <div class="card-head">
+              <span>01 / leitura</span>
+              <span>objetivo + perfil</span>
+            </div>
+
+            <div class="viz">
+              <svg viewBox="0 0 560 430" role="presentation">
+                <defs>
+                  <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#efd07a" />
+                    <stop offset="0.48" stop-color="#b98b2d" />
+                    <stop offset="1" stop-color="#8c651f" />
+                  </linearGradient>
+                </defs>
+                <path class="stroke-soft" d="M48 94H510M48 202H510M48 310H510M142 42V368M282 42V368M424 42V368" />
+
+                <g class="float">
+                  <path class="stroke-gold draw" pathLength="1" d="M66 128C105 74 173 74 214 128C173 182 105 182 66 128Z" />
+                  <circle class="stroke-ink draw d2" pathLength="1" cx="140" cy="128" r="24" />
+                  <circle class="gold-fill" cx="140" cy="128" r="7" />
+                  <path class="stroke-ink draw d3" pathLength="1" d="M104 112H178M96 144H184" />
+                </g>
+
+                <path class="stroke-gold draw d2" pathLength="1" d="M218 184C258 132 316 158 304 222C294 274 374 282 404 232C434 183 474 182 510 132" />
+                <circle class="node" cx="218" cy="184" r="15" />
+                <circle class="node-core" cx="218" cy="184" r="5" />
+                <circle class="node" cx="304" cy="222" r="15" />
+                <circle class="node-core" cx="304" cy="222" r="5" />
+                <circle class="node" cx="404" cy="232" r="15" />
+                <circle class="node-core" cx="404" cy="232" r="5" />
+                <circle class="node" cx="510" cy="132" r="15" />
+                <circle class="node-core" cx="510" cy="132" r="5" />
+
+                <g class="float slow">
+                  <path class="stroke-ink draw d3" pathLength="1" d="M84 342L126 304L168 342M98 336V382H154V336M119 382V354H134V382" />
+                  <path class="stroke-gold draw d4" pathLength="1" d="M220 360L235 334H306L324 360M218 360H328V382H218Z" />
+                  <circle class="stroke-gold draw d4" pathLength="1" cx="244" cy="385" r="9" />
+                  <circle class="stroke-gold draw d4" pathLength="1" cx="302" cy="385" r="9" />
+                  <path class="stroke-ink draw d4" pathLength="1" d="M390 378H486V344H390ZM378 360H474V326H378Z" />
+                  <circle class="stroke-ink draw d4" pathLength="1" cx="432" cy="343" r="10" />
+                </g>
+              </svg>
+            </div>
+
+            <div class="floating-copy">
+              <strong>Leitura</strong>
+              Analise, rota e objetivos materiais no mesmo campo visual.
+            </div>
+
+            <div class="card-foot">
+              <span>visao consultiva</span>
+              <span></span>
+              <span>sem promessa</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="scene alt" id="metodo" data-scene="strategy">
+        <div class="scene-inner">
+          <div class="copy reveal">
+            <p class="eyebrow">Metodo ZR</p>
+            <h2>O fundo deixa de ser efeito e vira <span class="gold">narrativa.</span></h2>
+            <p class="lead">
+              Nesta versao, cada cena muda o comportamento do canvas: primeiro dispersao e leitura, depois convergencia, grid e estrutura. A tecnica VivaScroll entra a favor da copy, nao como decoracao.
+            </p>
+          </div>
+
+          <aside class="motion-card reveal" data-tilt>
+            <div class="card-head">
+              <span>02 / arquitetura</span>
+              <span>contexto -> rota</span>
+            </div>
+
+            <div class="stack-list">
+              <div class="stack-item">
+                <b>01</b>
+                <div>
+                  <strong>Objetivo</strong>
+                  <span>Compra, capital, preparacao ou reorganizacao.</span>
+                </div>
+                <i class="pulse"></i>
+              </div>
+              <div class="stack-item">
+                <b>02</b>
+                <div>
+                  <strong>Perfil</strong>
+                  <span>Capacidade, documentacao, patrimonio e timing.</span>
+                </div>
+                <i class="pulse"></i>
+              </div>
+              <div class="stack-item">
+                <b>03</b>
+                <div>
+                  <strong>Garantia</strong>
+                  <span>Estrutura que sustenta a rota financeira.</span>
+                </div>
+                <i class="pulse"></i>
+              </div>
+              <div class="stack-item">
+                <b>04</b>
+                <div>
+                  <strong>Conducao</strong>
+                  <span>Decisao com criterio, comparacao e clareza.</span>
+                </div>
+                <i class="pulse"></i>
+              </div>
+            </div>
+
+            <div class="viz" style="inset: auto 22px 84px; height: 170px;">
+              <svg viewBox="0 0 560 180" role="presentation">
+                <defs>
+                  <linearGradient id="goldLine2" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#efd07a" />
+                    <stop offset="0.52" stop-color="#b98b2d" />
+                    <stop offset="1" stop-color="#8c651f" />
+                  </linearGradient>
+                </defs>
+                <path class="stroke-soft" d="M40 88H520M140 30V148M280 30V148M420 30V148" />
+                <path class="stroke-gold draw" pathLength="1" d="M54 126C120 40 212 46 270 90C332 136 402 130 504 48" />
+                <circle class="node" cx="54" cy="126" r="15" />
+                <circle class="node" cx="270" cy="90" r="15" />
+                <circle class="node" cx="504" cy="48" r="15" />
+                <path class="stroke-ink draw d3" pathLength="1" d="M504 48V22H532L520 34L532 46H504" />
+              </svg>
+            </div>
+
+            <div class="card-foot">
+              <span>highengine lab</span>
+              <span></span>
+              <span>base clara</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById("livingField");
+      const ctx = canvas.getContext("2d", { alpha: true });
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const scenes = [...document.querySelectorAll("[data-scene]")];
+      const state = {
+        w: innerWidth,
+        h: innerHeight,
+        dpr: Math.min(devicePixelRatio || 1, 2),
+        mouse: { x: innerWidth * 0.5, y: innerHeight * 0.5, sx: innerWidth * 0.5, sy: innerHeight * 0.5 },
+        scroll: 0,
+        lastScroll: 0,
+        velocity: 0,
+        progress: 0,
+        scene: "analysis",
+        intensity: 0.7,
+        targetIntensity: 0.7,
+        connection: 124,
+        targetConnection: 124
+      };
+
+      const particles = [];
+      const lines = [];
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+      const rnd = (a, b) => a + Math.random() * (b - a);
+
+      function resize() {
+        state.w = innerWidth;
+        state.h = innerHeight;
+        state.dpr = Math.min(devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(state.w * state.dpr);
+        canvas.height = Math.floor(state.h * state.dpr);
+        canvas.style.width = state.w + "px";
+        canvas.style.height = state.h + "px";
+        ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+
+        particles.length = 0;
+        lines.length = 0;
+        const count = reduced ? 52 : state.w < 800 ? 92 : 150;
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: rnd(-80, state.w + 80),
+            y: rnd(-80, state.h + 80),
+            vx: rnd(-0.18, 0.18),
+            vy: rnd(-0.18, 0.18),
+            r: rnd(0.6, 2.1),
+            z: rnd(0.2, 1),
+            phase: rnd(0, Math.PI * 2)
+          });
+        }
+        for (let i = 0; i < 18; i++) {
+          lines.push({
+            y: rnd(0, state.h),
+            speed: rnd(0.06, 0.22),
+            amp: rnd(18, 70),
+            phase: rnd(0, Math.PI * 2),
+            alpha: rnd(0.035, 0.09)
+          });
+        }
+      }
+
+      function syncScene() {
+        const mid = scrollY + state.h * 0.55;
+        let active = scenes[0];
+        for (const scene of scenes) {
+          if (mid >= scene.offsetTop && mid < scene.offsetTop + scene.offsetHeight) {
+            active = scene;
+            break;
+          }
+        }
+        state.scene = active?.dataset.scene || "analysis";
+        state.targetIntensity = state.scene === "strategy" ? 1.05 : 0.72;
+        state.targetConnection = state.scene === "strategy" ? 172 : 124;
+        const max = document.documentElement.scrollHeight - state.h;
+        state.progress = max ? clamp(scrollY / max, 0, 1) : 0;
+        state.velocity = lerp(state.velocity, scrollY - state.lastScroll, 0.14);
+        state.lastScroll = scrollY;
+      }
+
+      function clear() {
+        ctx.clearRect(0, 0, state.w, state.h);
+        const glow = ctx.createRadialGradient(
+          state.mouse.sx,
+          state.mouse.sy,
+          0,
+          state.mouse.sx,
+          state.mouse.sy,
+          Math.max(state.w, state.h) * 0.62
+        );
+        glow.addColorStop(0, `rgba(185,139,45,${0.06 * state.intensity})`);
+        glow.addColorStop(0.42, "rgba(185,139,45,0.018)");
+        glow.addColorStop(1, "rgba(185,139,45,0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, state.w, state.h);
+      }
+
+      function drawRibbons(t) {
+        ctx.save();
+        ctx.globalCompositeOperation = "multiply";
+        for (const line of lines) {
+          ctx.beginPath();
+          const drift = state.progress * state.w * 0.18;
+          for (let x = -90; x <= state.w + 90; x += 22) {
+            const y =
+              line.y +
+              Math.sin(x * 0.006 + t * 0.00022 + line.phase) * line.amp +
+              Math.sin(x * 0.018 + t * 0.00014) * line.amp * 0.18;
+            const px = x - drift + Math.sin(t * 0.00012 + line.phase) * 24;
+            if (x === -90) ctx.moveTo(px, y);
+            else ctx.lineTo(px, y);
+          }
+          const grad = ctx.createLinearGradient(0, 0, state.w, 0);
+          grad.addColorStop(0, "rgba(185,139,45,0)");
+          grad.addColorStop(0.5, `rgba(185,139,45,${line.alpha * state.intensity})`);
+          grad.addColorStop(1, "rgba(185,139,45,0)");
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function updateParticles(t) {
+        const mx = state.mouse.sx;
+        const my = state.mouse.sy;
+        const pull = state.scene === "strategy" ? 0.00008 : -0.00004;
+        ctx.save();
+        ctx.globalCompositeOperation = "multiply";
+        for (const p of particles) {
+          const angle = Math.sin(p.x * 0.008 + p.y * 0.004 + t * 0.00018 + p.phase) * Math.PI;
+          p.vx += Math.cos(angle) * 0.012 * state.intensity;
+          p.vy += Math.sin(angle) * 0.012 * state.intensity;
+          p.vx += (state.w * 0.55 - p.x) * pull * p.z;
+          p.vy += (state.h * 0.46 - p.y) * pull * p.z;
+
+          const dx = p.x - mx;
+          const dy = p.y - my;
+          const d = Math.sqrt(dx * dx + dy * dy) || 1;
+          if (d < 170 && !reduced) {
+            const f = (170 - d) / 170;
+            p.vx += (dx / d) * f * 0.17;
+            p.vy += (dy / d) * f * 0.17;
+          }
+
+          p.vx = clamp(p.vx * 0.97, -0.9, 0.9);
+          p.vy = clamp(p.vy * 0.97, -0.9, 0.9);
+          p.x += p.vx * (0.8 + p.z);
+          p.y += p.vy * (0.8 + p.z);
+          if (p.x < -90) p.x = state.w + 90;
+          if (p.x > state.w + 90) p.x = -90;
+          if (p.y < -90) p.y = state.h + 90;
+          if (p.y > state.h + 90) p.y = -90;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * (0.9 + p.z), 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(185,139,45,${0.1 + p.z * 0.13})`;
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      function drawConnections() {
+        ctx.save();
+        ctx.globalCompositeOperation = "multiply";
+        const max = state.connection;
+        const step = state.w < 800 ? 2 : 1;
+        for (let i = 0; i < particles.length; i += step) {
+          const a = particles[i];
+          for (let j = i + 1; j < particles.length; j += step) {
+            const b = particles[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < max) {
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = `rgba(17,16,14,${(1 - d / max) * 0.075 * state.intensity})`;
+              ctx.lineWidth = 0.55;
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.restore();
+      }
+
+      function render(t) {
+        syncScene();
+        state.intensity = lerp(state.intensity, state.targetIntensity, 0.035);
+        state.connection = lerp(state.connection, state.targetConnection, 0.035);
+        state.mouse.sx = lerp(state.mouse.sx, state.mouse.x, 0.075);
+        state.mouse.sy = lerp(state.mouse.sy, state.mouse.y, 0.075);
+        clear();
+        drawRibbons(t);
+        updateParticles(t);
+        drawConnections();
+        requestAnimationFrame(render);
+      }
+
+      function initReveal() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.16 });
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      }
+
+      function initTilt() {
+        if (reduced || !matchMedia("(pointer:fine)").matches) return;
+        document.querySelectorAll("[data-tilt]").forEach((card) => {
+          card.addEventListener("mousemove", (event) => {
+            const rect = card.getBoundingClientRect();
+            const x = (event.clientX - rect.left) / rect.width - 0.5;
+            const y = (event.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(1000px) rotateX(${-y * 5}deg) rotateY(${x * 6}deg) translateY(-3px)`;
+          });
+          card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+          });
+        });
+      }
+
+      addEventListener("resize", resize, { passive: true });
+      addEventListener("mousemove", (event) => {
+        state.mouse.x = event.clientX;
+        state.mouse.y = event.clientY;
+      }, { passive: true });
+      addEventListener("touchmove", (event) => {
+        const touch = event.touches[0];
+        if (!touch) return;
+        state.mouse.x = touch.clientX;
+        state.mouse.y = touch.clientY;
+      }, { passive: true });
+
+      resize();
+      initReveal();
+      initTilt();
+      requestAnimationFrame(render);
+    })();
+  </script>
+</body>
+</html>
