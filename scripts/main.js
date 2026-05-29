@@ -180,10 +180,10 @@ function initGsapMotion() {
 
   if (prefersReducedMotion()) {
     document.querySelector(".route-path")?.style.setProperty("stroke-dashoffset", "0");
-    document.querySelectorAll(".insight-line, .asset-line").forEach(path => {
+    document.querySelectorAll(".insight-line, .asset-line, .decision-lane").forEach(path => {
       path.style.strokeDashoffset = "0";
     });
-    document.querySelectorAll(".route-node, .signature-monogram, .insight-dot, .route-dot, .asset").forEach(node => {
+    document.querySelectorAll(".route-node, .signature-monogram, .insight-dot, .route-dot, .scenario-card, .comparison-matrix, .structure-stack, .desk-dossier, .desk-orbit, .route-option, .stack-sheet, .route-legend span").forEach(node => {
       node.style.opacity = "1";
       node.style.transform = "none";
     });
@@ -198,9 +198,13 @@ function initGsapMotion() {
   gsap.set(".hero-word-inner", { yPercent: 110, autoAlpha: 0 });
   gsap.set(".hero-eyebrow, .hero-title-secondary, .hero-subtitle, .hero-actions, .hero-assurance, .route-panel", { autoAlpha: 0, y: 20 });
   gsap.set(".insight-line, .asset-line", { strokeDashoffset: 620 });
+  gsap.set(".decision-lane", { strokeDashoffset: 500 });
   gsap.set(".insight-route", { strokeDashoffset: 680 });
   gsap.set(".route-path:not(.insight-route)", { strokeDashoffset: 760 });
-  gsap.set(".insight-dot, .route-dot, .asset", { autoAlpha: 0 });
+  gsap.set(".insight-dot, .route-dot, .scenario-card, .comparison-matrix, .structure-stack", { autoAlpha: 0 });
+  gsap.set(".desk-dossier, .desk-orbit, .route-option, .stack-label, .stack-sheet, .route-legend span", { autoAlpha: 0 });
+  gsap.set(".route-option i", { scaleX: 0 });
+  gsap.set(".orbit-dot", { scale: 0, autoAlpha: 0 });
 
   const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
   intro
@@ -214,37 +218,40 @@ function initGsapMotion() {
 
   const routeTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
   routeTimeline
-    .fromTo(".insight-grid path", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, stagger: 0.04 }, 0)
-    .to(".analysis-eye .insight-line", { strokeDashoffset: 0, duration: 0.88, stagger: 0.08 }, 0.14)
-    .fromTo(".eye-core", { autoAlpha: 0, scale: 0.5 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 0.58)
-    .to(".scan-line", { x: 14, duration: 0.58, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.92)
-    .to(".insight-route", { strokeDashoffset: 0, duration: 1.35, ease: "power2.inOut" }, 1.06)
-    .fromTo(".route-dot", { autoAlpha: 0, scale: 0.42 }, { autoAlpha: 1, scale: 1, duration: 0.4, stagger: 0.18 }, 1.22)
-    .to(".map-flag", { strokeDashoffset: 0, duration: 0.52 }, 1.92)
-    .fromTo(".route-node", { autoAlpha: 0, scale: 0.72 }, { autoAlpha: 1, scale: 1, duration: 0.48, stagger: 0.16 }, 0.5)
-    .to(".asset-line", { strokeDashoffset: 0, duration: 0.9, stagger: 0.045 }, 2.18)
-    .fromTo(".asset", { autoAlpha: 0, y: 14, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.58, stagger: 0.12 }, 2.12)
-    .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 2.28);
+    .fromTo(".desk-dossier", { y: 18, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.62 }, 0.14)
+    .fromTo(".desk-orbit", { scale: 0.82, rotate: -8 }, { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.72 }, 0.34)
+    .to(".orbit-dot", { autoAlpha: 1, scale: 1, duration: 0.34, stagger: 0.11, ease: "back.out(2)" }, 0.74)
+    .fromTo(".route-option", { x: 22, y: 8 }, { autoAlpha: 1, x: 0, y: 0, duration: 0.52, stagger: 0.12 }, 0.9)
+    .to(".route-option i", { scaleX: 1, duration: 0.62, stagger: 0.12, ease: "power2.inOut" }, 1.08)
+    .fromTo(".stack-label", { y: 8 }, { autoAlpha: 1, y: 0, duration: 0.38 }, 1.58)
+    .fromTo(".stack-sheet", { y: 18, x: 16 }, { autoAlpha: 1, y: 0, x: 0, duration: 0.56, stagger: 0.09 }, 1.72)
+    .fromTo(".route-legend span", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08 }, 2.08);
 
-  gsap.to(".eye-core", {
-    scale: 1.22,
+  gsap.to(".desk-orbit", {
+    rotate: 360,
     transformOrigin: "center",
-    duration: 1.4,
+    duration: 26,
     repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut",
-    delay: 3.1
+    ease: "none",
+    delay: 2.7
   });
 
-  gsap.to(".route-dot", {
-    scale: 1.18,
+  gsap.to(".desk-seal", {
+    rotate: -360,
     transformOrigin: "center",
-    duration: 1.2,
+    duration: 26,
+    repeat: -1,
+    ease: "none",
+    delay: 2.7
+  });
+
+  gsap.to(".route-option.active", {
+    y: -3,
+    duration: 1.8,
     repeat: -1,
     yoyo: true,
-    stagger: 0.18,
     ease: "sine.inOut",
-    delay: 3.2
+    delay: 2.8
   });
 
   const signatureTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });

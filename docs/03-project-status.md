@@ -12,6 +12,7 @@ Site publicado, operacional e com base visual/copy aprovada em 2026-05-26.
 - Notificacao por e-mail: ativa
 - Metricas: GA4 e Microsoft Clarity instalados
 - Base aprovada: visual claro premium, logo ZR simplificada, hero tipografico refinado e copy consultiva.
+- Atualizacao em 2026-05-29: painel visual do hero recriado do zero como `Mesa de decisao ZR`, com leitura de cenario, comparacao de rotas e estrutura indicada.
 
 ## Feito
 
@@ -49,15 +50,21 @@ Site publicado, operacional e com base visual/copy aprovada em 2026-05-26.
   - ajuste de line-height, overflow e camadas para evitar cortes em letras descendentes;
   - commit publicado `c656c8f` (`Prevent hero headline descender clipping`);
   - registro detalhado em `docs/10-base-aprovada-2026-05-26.md`.
+- Painel visual do hero refeito em 2026-05-29:
+  - substituicao da rota/video anterior por uma composicao HTML/CSS consultiva;
+  - narrativa visual: cenario -> rotas comparadas -> estrutura indicada;
+  - animacao GSAP discreta, com respeito a `prefers-reduced-motion`;
+  - validacao visual em desktop e mobile por screenshots locais;
+  - verificacao tecnica com `node --check scripts\main.js`.
 
 ## Proxima Frente Recomendada
 
 1. Revisar secoes abaixo do hero para ficarem tao refinadas quanto a primeira dobra.
-2. Transformar a logo em componente SVG animavel mais fiel ao asset original.
-3. Refinar formulario como experiencia de triagem consultiva.
-4. Criar primeiro video motion `Metodo ZR em 30 segundos`.
-5. Configurar Search Console.
-6. Criar rotina de acompanhamento de leads e funil comercial.
+2. Refinar formulario como experiencia de triagem consultiva.
+3. Transformar a logo em componente SVG animavel mais fiel ao asset original.
+4. Configurar Search Console.
+5. Criar rotina de acompanhamento de leads e funil comercial.
+6. Criar criativos externos em motion para social/trafego pago, se necessario.
 
 ## Decisao Tecnica
 

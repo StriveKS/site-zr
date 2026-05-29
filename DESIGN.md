@@ -79,6 +79,7 @@ Direcao historica ainda valida para futuras secoes, se necessario:
 
 - Linha dourada desenhando uma rota.
 - Mapa de decisao com nos conectados.
+- Mesa de decisao com cenario, rotas comparadas e estrutura indicada.
 - Cards comparativos entrando em stagger.
 - Numeros e provas com contagem sutil.
 - Logo com reveal vetorial.
@@ -102,6 +103,8 @@ Criar videos curtos em motion graphics para:
 - Explicacao do metodo ZR em 20-30s.
 - Reels/Stories: "Qual rota financeira faz sentido para voce?"
 - Criativos para trafego pago quando houver midia.
+
+No site, a direcao atual prioriza componentes visuais leves em HTML/CSS/GSAP quando eles comunicam melhor a tese consultiva do que um video literal. O exemplo vigente e a `Mesa de decisao ZR` no hero.
 
 Estilo de video:
 

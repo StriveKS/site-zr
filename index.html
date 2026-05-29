@@ -83,91 +83,46 @@
         <h2>Clareza antes da decisão.</h2>
         <p>Cada operação passa por leitura de objetivo, prazo, perfil, garantias e contexto antes de qualquer encaminhamento comercial.</p>
 
-        <div class="route-map" aria-hidden="true">
-          <svg class="route-svg insight-svg" viewBox="0 0 520 360" role="presentation">
-            <defs>
-              <linearGradient id="routeGold" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0" stop-color="#fff0a8" />
-                <stop offset="0.45" stop-color="#d9ad58" />
-                <stop offset="1" stop-color="#9c6a22" />
-              </linearGradient>
-              <linearGradient id="softGoldFill" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0" stop-color="#fff8e6" stop-opacity="0.92" />
-                <stop offset="1" stop-color="#d9ad58" stop-opacity="0.12" />
-              </linearGradient>
-              <filter id="softInk" x="-22%" y="-22%" width="144%" height="150%">
-                <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#3d2d14" flood-opacity="0.10" />
-              </filter>
-            </defs>
+        <div class="route-map decision-desk" aria-hidden="true">
+          <div class="desk-grid"></div>
+          <div class="desk-dossier">
+            <span class="desk-label">Cenário</span>
+            <div class="desk-row"><span>Objetivo</span><b>Compra</b></div>
+            <div class="desk-row"><span>Prazo</span><b>12-36m</b></div>
+            <div class="desk-row"><span>Garantia</span><b>Análise</b></div>
+          </div>
 
-            <g class="insight-grid">
-              <path d="M60 114H462" />
-              <path d="M60 206H462" />
-              <path d="M60 298H462" />
-              <path d="M128 62V318" />
-              <path d="M260 62V318" />
-              <path d="M392 62V318" />
-            </g>
+          <div class="desk-orbit">
+            <div class="desk-seal">ZR</div>
+            <span class="orbit-dot dot-a"></span>
+            <span class="orbit-dot dot-b"></span>
+            <span class="orbit-dot dot-c"></span>
+          </div>
 
-            <g class="analysis-eye" filter="url(#softInk)">
-              <path class="insight-line eye-outline" d="M70 108C96 70 142 70 170 108C142 145 96 145 70 108Z" />
-              <circle class="insight-line eye-iris" cx="120" cy="108" r="18" />
-              <circle class="insight-dot eye-core" cx="120" cy="108" r="6" />
-              <path class="insight-line scan-line" d="M92 94H148" />
-              <path class="insight-line scan-line scan-line-2" d="M86 122H154" />
-            </g>
+          <div class="desk-routes">
+            <div class="route-option muted">
+              <span>Consórcio</span>
+              <i style="--route-size: 62%"></i>
+            </div>
+            <div class="route-option active">
+              <span>Crédito estruturado</span>
+              <i style="--route-size: 88%"></i>
+            </div>
+            <div class="route-option">
+              <span>Capital com garantia</span>
+              <i style="--route-size: 74%"></i>
+            </div>
+          </div>
 
-            <g class="strategy-map">
-              <path class="route-path insight-route" d="M178 148C220 102 264 130 258 178C253 222 318 232 344 192C372 149 414 158 452 118" />
-              <circle class="route-dot dot-1" cx="178" cy="148" r="7" />
-              <circle class="route-dot dot-2" cx="258" cy="178" r="7" />
-              <circle class="route-dot dot-3" cx="344" cy="192" r="7" />
-              <circle class="route-dot dot-4" cx="452" cy="118" r="7" />
-              <path class="insight-line map-flag" d="M452 118V84M452 84H486L474 98L486 112H452" />
-            </g>
-
-            <g class="outcome-assets" filter="url(#softInk)">
-              <g class="asset asset-house">
-                <path class="asset-line" d="M70 280L108 246L146 280" />
-                <path class="asset-line" d="M82 276V316H134V276" />
-                <path class="asset-line" d="M102 316V292H118V316" />
-              </g>
-              <g class="asset asset-car">
-                <path class="asset-line" d="M178 292L190 270H252L268 292" />
-                <path class="asset-line" d="M176 292H272V310H176Z" />
-                <circle class="asset-line" cx="198" cy="312" r="8" />
-                <circle class="asset-line" cx="250" cy="312" r="8" />
-              </g>
-              <g class="asset asset-moto">
-                <circle class="asset-line" cx="326" cy="310" r="11" />
-                <circle class="asset-line" cx="388" cy="310" r="11" />
-                <path class="asset-line" d="M326 310L354 284L376 310M354 284H384M350 284L340 264M384 284L396 268" />
-              </g>
-              <g class="asset asset-money">
-                <path class="asset-line" d="M414 310H478V284H414Z" />
-                <path class="asset-line" d="M406 298H470V272H406Z" />
-                <path class="asset-line" d="M398 286H462V260H398Z" />
-                <circle class="asset-line" cx="430" cy="273" r="7" />
-              </g>
-            </g>
-
-            <g class="route-node node-a" transform="translate(120 108)">
-              <circle r="24" />
-              <text y="5">01</text>
-            </g>
-            <g class="route-node node-b" transform="translate(258 178)">
-              <circle r="24" />
-              <text y="5">02</text>
-            </g>
-            <g class="route-node node-c" transform="translate(452 118)">
-              <circle r="24" />
-              <text y="5">03</text>
-            </g>
-            <g class="route-node node-d" transform="translate(430 273)">
-              <circle r="24" />
-              <text y="5">04</text>
-            </g>
-          </svg>
+          <div class="desk-stack">
+            <span class="stack-label">Estrutura indicada</span>
+            <div class="stack-sheet sheet-back"></div>
+            <div class="stack-sheet sheet-mid"></div>
+            <div class="stack-sheet sheet-front">
+              <span>Critério</span>
+              <b>Rota final</b>
+            </div>
+          </div>
         </div>
 
         <div class="route-legend">

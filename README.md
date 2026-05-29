@@ -10,6 +10,7 @@ Site premium da ZR Investimentos.
 - Dominio proprio: `zrinvestimentosltda.com`.
 - Base visual/copy aprovada em 2026-05-26.
 - Commit de referencia da base aprovada: `c656c8f`.
+- Atualizacao de hero em 2026-05-29: painel visual recriado como `Mesa de decisao ZR`, substituindo a rota/video anterior por uma composicao consultiva de cenario, rotas comparadas e estrutura indicada.
 - Captura de leads: formulario do site -> Google Apps Script -> Google Sheets + e-mail.
 - Notificacao de leads: `contato.eduardokeitel@gmail.com`.
 - WhatsApp oficial: `+55 54 9 9380-5657`.
@@ -37,7 +38,7 @@ A direcao aprovada combina:
 - logo simplificada no monograma `ZR`;
 - copy consultiva, sem promessa agressiva de credito;
 - headline principal `Seu proximo passo comeca aqui.`;
-- motion design discreto para reforcar clareza, rota e conducao.
+- motion design discreto para reforcar clareza, criterio, comparacao de rotas e conducao.
 
 Registro detalhado: `docs/10-base-aprovada-2026-05-26.md`.
 
