@@ -147,25 +147,40 @@
       </div>
     </div>
 
-    <section class="section signature-section">
+    <section id="sobre" class="section signature-section">
       <div class="signature-shell reveal">
         <div class="signature-visual" aria-hidden="true">
           <svg class="signature-svg" viewBox="0 0 620 430" role="presentation">
             <defs>
               <linearGradient id="signatureFrameInk" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0" stop-color="#161514" />
-                <stop offset="0.52" stop-color="#b58b34" />
-                <stop offset="1" stop-color="#211d18" />
+                <stop offset="0" stop-color="#171411" />
+                <stop offset="0.42" stop-color="#b58b34" />
+                <stop offset="1" stop-color="#191612" />
               </linearGradient>
               <linearGradient id="signatureInk" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#111111" />
-                <stop offset="1" stop-color="#2a241d" />
+                <stop offset="0" stop-color="#0f0e0d" />
+                <stop offset="0.55" stop-color="#191714" />
+                <stop offset="1" stop-color="#2b251c" />
               </linearGradient>
+              <linearGradient id="signatureGold" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#f3d98d" />
+                <stop offset="0.48" stop-color="#b58b34" />
+                <stop offset="1" stop-color="#7d5c1d" />
+              </linearGradient>
+              <filter id="signatureLift" x="-16%" y="-20%" width="132%" height="142%">
+                <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#241b10" flood-opacity="0.10" />
+              </filter>
             </defs>
-            <path class="signature-frame" d="M182 42H560V376H118V306H136V356H538V62H202V42Z" />
-            <path class="signature-accent" d="M138 158H320" />
-            <path class="signature-sweep" d="M118 306C139 306 147 292 156 270" />
-            <text class="signature-monogram" x="122" y="290">ZR</text>
+            <path class="signature-frame" d="M176 78H514V344H108V292" />
+            <path class="signature-accent" d="M176 78H514V344" />
+            <path class="signature-sweep" d="M108 292C138 292 149 272 158 246" />
+            <path class="signature-accent signature-rule-top" d="M172 104H312" />
+            <path class="signature-sweep signature-rule-bottom" d="M168 326H402" />
+            <g class="signature-monogram" filter="url(#signatureLift)">
+              <text class="signature-letter signature-letter-z" x="124" y="286">Z</text>
+              <text class="signature-letter signature-letter-r" x="266" y="286">R</text>
+              <path class="signature-mark" d="M264 207H310" />
+            </g>
           </svg>
         </div>
         <div class="signature-copy">

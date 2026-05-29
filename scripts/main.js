@@ -201,6 +201,7 @@ function initGsapMotion() {
   gsap.set(".decision-lane", { strokeDashoffset: 500 });
   gsap.set(".insight-route", { strokeDashoffset: 680 });
   gsap.set(".route-path:not(.insight-route)", { strokeDashoffset: 760 });
+  gsap.set(".signature-frame, .signature-accent, .signature-sweep", { strokeDashoffset: 900 });
   gsap.set(".insight-dot, .route-dot, .scenario-card, .comparison-matrix, .structure-stack", { autoAlpha: 0 });
   gsap.set(".desk-dossier, .desk-orbit, .route-option, .stack-label, .stack-sheet, .route-legend span", { autoAlpha: 0 });
   gsap.set(".route-option i", { scaleX: 0 });
@@ -428,6 +429,16 @@ function initForm() {
   });
 }
 
+function syncInitialHashScroll() {
+  if (!window.location.hash) return;
+  const target = document.querySelector(window.location.hash);
+  if (!target) return;
+
+  window.setTimeout(() => {
+    target.scrollIntoView({ block: "start" });
+  }, 120);
+}
+
 function init() {
   loadStylesheet("premium.css", "zr-premium-css");
   initAnalytics();
@@ -439,6 +450,7 @@ function init() {
   initForm();
   initPreloader(() => {
     initGsapMotion();
+    syncInitialHashScroll();
   });
 }
 
