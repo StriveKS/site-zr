@@ -102,6 +102,91 @@ function initParticles() {
   draw();
 }
 
+function initLivingBackground() {
+  const canvas = document.getElementById("livingCanvas");
+  if (!canvas || prefersReducedMotion()) return;
+
+  const ctx = canvas.getContext("2d");
+  const pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
+  let width = 0;
+  let height = 0;
+  let scrollTarget = 0;
+  let scrollSmooth = 0;
+
+  const points = Array.from({ length: 54 }, (_, index) => ({
+    x: Math.random(),
+    y: Math.random(),
+    lane: index % 7,
+    radius: index % 8 === 0 ? 1.65 : 1,
+    drift: Math.random() * 0.8 + 0.25
+  }));
+
+  function resize() {
+    const ratio = Math.min(window.devicePixelRatio || 1, 1.75);
+    width = canvas.width = Math.floor(window.innerWidth * ratio);
+    height = canvas.height = Math.floor(window.innerHeight * ratio);
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  }
+
+  function syncScroll() {
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    scrollTarget = window.scrollY / max;
+  }
+
+  function syncPointer(event) {
+    pointer.tx = event.clientX / Math.max(1, window.innerWidth);
+    pointer.ty = event.clientY / Math.max(1, window.innerHeight);
+  }
+
+  function draw(time = 0) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    pointer.x += (pointer.tx - pointer.x) * 0.045;
+    pointer.y += (pointer.ty - pointer.y) * 0.045;
+    scrollSmooth += (scrollTarget - scrollSmooth) * 0.055;
+
+    ctx.clearRect(0, 0, vw, vh);
+
+    points.forEach((point, index) => {
+      const phase = time * 0.000075 * point.drift + scrollSmooth * (1.1 + point.lane * 0.08);
+      const pointerPushX = (pointer.x - 0.5) * (18 + point.lane * 2);
+      const pointerPushY = (pointer.y - 0.5) * (14 + point.lane);
+      const x = point.x * vw + Math.sin(phase * 7 + index) * 18 + pointerPushX;
+      const y = ((point.y + scrollSmooth * 0.16 + Math.cos(phase * 5) * 0.012) % 1) * vh + pointerPushY;
+
+      ctx.beginPath();
+      ctx.arc(x, y, point.radius, 0, Math.PI * 2);
+      ctx.fillStyle = index % 6 === 0 ? "rgba(181,139,52,.28)" : "rgba(20,19,17,.08)";
+      ctx.fill();
+
+      const next = points[(index + 9) % points.length];
+      const nx = next.x * vw + Math.sin(phase * 4 + index) * 14 + pointerPushX * 0.7;
+      const ny = ((next.y + scrollSmooth * 0.14) % 1) * vh + pointerPushY * 0.7;
+      const distance = Math.hypot(nx - x, ny - y);
+
+      if (distance < 245) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(nx, ny);
+        ctx.strokeStyle = `rgba(181,139,52,${0.048 * (1 - distance / 245)})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    });
+
+    window.requestAnimationFrame(draw);
+  }
+
+  resize();
+  syncScroll();
+  window.addEventListener("resize", resize, { passive: true });
+  window.addEventListener("scroll", syncScroll, { passive: true });
+  window.addEventListener("mousemove", syncPointer, { passive: true });
+  window.requestAnimationFrame(draw);
+}
+
 function initRevealObserver() {
   const reveals = document.querySelectorAll(".reveal");
   const observer = new IntersectionObserver(
@@ -448,6 +533,7 @@ function syncInitialHashScroll() {
 
   window.setTimeout(() => {
     target.scrollIntoView({ block: "start" });
+    target.querySelectorAll(".reveal").forEach(element => element.classList.add("visible"));
   }, 120);
 }
 
@@ -455,6 +541,7 @@ function init() {
   loadStylesheet("premium.css", "zr-premium-css");
   initAnalytics();
   cloneMarqueeTrack();
+  initLivingBackground();
   initParticles();
   initRevealObserver();
   initHeaderState();

@@ -14,6 +14,7 @@ Site publicado, operacional e com base visual/copy aprovada em 2026-05-26.
 - Base aprovada: visual claro premium, logo ZR simplificada, hero tipografico refinado e copy consultiva.
 - Atualizacao em 2026-05-29: painel visual do hero recriado do zero como `Mesa de decisao ZR`, com leitura de cenario, comparacao de rotas e estrutura indicada.
 - Atualizacao em 2026-06-01: secoes `Metodo ZR` e `Como a operacao ganha forma` refinadas com visual de processo, camadas conectadas, microanimacoes e copy curta por etapa.
+- Atualizacao VivaScroll em 2026-06-01: fundo vivo global em canvas aplicado ao site real, reagindo a scroll e mouse, com mapa de rede refinado.
 
 ## Feito
 
@@ -62,10 +63,15 @@ Site publicado, operacional e com base visual/copy aprovada em 2026-05-26.
   - secao `Como a operacao ganha forma` corrigida para remover cards vazios/desalinhados;
   - cada camada da operacao agora traz descricao curta e conexao visual de progresso;
   - motion mantido em CSS/GSAP, com foco em clareza consultiva e nao em efeito gratuito.
+- Aplicacao VivaScroll em 2026-06-01:
+  - `livingCanvas` global adicionado como fundo vivo leve;
+  - movimento responde a scroll e mouse, respeitando `prefers-reduced-motion`;
+  - prototipo `prototypes/zr-vivascroll-prismic-test.html` e docs `11/12` usados como referencia;
+  - mapa `Bancos / Cooperativas / Consorcios / Garantias` refinado com aneis, trilhas, pulso e melhor acabamento premium.
 
 ## Proxima Frente Recomendada
 
-1. Revisar a secao de solucoes para aproximar o acabamento visual do hero, metodo e operacao.
+1. Revisar a secao de solucoes para aproximar o acabamento visual do hero, metodo, operacao e rede.
 2. Refinar formulario como experiencia de triagem consultiva.
 3. Configurar Search Console.
 4. Criar rotina de acompanhamento de leads e funil comercial.

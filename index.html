@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <canvas id="livingCanvas" class="living-background" aria-hidden="true"></canvas>
   <div id="preloader" aria-hidden="true">
     <img class="preloader-logo" src="assets/zr-logo-gold.svg" alt="" />
     <div class="preloader-line"></div>
@@ -381,11 +382,15 @@
           </div>
         </div>
         <div class="network-map" aria-hidden="true">
+          <span class="network-ring ring-one"></span>
+          <span class="network-ring ring-two"></span>
           <span class="network-node center">ZR</span>
           <span class="network-node n1">Bancos</span>
           <span class="network-node n2">Cooperativas</span>
           <span class="network-node n3">Consórcios</span>
           <span class="network-node n4">Garantias</span>
+          <span class="network-orbit-dot dot-one"></span>
+          <span class="network-orbit-dot dot-two"></span>
           <span class="network-line l1"></span>
           <span class="network-line l2"></span>
           <span class="network-line l3"></span>
