@@ -31,8 +31,8 @@ body {
   font-family: var(--font-body);
   color: var(--text);
   background:
-    radial-gradient(circle at 12% -4%, rgba(214, 181, 107, 0.18), transparent 28rem),
-    radial-gradient(circle at 92% 8%, rgba(181, 139, 52, 0.08), transparent 30rem),
+    radial-gradient(circle at 12% -4%, rgba(229, 188, 90, 0.24), transparent 30rem),
+    radial-gradient(circle at 92% 8%, rgba(196, 143, 43, 0.13), transparent 32rem),
     linear-gradient(180deg, #fbf8f3 0%, #f4f1eb 44%, #ece7de 100%);
   line-height: 1.5;
   overflow-x: hidden;
@@ -47,8 +47,8 @@ body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  opacity: 0.86;
-  mix-blend-mode: multiply;
+  opacity: 0.96;
+  mix-blend-mode: normal;
 }
 
 .living-background::selection { background: transparent; }
@@ -126,7 +126,7 @@ body::after {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(110deg, transparent 0%, rgba(181, 139, 52, 0.06) 48%, transparent 78%),
+    linear-gradient(110deg, transparent 0%, rgba(214, 170, 72, 0.1) 48%, transparent 78%),
     radial-gradient(circle at 50% 110%, rgba(255, 255, 255, 0.55), transparent 34rem);
 }
 

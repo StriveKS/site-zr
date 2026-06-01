@@ -116,18 +116,18 @@ function initLivingBackground() {
     velocity: 0,
     lastScroll: window.scrollY,
     mode: "territory",
-    intensity: 0.34,
-    density: 0.72,
+    intensity: 0.5,
+    density: 0.96,
     connection: 112,
     mouse: { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5, sx: window.innerWidth * 0.5, sy: window.innerHeight * 0.5, active: false }
   };
 
   const presets = {
-    territory: { intensity: 0.42, density: 0.84, connection: 116, hue: [202, 151, 52] },
-    analysis: { intensity: 0.56, density: 0.98, connection: 140, hue: [224, 184, 86] },
-    architecture: { intensity: 0.7, density: 1.08, connection: 164, hue: [196, 143, 43] },
-    network: { intensity: 0.76, density: 1.12, connection: 158, hue: [214, 170, 72] },
-    convergence: { intensity: 0.84, density: 1.04, connection: 184, hue: [232, 196, 112] }
+    territory: { intensity: 0.58, density: 1.08, connection: 128, hue: [209, 150, 38], accent: [247, 210, 126] },
+    analysis: { intensity: 0.72, density: 1.22, connection: 152, hue: [226, 178, 70], accent: [255, 226, 151] },
+    architecture: { intensity: 0.82, density: 1.3, connection: 176, hue: [199, 134, 30], accent: [240, 196, 104] },
+    network: { intensity: 0.88, density: 1.34, connection: 170, hue: [220, 165, 55], accent: [255, 218, 137] },
+    convergence: { intensity: 0.94, density: 1.24, connection: 196, hue: [235, 190, 86], accent: [255, 232, 166] }
   };
 
   let particles = [];
@@ -152,7 +152,7 @@ function initLivingBackground() {
     ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
 
     const mobile = state.w < 760;
-    maxParticles = mobile ? 68 : 118;
+    maxParticles = mobile ? 82 : 148;
     particles = Array.from({ length: maxParticles }, (_, index) => createParticle(index));
   }
 
@@ -163,10 +163,10 @@ function initLivingBackground() {
       y: Math.random() * state.h,
       vx: (Math.random() - 0.5) * 0.18,
       vy: (Math.random() - 0.5) * 0.18,
-      radius: 0.55 + Math.random() * 1.45,
+      radius: 0.75 + Math.random() * 1.85,
       depth,
       phase: Math.random() * Math.PI * 2,
-      life: 0.28 + Math.random() * 0.58,
+      life: 0.38 + Math.random() * 0.62,
       band: index % 5
     };
   }
@@ -211,6 +211,7 @@ function initLivingBackground() {
   function drawAtmosphere() {
     const preset = presets[state.mode];
     const [r, g, b] = preset.hue;
+    const [ar, ag, ab] = preset.accent;
     const gradient = ctx.createRadialGradient(
       state.w * (0.18 + state.progress * 0.28),
       state.h * 0.18,
@@ -220,9 +221,9 @@ function initLivingBackground() {
       Math.max(state.w, state.h) * 0.95
     );
 
-    gradient.addColorStop(0, `rgba(${r},${g},${b},${0.06 + state.intensity * 0.04})`);
-    gradient.addColorStop(0.46, "rgba(255,250,238,0.035)");
-    gradient.addColorStop(1, "rgba(244,241,235,0.09)");
+    gradient.addColorStop(0, `rgba(${ar},${ag},${ab},${0.09 + state.intensity * 0.06})`);
+    gradient.addColorStop(0.38, `rgba(${r},${g},${b},${0.045 + state.intensity * 0.035})`);
+    gradient.addColorStop(1, "rgba(244,241,235,0.02)");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, state.w, state.h);
   }
@@ -233,9 +234,9 @@ function initLivingBackground() {
 
     const gap = state.w < 760 ? 86 : 112;
     const offset = (time * 0.008 + state.progress * 170) % gap;
-    const alpha = state.mode === "architecture" ? 0.125 : 0.076;
+    const alpha = state.mode === "architecture" ? 0.17 : 0.11;
 
-    ctx.strokeStyle = `rgba(202,151,52,${alpha})`;
+    ctx.strokeStyle = `rgba(209,150,38,${alpha})`;
     ctx.lineWidth = 1;
 
     for (let x = -gap; x < state.w + gap; x += gap) {
@@ -261,6 +262,7 @@ function initLivingBackground() {
 
     const preset = presets[state.mode];
     const [r, g, b] = preset.hue;
+    const [ar, ag, ab] = preset.accent;
     const mouseRadius = 150 + state.intensity * 90;
     const scrollPush = clamp(Math.abs(state.velocity) * 0.002, 0, 0.72);
 
@@ -309,12 +311,14 @@ function initLivingBackground() {
       if (particle.y < -24) particle.y = state.h + 24;
       if (particle.y > state.h + 24) particle.y = -24;
 
-      const alpha = (0.13 + particle.life * 0.29) * state.density;
+      const particleColor = particle.band === 0 || particle.depth > 0.72 ? [ar, ag, ab] : [r, g, b];
+      const [pr, pg, pb] = particleColor;
+      const alpha = Math.min(0.72, (0.18 + particle.life * 0.34) * state.density);
       ctx.beginPath();
       ctx.arc(particle.x, particle.y, particle.radius * (1 + particle.depth * 1.35), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
-      ctx.shadowColor = `rgba(224,184,86,${0.12 + particle.depth * 0.12})`;
-      ctx.shadowBlur = 4 + particle.depth * 8;
+      ctx.fillStyle = `rgba(${pr},${pg},${pb},${alpha})`;
+      ctx.shadowColor = `rgba(${ar},${ag},${ab},${0.18 + particle.depth * 0.18})`;
+      ctx.shadowBlur = 7 + particle.depth * 14;
       ctx.fill();
       ctx.shadowBlur = 0;
     });
@@ -327,12 +331,12 @@ function initLivingBackground() {
         const distance = Math.hypot(first.x - second.x, first.y - second.y);
         if (distance >= state.connection) continue;
 
-        const alpha = (1 - distance / state.connection) * (0.06 + state.intensity * 0.074);
+        const alpha = (1 - distance / state.connection) * (0.085 + state.intensity * 0.1);
         ctx.beginPath();
         ctx.moveTo(first.x, first.y);
         ctx.lineTo(second.x, second.y);
         ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
-        ctx.lineWidth = 0.5 + (first.depth + second.depth) * 0.18;
+        ctx.lineWidth = 0.62 + (first.depth + second.depth) * 0.24;
         ctx.stroke();
       }
     }
