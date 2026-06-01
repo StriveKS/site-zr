@@ -1347,7 +1347,7 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 .method-stage {
   position: absolute;
   z-index: 3;
-  min-width: 116px;
+  min-width: 128px;
   padding: 0.62rem 0.72rem;
   border: 1px solid rgba(20, 19, 17, 0.1);
   background: rgba(255, 255, 255, 0.78);
@@ -1376,7 +1376,7 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 .method-stage-two { right: 9%; top: 18%; }
 .method-stage-three { left: 7%; top: 54%; }
 .method-stage-four { right: 8%; top: 58%; }
-.method-stage-five { left: 50%; bottom: 10%; translate: -50% 0; }
+.method-stage-five { left: 50%; bottom: 10%; min-width: 152px; translate: -50% 0; }
 
 .method-pulse {
   position: absolute;
@@ -1536,10 +1536,10 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
   line-height: 1.42;
 }
 
-.stage-one { transform: translateX(0); }
-.stage-two { transform: translateX(0.75rem); }
-.stage-three { transform: translateX(1.5rem); }
-.stage-four { transform: translateX(2.25rem); }
+.stage-one,
+.stage-two,
+.stage-three,
+.stage-four { transform: translateX(0); }
 
 @keyframes operationTrace {
   0%, 100% { transform: translateY(-18%); opacity: 0; }
