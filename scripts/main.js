@@ -221,9 +221,9 @@ function initLivingBackground() {
       Math.max(state.w, state.h) * 0.95
     );
 
-    gradient.addColorStop(0, `rgba(${ar},${ag},${ab},${0.09 + state.intensity * 0.06})`);
-    gradient.addColorStop(0.38, `rgba(${r},${g},${b},${0.045 + state.intensity * 0.035})`);
-    gradient.addColorStop(1, "rgba(244,241,235,0.02)");
+    gradient.addColorStop(0, `rgba(${ar},${ag},${ab},${0.028 + state.intensity * 0.024})`);
+    gradient.addColorStop(0.38, `rgba(${r},${g},${b},${0.014 + state.intensity * 0.016})`);
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, state.w, state.h);
   }
