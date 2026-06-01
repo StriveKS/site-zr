@@ -183,7 +183,7 @@ function initGsapMotion() {
     document.querySelectorAll(".insight-line, .asset-line, .decision-lane").forEach(path => {
       path.style.strokeDashoffset = "0";
     });
-    document.querySelectorAll(".route-node, .signature-monogram, .insight-dot, .route-dot, .scenario-card, .comparison-matrix, .structure-stack, .desk-dossier, .desk-orbit, .route-option, .stack-sheet, .route-legend span").forEach(node => {
+    document.querySelectorAll(".route-node, .signature-monogram, .insight-dot, .route-dot, .scenario-card, .comparison-matrix, .structure-stack, .desk-dossier, .desk-orbit, .route-option, .stack-sheet, .route-legend span, .method-stage, .method-pulse").forEach(node => {
       node.style.opacity = "1";
       node.style.transform = "none";
     });
@@ -206,6 +206,8 @@ function initGsapMotion() {
   gsap.set(".desk-dossier, .desk-orbit, .route-option, .stack-label, .stack-sheet, .route-legend span", { autoAlpha: 0 });
   gsap.set(".route-option i", { scaleX: 0 });
   gsap.set(".orbit-dot", { scale: 0, autoAlpha: 0 });
+  gsap.set(".method-stage", { autoAlpha: 0, y: 18, scale: 0.96 });
+  gsap.set(".method-pulse", { autoAlpha: 0, scale: 0.6 });
 
   const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
   intro
@@ -268,6 +270,16 @@ function initGsapMotion() {
     yoyo: true,
     ease: "sine.inOut"
   });
+
+  const methodTimeline = gsap.timeline({
+    scrollTrigger: ScrollTrigger ? { trigger: ".method-visual", start: "top 78%" } : undefined,
+    defaults: { ease: "power3.out" }
+  });
+  methodTimeline
+    .fromTo(".method-flow", { autoAlpha: 0, scale: 0.92 }, { autoAlpha: 1, scale: 1, duration: 0.7 }, 0)
+    .fromTo(".method-core", { autoAlpha: 0, scale: 0.86 }, { autoAlpha: 1, scale: 1, duration: 0.64 }, 0.1)
+    .to(".method-stage", { autoAlpha: 1, y: 0, scale: 1, duration: 0.48, stagger: 0.12 }, 0.32)
+    .to(".method-pulse", { autoAlpha: 1, scale: 1, duration: 0.32, stagger: 0.16 }, 0.76);
 
   gsap.to(".network-node:not(.center)", {
     y: -5,
