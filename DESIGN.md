@@ -80,6 +80,8 @@ Direcao historica ainda valida para futuras secoes, se necessario:
 - Linha dourada desenhando uma rota.
 - Mapa de decisao com nos conectados.
 - Mesa de decisao com cenario, rotas comparadas e estrutura indicada.
+- Diagrama de metodo com nucleo ZR e etapas conectadas.
+- Camadas de operacao com progresso visual e descricao curta.
 - Cards comparativos entrando em stagger.
 - Numeros e provas com contagem sutil.
 - Logo com reveal vetorial.

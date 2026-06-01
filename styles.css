@@ -1439,25 +1439,61 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 }
 
 .operation-layers {
+  position: relative;
   padding: clamp(1.1rem, 3vw, 1.5rem);
   border: 1px solid rgba(20, 19, 17, 0.08);
   border-radius: 28px;
   background:
-    radial-gradient(circle at 18% 14%, rgba(181, 139, 52, 0.08), transparent 20rem),
+    radial-gradient(circle at 18% 14%, rgba(181, 139, 52, 0.1), transparent 20rem),
+    linear-gradient(rgba(20, 19, 17, 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 19, 17, 0.026) 1px, transparent 1px),
     linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 241, 234, 0.84));
+  background-size: auto, 44px 44px, 44px 44px, auto;
   box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.operation-layers::before {
+  content: "";
+  position: absolute;
+  left: clamp(2.2rem, 4vw, 3rem);
+  top: 3rem;
+  bottom: 3rem;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(181, 139, 52, 0.45), transparent);
+}
+
+.operation-layers::after {
+  content: "";
+  position: absolute;
+  left: clamp(2.2rem, 4vw, 3rem);
+  top: 3rem;
+  width: 1px;
+  height: 36%;
+  background: linear-gradient(transparent, var(--gold), transparent);
+  animation: operationTrace 5.8s ease-in-out infinite;
 }
 
 .operation-stage {
   position: relative;
+  z-index: 1;
   display: grid;
-  gap: 0.45rem;
-  min-height: 118px;
-  padding: 1.15rem 1.15rem 1.15rem 4.4rem;
-  border: 1px solid rgba(20, 19, 17, 0.08);
+  gap: 0.36rem;
+  min-height: 104px;
+  padding: 1rem 1.1rem 1rem 4.25rem;
+  border: 1px solid rgba(20, 19, 17, 0.09);
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 18px 38px rgba(42, 35, 26, 0.055);
   overflow: hidden;
+  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+}
+
+.operation-stage:hover {
+  transform: translateX(0.35rem);
+  border-color: rgba(181, 139, 52, 0.28);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 22px 44px rgba(42, 35, 26, 0.075);
 }
 
 .operation-stage::after {
@@ -1471,30 +1507,45 @@ h3 { font-family: var(--font-body); font-size: clamp(1.1rem, 1.35vw, 1.35rem); l
 .operation-stage span {
   position: absolute;
   left: 1.15rem;
-  top: 1.1rem;
+  top: 1rem;
   display: grid;
   place-items: center;
   width: 2.25rem;
   height: 2.25rem;
-  border: 1px solid rgba(20, 19, 17, 0.1);
+  border: 1px solid rgba(181, 139, 52, 0.24);
   border-radius: 999px;
-  color: var(--gold-light);
+  color: var(--gold);
   background: rgba(255, 255, 255, 0.94);
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.08em;
+  box-shadow: 0 0 0 7px rgba(181, 139, 52, 0.055);
 }
 
 .operation-stage strong {
-  max-width: 14ch;
+  max-width: 18ch;
   font-size: 1.06rem;
   line-height: 1.15;
 }
 
+.operation-stage p {
+  max-width: 32ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.42;
+}
+
 .stage-one { transform: translateX(0); }
-.stage-two { transform: translateX(1.1rem); }
-.stage-three { transform: translateX(2.2rem); }
-.stage-four { transform: translateX(3.3rem); }
+.stage-two { transform: translateX(0.75rem); }
+.stage-three { transform: translateX(1.5rem); }
+.stage-four { transform: translateX(2.25rem); }
+
+@keyframes operationTrace {
+  0%, 100% { transform: translateY(-18%); opacity: 0; }
+  18%, 72% { opacity: 0.82; }
+  52% { transform: translateY(86%); }
+}
 
 .operation-notes article,
 .faq-item {
@@ -1883,11 +1934,19 @@ textarea { resize: vertical; }
   .situation-card, .solution-card { min-height: auto; }
   .steps > div { padding-left: 3.75rem; }
   .operation-layers { padding: 0.9rem; }
+  .operation-layers::before,
+  .operation-layers::after {
+    left: 2rem;
+  }
   .operation-stage {
-    min-height: 106px;
+    min-height: auto;
     padding: 1rem 1rem 1rem 3.85rem;
   }
   .operation-stage strong { max-width: 100%; }
+  .operation-stage p {
+    max-width: 100%;
+    font-size: 0.88rem;
+  }
   .operation-notes article,
   .faq-item { padding: 1.05rem; }
   .form-submit { justify-self: stretch; }
