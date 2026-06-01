@@ -145,18 +145,18 @@ button, input, select, textarea { font: inherit; }
   gap: 1.2rem;
   padding: 0.9rem clamp(1rem, 4vw, 4rem);
   background:
-    linear-gradient(180deg, rgba(255, 247, 222, 0.92), rgba(231, 197, 118, 0.42)),
-    rgba(255, 255, 255, 0.78);
-  border-bottom: 1px solid rgba(181, 139, 52, 0.22);
+    radial-gradient(circle at 50% 0%, rgba(255, 240, 179, 0.62), transparent 42%),
+    linear-gradient(180deg, rgba(242, 203, 107, 0.94), rgba(195, 139, 32, 0.72));
+  border-bottom: 1px solid rgba(134, 100, 31, 0.34);
   backdrop-filter: blur(22px) saturate(120%);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.82), 0 16px 40px rgba(120, 88, 28, 0.08);
+  box-shadow: 0 1px 0 rgba(255, 248, 218, 0.54), 0 16px 40px rgba(120, 88, 28, 0.12);
 }
 
 .site-header.is-scrolled {
   background:
-    linear-gradient(180deg, rgba(255, 248, 228, 0.96), rgba(223, 184, 93, 0.5)),
-    rgba(255, 255, 255, 0.88);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.88), 0 18px 42px rgba(120, 88, 28, 0.1);
+    radial-gradient(circle at 50% 0%, rgba(255, 238, 170, 0.56), transparent 44%),
+    linear-gradient(180deg, rgba(232, 190, 85, 0.96), rgba(181, 126, 28, 0.76));
+  box-shadow: 0 1px 0 rgba(255, 248, 218, 0.58), 0 18px 42px rgba(120, 88, 28, 0.14);
 }
 
 .brand { display: flex; align-items: center; min-width: 96px; }
