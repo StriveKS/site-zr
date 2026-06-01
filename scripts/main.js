@@ -123,11 +123,11 @@ function initLivingBackground() {
   };
 
   const presets = {
-    territory: { intensity: 0.34, density: 0.68, connection: 108, hue: [181, 139, 52] },
-    analysis: { intensity: 0.48, density: 0.82, connection: 132, hue: [214, 181, 107] },
-    architecture: { intensity: 0.62, density: 0.94, connection: 156, hue: [181, 139, 52] },
-    network: { intensity: 0.72, density: 1.02, connection: 148, hue: [135, 126, 112] },
-    convergence: { intensity: 0.78, density: 0.92, connection: 176, hue: [214, 181, 107] }
+    territory: { intensity: 0.42, density: 0.84, connection: 116, hue: [202, 151, 52] },
+    analysis: { intensity: 0.56, density: 0.98, connection: 140, hue: [224, 184, 86] },
+    architecture: { intensity: 0.7, density: 1.08, connection: 164, hue: [196, 143, 43] },
+    network: { intensity: 0.76, density: 1.12, connection: 158, hue: [214, 170, 72] },
+    convergence: { intensity: 0.84, density: 1.04, connection: 184, hue: [232, 196, 112] }
   };
 
   let particles = [];
@@ -220,9 +220,9 @@ function initLivingBackground() {
       Math.max(state.w, state.h) * 0.95
     );
 
-    gradient.addColorStop(0, `rgba(${r},${g},${b},${0.035 + state.intensity * 0.03})`);
-    gradient.addColorStop(0.46, "rgba(255,255,255,0.02)");
-    gradient.addColorStop(1, "rgba(244,241,235,0.08)");
+    gradient.addColorStop(0, `rgba(${r},${g},${b},${0.06 + state.intensity * 0.04})`);
+    gradient.addColorStop(0.46, "rgba(255,250,238,0.035)");
+    gradient.addColorStop(1, "rgba(244,241,235,0.09)");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, state.w, state.h);
   }
@@ -233,9 +233,9 @@ function initLivingBackground() {
 
     const gap = state.w < 760 ? 86 : 112;
     const offset = (time * 0.008 + state.progress * 170) % gap;
-    const alpha = state.mode === "architecture" ? 0.085 : 0.052;
+    const alpha = state.mode === "architecture" ? 0.125 : 0.076;
 
-    ctx.strokeStyle = `rgba(181,139,52,${alpha})`;
+    ctx.strokeStyle = `rgba(202,151,52,${alpha})`;
     ctx.lineWidth = 1;
 
     for (let x = -gap; x < state.w + gap; x += gap) {
@@ -309,11 +309,14 @@ function initLivingBackground() {
       if (particle.y < -24) particle.y = state.h + 24;
       if (particle.y > state.h + 24) particle.y = -24;
 
-      const alpha = (0.08 + particle.life * 0.22) * state.density;
+      const alpha = (0.13 + particle.life * 0.29) * state.density;
       ctx.beginPath();
       ctx.arc(particle.x, particle.y, particle.radius * (1 + particle.depth * 1.35), 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+      ctx.shadowColor = `rgba(224,184,86,${0.12 + particle.depth * 0.12})`;
+      ctx.shadowBlur = 4 + particle.depth * 8;
       ctx.fill();
+      ctx.shadowBlur = 0;
     });
 
     const step = state.w < 760 ? 2 : 1;
@@ -324,7 +327,7 @@ function initLivingBackground() {
         const distance = Math.hypot(first.x - second.x, first.y - second.y);
         if (distance >= state.connection) continue;
 
-        const alpha = (1 - distance / state.connection) * (0.035 + state.intensity * 0.052);
+        const alpha = (1 - distance / state.connection) * (0.06 + state.intensity * 0.074);
         ctx.beginPath();
         ctx.moveTo(first.x, first.y);
         ctx.lineTo(second.x, second.y);
