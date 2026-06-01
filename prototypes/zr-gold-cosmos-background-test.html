@@ -266,7 +266,7 @@
       <div>
         <p class="eyebrow">Protótipo visual</p>
         <h1>Fundo vivo em <span>cosmos dourado.</span></h1>
-        <p class="lead">As bolinhas deixam de parecer particulas soltas e passam a formar galaxias distantes: aglomerados, bracos orbitais e pequenas constelacoes em dourado.</p>
+        <p class="lead">As bolinhas deixam de parecer particulas soltas e passam a formar galaxias distantes: aglomerados, bracos orbitais, constelacoes, cometas e estrelas cadentes em dourado.</p>
       </div>
 
       <aside class="panel">
@@ -285,7 +285,7 @@
       <div class="section-inner">
         <p class="eyebrow">Visao distante</p>
         <h2>Galaxias como textura de estrategia.</h2>
-        <p>A composicao tenta transmitir profundidade e movimento de longo alcance: nao e espaco literal, e uma leitura visual de rotas, gravidade, conexao e convergencia.</p>
+        <p>A composicao tenta transmitir profundidade e movimento de longo alcance: nao e espaco literal, e uma leitura visual de rotas, gravidade, conexao, convergencia e forcas invisiveis ao redor da decisao.</p>
       </div>
     </section>
   </main>
@@ -319,6 +319,9 @@
 
     let galaxies = [];
     let fieldStars = [];
+    let constellations = [];
+    let comets = [];
+    let vortices = [];
 
     function lerp(a, b, t) {
       return a + (b - a) * t;
@@ -347,10 +350,11 @@
         const arms = 3 + Math.floor(Math.random() * 3);
         const tilt = -0.55 + Math.random() * 1.1;
         const spin = (Math.random() > 0.5 ? 1 : -1) * (0.000018 + Math.random() * 0.000026);
-        const stars = Array.from({ length: state.w < 760 ? 52 : 92 }, (_, starIndex) => {
+        const stars = Array.from({ length: state.w < 760 ? 64 : 118 }, (_, starIndex) => {
           const arm = starIndex % arms;
           const distance = Math.pow(Math.random(), 0.72) * radius;
-          const angle = (arm / arms) * Math.PI * 2 + distance * 0.035 + (Math.random() - 0.5) * 0.92;
+          const wobble = Math.sin(distance * 0.017 + index) * 0.36;
+          const angle = (arm / arms) * Math.PI * 2 + distance * 0.035 + wobble + (Math.random() - 0.5) * 1.18;
           return {
             distance,
             angle,
@@ -364,13 +368,51 @@
         return { x, y, radius, arms, tilt, spin, band, stars };
       });
 
-      fieldStars = Array.from({ length: state.w < 760 ? 90 : 160 }, () => ({
+      fieldStars = Array.from({ length: state.w < 760 ? 130 : 230 }, () => ({
         x: Math.random() * state.w,
         y: Math.random() * state.h,
         size: 0.35 + Math.random() * 1.35,
-        alpha: 0.16 + Math.random() * 0.34,
+        alpha: 0.12 + Math.random() * 0.42,
+        depth: 0.25 + Math.random() * 1.2,
         drift: Math.random() * Math.PI * 2
       }));
+
+      constellations = Array.from({ length: state.w < 760 ? 4 : 7 }, () => {
+        const x = Math.random() * state.w;
+        const y = Math.random() * state.h;
+        const points = Array.from({ length: 4 + Math.floor(Math.random() * 4) }, (_, pointIndex) => ({
+          x: x + (Math.random() - 0.5) * (state.w < 760 ? 150 : 250),
+          y: y + (Math.random() - 0.5) * (state.w < 760 ? 110 : 190),
+          phase: pointIndex * 0.9 + Math.random() * 2
+        }));
+        return { points, alpha: 0.08 + Math.random() * 0.08 };
+      });
+
+      comets = Array.from({ length: state.w < 760 ? 3 : 5 }, (_, index) => createComet(index));
+
+      vortices = Array.from({ length: state.w < 760 ? 2 : 3 }, (_, index) => ({
+        x: state.w * (0.18 + Math.random() * 0.64),
+        y: state.h * (0.18 + Math.random() * 0.64),
+        radius: (state.w < 760 ? 58 : 82) + Math.random() * (state.w < 760 ? 42 : 78),
+        spin: (Math.random() > 0.5 ? 1 : -1) * (0.00005 + Math.random() * 0.00004),
+        rings: 3 + Math.floor(Math.random() * 3),
+        phase: index * 2 + Math.random() * 4
+      }));
+    }
+
+    function createComet(index) {
+      const fromLeft = Math.random() > 0.5;
+      const speed = 0.22 + Math.random() * 0.42;
+      return {
+        x: fromLeft ? -state.w * (0.15 + Math.random() * 0.8) : state.w * (1.15 + Math.random() * 0.8),
+        y: Math.random() * state.h,
+        vx: (fromLeft ? 1 : -1) * speed,
+        vy: (Math.random() - 0.5) * 0.18 + 0.04,
+        length: (state.w < 760 ? 70 : 120) + Math.random() * (state.w < 760 ? 80 : 160),
+        size: 1.1 + Math.random() * 1.8,
+        alpha: 0.22 + Math.random() * 0.28,
+        delay: index * 1200 + Math.random() * 4200
+      };
     }
 
     function syncScroll() {
@@ -432,13 +474,104 @@
       }
     }
 
+    function drawVortices(time) {
+      vortices.forEach(vortex => {
+        const orbit = time * vortex.spin + state.progress * 0.7 + vortex.phase;
+        const centerPulse = Math.sin(time * 0.0003 + vortex.phase) * 0.5 + 0.5;
+
+        for (let ring = 0; ring < vortex.rings; ring++) {
+          ctx.beginPath();
+          const radius = vortex.radius * (0.45 + ring * 0.2);
+          const start = orbit + ring * 0.54;
+          const end = start + Math.PI * (1.1 + ring * 0.18);
+          ctx.ellipse(vortex.x, vortex.y, radius, radius * 0.26, orbit * 0.7 + ring * 0.28, start, end);
+          ctx.strokeStyle = `rgba(${gold.deep.join(",")},${0.045 + ring * 0.012})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        const gradient = ctx.createRadialGradient(vortex.x, vortex.y, 0, vortex.x, vortex.y, vortex.radius * 0.62);
+        gradient.addColorStop(0, `rgba(${gold.deep.join(",")},${0.05 + centerPulse * 0.02})`);
+        gradient.addColorStop(0.32, "rgba(255,255,255,0.82)");
+        gradient.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(vortex.x, vortex.y, vortex.radius * 0.62, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    function drawConstellations(time) {
+      constellations.forEach(constellation => {
+        ctx.beginPath();
+        constellation.points.forEach((point, index) => {
+          const x = point.x + Math.sin(time * 0.00008 + point.phase) * 8;
+          const y = point.y + Math.cos(time * 0.00007 + point.phase) * 6;
+          if (index === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.strokeStyle = `rgba(${gold.core.join(",")},${constellation.alpha})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+
+        constellation.points.forEach(point => {
+          const x = point.x + Math.sin(time * 0.00008 + point.phase) * 8;
+          const y = point.y + Math.cos(time * 0.00007 + point.phase) * 6;
+          ctx.beginPath();
+          ctx.arc(x, y, 1.2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${gold.light.join(",")},0.42)`;
+          ctx.fill();
+        });
+      });
+    }
+
+    function drawComets(time) {
+      comets.forEach((comet, index) => {
+        if (time < comet.delay) return;
+
+        comet.x += comet.vx * (1 + state.progress * 0.3);
+        comet.y += comet.vy;
+
+        const angle = Math.atan2(comet.vy, comet.vx);
+        const tailX = comet.x - Math.cos(angle) * comet.length;
+        const tailY = comet.y - Math.sin(angle) * comet.length;
+        const gradient = ctx.createLinearGradient(comet.x, comet.y, tailX, tailY);
+        gradient.addColorStop(0, `rgba(${gold.pale.join(",")},${comet.alpha})`);
+        gradient.addColorStop(0.2, `rgba(${gold.light.join(",")},${comet.alpha * 0.58})`);
+        gradient.addColorStop(1, "rgba(255,255,255,0)");
+
+        ctx.beginPath();
+        ctx.moveTo(comet.x, comet.y);
+        ctx.lineTo(tailX, tailY);
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = comet.size;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(comet.x, comet.y, comet.size * 1.25, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${gold.pale.join(",")},${Math.min(0.78, comet.alpha + 0.2)})`;
+        ctx.shadowColor = `rgba(${gold.light.join(",")},0.44)`;
+        ctx.shadowBlur = 16;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        const outRight = comet.vx > 0 && comet.x > state.w + comet.length;
+        const outLeft = comet.vx < 0 && comet.x < -comet.length;
+        const outBottom = comet.y > state.h + comet.length;
+        if (outRight || outLeft || outBottom) {
+          comets[index] = createComet(index);
+          comets[index].delay = time + 1500 + Math.random() * 5000;
+        }
+      });
+    }
+
     function drawField(time) {
       fieldStars.forEach(star => {
-        const x = star.x + Math.sin(time * 0.00006 + star.drift) * 8 + state.progress * 14;
-        const y = star.y + Math.cos(time * 0.00007 + star.drift) * 6;
+        const x = star.x + Math.sin(time * 0.00006 + star.drift) * 8 * star.depth + state.progress * 18 * star.depth;
+        const y = star.y + Math.cos(time * 0.00007 + star.drift) * 6 * star.depth;
         ctx.beginPath();
-        ctx.arc((x + state.w) % state.w, y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${gold.core.join(",")},${star.alpha})`;
+        ctx.arc((x + state.w) % state.w, y, star.size * star.depth, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${star.depth > 0.95 ? gold.light.join(",") : gold.core.join(",")},${star.alpha})`;
         ctx.fill();
       });
     }
@@ -450,7 +583,10 @@
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, state.w, state.h);
       drawField(time);
+      drawConstellations(time);
+      drawVortices(time);
       galaxies.forEach(galaxy => drawGalaxy(galaxy, time));
+      drawComets(time);
 
       if (!reducedMotion) window.requestAnimationFrame(render);
     }
