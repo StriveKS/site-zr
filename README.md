@@ -12,7 +12,7 @@ Site premium da ZR Investimentos.
 - Commit de referencia da base aprovada: `c656c8f`.
 - Atualizacao de hero em 2026-05-29: painel visual recriado como `Mesa de decisao ZR`, substituindo a rota/video anterior por uma composicao consultiva de cenario, rotas comparadas e estrutura indicada.
 - Atualizacao de fluxo em 2026-06-01: secoes `Metodo ZR` e `Como a operacao ganha forma` refinadas com visual de processo, camadas conectadas e microanimacoes coerentes.
-- Atualizacao VivaScroll em 2026-06-01: fundo vivo global em canvas aplicado ao site real, reagindo a scroll e mouse, com mapa de rede visualmente refinado.
+- Atualizacao VivaScroll em 2026-06-01: fundo vivo global em canvas aplicado ao site real, adaptado do beta local `zr-vivascroll-beta.html`, reagindo a scroll e mouse, com mapa de rede visualmente refinado.
 - Captura de leads: formulario do site -> Google Apps Script -> Google Sheets + e-mail.
 - Notificacao de leads: `contato.eduardokeitel@gmail.com`.
 - WhatsApp oficial: `+55 54 9 9380-5657`.

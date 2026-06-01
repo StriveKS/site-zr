@@ -107,83 +107,250 @@ function initLivingBackground() {
   if (!canvas || prefersReducedMotion()) return;
 
   const ctx = canvas.getContext("2d");
-  const pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
-  let width = 0;
-  let height = 0;
-  let scrollTarget = 0;
-  let scrollSmooth = 0;
+  const state = {
+    w: 0,
+    h: 0,
+    dpr: 1,
+    progress: 0,
+    scroll: 0,
+    velocity: 0,
+    lastScroll: window.scrollY,
+    mode: "territory",
+    intensity: 0.34,
+    density: 0.72,
+    connection: 112,
+    mouse: { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5, sx: window.innerWidth * 0.5, sy: window.innerHeight * 0.5, active: false }
+  };
 
-  const points = Array.from({ length: 54 }, (_, index) => ({
-    x: Math.random(),
-    y: Math.random(),
-    lane: index % 7,
-    radius: index % 8 === 0 ? 1.65 : 1,
-    drift: Math.random() * 0.8 + 0.25
-  }));
+  const presets = {
+    territory: { intensity: 0.34, density: 0.68, connection: 108, hue: [181, 139, 52] },
+    analysis: { intensity: 0.48, density: 0.82, connection: 132, hue: [214, 181, 107] },
+    architecture: { intensity: 0.62, density: 0.94, connection: 156, hue: [181, 139, 52] },
+    network: { intensity: 0.72, density: 1.02, connection: 148, hue: [135, 126, 112] },
+    convergence: { intensity: 0.78, density: 0.92, connection: 176, hue: [214, 181, 107] }
+  };
+
+  let particles = [];
+  let maxParticles = 0;
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
+  function hashNoise(x, y, t) {
+    const value = Math.sin(x * 12.9898 + y * 78.233 + t * 0.00008) * 43758.5453;
+    return value - Math.floor(value);
+  }
 
   function resize() {
-    const ratio = Math.min(window.devicePixelRatio || 1, 1.75);
-    width = canvas.width = Math.floor(window.innerWidth * ratio);
-    height = canvas.height = Math.floor(window.innerHeight * ratio);
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    state.w = window.innerWidth;
+    state.h = window.innerHeight;
+    state.dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+    canvas.width = Math.floor(state.w * state.dpr);
+    canvas.height = Math.floor(state.h * state.dpr);
+    canvas.style.width = `${state.w}px`;
+    canvas.style.height = `${state.h}px`;
+    ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+
+    const mobile = state.w < 760;
+    maxParticles = mobile ? 68 : 118;
+    particles = Array.from({ length: maxParticles }, (_, index) => createParticle(index));
   }
 
-  function syncScroll() {
-    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    scrollTarget = window.scrollY / max;
+  function createParticle(index) {
+    const depth = Math.random();
+    return {
+      x: Math.random() * state.w,
+      y: Math.random() * state.h,
+      vx: (Math.random() - 0.5) * 0.18,
+      vy: (Math.random() - 0.5) * 0.18,
+      radius: 0.55 + Math.random() * 1.45,
+      depth,
+      phase: Math.random() * Math.PI * 2,
+      life: 0.28 + Math.random() * 0.58,
+      band: index % 5
+    };
   }
 
-  function syncPointer(event) {
-    pointer.tx = event.clientX / Math.max(1, window.innerWidth);
-    pointer.ty = event.clientY / Math.max(1, window.innerHeight);
+  function getMode() {
+    const y = window.scrollY + state.h * 0.52;
+    const map = [
+      ["diagnostico", "convergence"],
+      ["estrutura", "network"],
+      ["solucoes", "network"],
+      ["metodo", "architecture"],
+      ["quando", "analysis"],
+      ["inicio", "territory"]
+    ];
+
+    for (const [id, mode] of map) {
+      const section = document.getElementById(id);
+      if (!section) continue;
+      const top = section.offsetTop;
+      const bottom = top + section.offsetHeight;
+      if (y >= top && y < bottom) return mode;
+    }
+
+    return "territory";
+  }
+
+  function updateState() {
+    const docHeight = Math.max(1, document.documentElement.scrollHeight - state.h);
+    state.progress = clamp(window.scrollY / docHeight, 0, 1);
+    state.velocity = lerp(state.velocity, window.scrollY - state.lastScroll, 0.1);
+    state.lastScroll = window.scrollY;
+    state.mode = getMode();
+
+    const preset = presets[state.mode];
+    state.intensity = lerp(state.intensity, preset.intensity, 0.035);
+    state.density = lerp(state.density, preset.density, 0.035);
+    state.connection = lerp(state.connection, preset.connection, 0.035);
+    state.mouse.sx = lerp(state.mouse.sx, state.mouse.x, 0.08);
+    state.mouse.sy = lerp(state.mouse.sy, state.mouse.y, 0.08);
+  }
+
+  function drawAtmosphere() {
+    const preset = presets[state.mode];
+    const [r, g, b] = preset.hue;
+    const gradient = ctx.createRadialGradient(
+      state.w * (0.18 + state.progress * 0.28),
+      state.h * 0.18,
+      0,
+      state.w * 0.5,
+      state.h * 0.5,
+      Math.max(state.w, state.h) * 0.95
+    );
+
+    gradient.addColorStop(0, `rgba(${r},${g},${b},${0.035 + state.intensity * 0.03})`);
+    gradient.addColorStop(0.46, "rgba(255,255,255,0.02)");
+    gradient.addColorStop(1, "rgba(244,241,235,0.08)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, state.w, state.h);
+  }
+
+  function drawArchitectureLines(time) {
+    const shouldDraw = state.mode === "architecture" || state.mode === "network" || state.mode === "convergence";
+    if (!shouldDraw) return;
+
+    const gap = state.w < 760 ? 86 : 112;
+    const offset = (time * 0.008 + state.progress * 170) % gap;
+    const alpha = state.mode === "architecture" ? 0.085 : 0.052;
+
+    ctx.strokeStyle = `rgba(181,139,52,${alpha})`;
+    ctx.lineWidth = 1;
+
+    for (let x = -gap; x < state.w + gap; x += gap) {
+      ctx.beginPath();
+      ctx.moveTo(x + offset, -20);
+      ctx.lineTo(x - offset * 0.28, state.h + 20);
+      ctx.stroke();
+    }
+
+    for (let y = -gap; y < state.h + gap; y += gap) {
+      ctx.beginPath();
+      ctx.moveTo(-20, y - offset);
+      ctx.lineTo(state.w + 20, y + offset * 0.22);
+      ctx.stroke();
+    }
   }
 
   function draw(time = 0) {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    pointer.x += (pointer.tx - pointer.x) * 0.045;
-    pointer.y += (pointer.ty - pointer.y) * 0.045;
-    scrollSmooth += (scrollTarget - scrollSmooth) * 0.055;
+    updateState();
+    ctx.clearRect(0, 0, state.w, state.h);
+    drawAtmosphere();
+    drawArchitectureLines(time);
 
-    ctx.clearRect(0, 0, vw, vh);
+    const preset = presets[state.mode];
+    const [r, g, b] = preset.hue;
+    const mouseRadius = 150 + state.intensity * 90;
+    const scrollPush = clamp(Math.abs(state.velocity) * 0.002, 0, 0.72);
 
-    points.forEach((point, index) => {
-      const phase = time * 0.000075 * point.drift + scrollSmooth * (1.1 + point.lane * 0.08);
-      const pointerPushX = (pointer.x - 0.5) * (18 + point.lane * 2);
-      const pointerPushY = (pointer.y - 0.5) * (14 + point.lane);
-      const x = point.x * vw + Math.sin(phase * 7 + index) * 18 + pointerPushX;
-      const y = ((point.y + scrollSmooth * 0.16 + Math.cos(phase * 5) * 0.012) % 1) * vh + pointerPushY;
+    particles.forEach(particle => {
+      let angle = hashNoise(particle.x * 0.004, particle.y * 0.004, time + particle.phase) * Math.PI * 2;
+      angle += Math.sin(time * 0.00024 + particle.phase) * 0.55;
 
+      if (state.mode === "architecture") {
+        const gridX = Math.round(particle.x / 78) * 78;
+        const gridY = Math.round(particle.y / 78) * 78;
+        particle.vx += (gridX - particle.x) * 0.00007;
+        particle.vy += (gridY - particle.y) * 0.00007;
+      }
+
+      if (state.mode === "convergence") {
+        const centerX = state.w * 0.5;
+        const centerY = state.h * 0.5;
+        particle.vx += (centerX - particle.x) * 0.00003 * (1 + particle.depth);
+        particle.vy += (centerY - particle.y) * 0.00003 * (1 + particle.depth);
+      }
+
+      particle.vx += Math.cos(angle) * 0.014 * state.intensity;
+      particle.vy += Math.sin(angle) * 0.014 * state.intensity;
+      particle.vy += scrollPush * (particle.depth - 0.5) * 0.16;
+
+      if (state.mouse.active) {
+        const dx = particle.x - state.mouse.sx;
+        const dy = particle.y - state.mouse.sy;
+        const distance = Math.hypot(dx, dy) || 1;
+        if (distance < mouseRadius) {
+          const force = (mouseRadius - distance) / mouseRadius;
+          const direction = state.mode === "analysis" ? -1 : 1;
+          particle.vx += (dx / distance) * force * 0.24 * direction;
+          particle.vy += (dy / distance) * force * 0.24 * direction;
+        }
+      }
+
+      const speedLimit = 0.56 + state.intensity * 0.86;
+      particle.vx = clamp(particle.vx * 0.965, -speedLimit, speedLimit);
+      particle.vy = clamp(particle.vy * 0.965, -speedLimit, speedLimit);
+      particle.x += particle.vx * (1 + particle.depth * 0.7);
+      particle.y += particle.vy * (1 + particle.depth * 0.7);
+
+      if (particle.x < -24) particle.x = state.w + 24;
+      if (particle.x > state.w + 24) particle.x = -24;
+      if (particle.y < -24) particle.y = state.h + 24;
+      if (particle.y > state.h + 24) particle.y = -24;
+
+      const alpha = (0.08 + particle.life * 0.22) * state.density;
       ctx.beginPath();
-      ctx.arc(x, y, point.radius, 0, Math.PI * 2);
-      ctx.fillStyle = index % 6 === 0 ? "rgba(181,139,52,.28)" : "rgba(20,19,17,.08)";
+      ctx.arc(particle.x, particle.y, particle.radius * (1 + particle.depth * 1.35), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
       ctx.fill();
+    });
 
-      const next = points[(index + 9) % points.length];
-      const nx = next.x * vw + Math.sin(phase * 4 + index) * 14 + pointerPushX * 0.7;
-      const ny = ((next.y + scrollSmooth * 0.14) % 1) * vh + pointerPushY * 0.7;
-      const distance = Math.hypot(nx - x, ny - y);
+    const step = state.w < 760 ? 2 : 1;
+    for (let i = 0; i < particles.length; i += step) {
+      const first = particles[i];
+      for (let j = i + 1; j < particles.length; j += step) {
+        const second = particles[j];
+        const distance = Math.hypot(first.x - second.x, first.y - second.y);
+        if (distance >= state.connection) continue;
 
-      if (distance < 245) {
+        const alpha = (1 - distance / state.connection) * (0.035 + state.intensity * 0.052);
         ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(nx, ny);
-        ctx.strokeStyle = `rgba(181,139,52,${0.048 * (1 - distance / 245)})`;
-        ctx.lineWidth = 1;
+        ctx.moveTo(first.x, first.y);
+        ctx.lineTo(second.x, second.y);
+        ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.lineWidth = 0.5 + (first.depth + second.depth) * 0.18;
         ctx.stroke();
       }
-    });
+    }
 
     window.requestAnimationFrame(draw);
   }
 
   resize();
-  syncScroll();
   window.addEventListener("resize", resize, { passive: true });
-  window.addEventListener("scroll", syncScroll, { passive: true });
-  window.addEventListener("mousemove", syncPointer, { passive: true });
+  window.addEventListener("mousemove", event => {
+    state.mouse.x = event.clientX;
+    state.mouse.y = event.clientY;
+    state.mouse.active = true;
+  }, { passive: true });
+  window.addEventListener("touchmove", event => {
+    const touch = event.touches[0];
+    if (!touch) return;
+    state.mouse.x = touch.clientX;
+    state.mouse.y = touch.clientY;
+    state.mouse.active = true;
+  }, { passive: true });
   window.requestAnimationFrame(draw);
 }
 

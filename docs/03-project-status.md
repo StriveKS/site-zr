@@ -14,7 +14,7 @@ Site publicado, operacional e com base visual/copy aprovada em 2026-05-26.
 - Base aprovada: visual claro premium, logo ZR simplificada, hero tipografico refinado e copy consultiva.
 - Atualizacao em 2026-05-29: painel visual do hero recriado do zero como `Mesa de decisao ZR`, com leitura de cenario, comparacao de rotas e estrutura indicada.
 - Atualizacao em 2026-06-01: secoes `Metodo ZR` e `Como a operacao ganha forma` refinadas com visual de processo, camadas conectadas, microanimacoes e copy curta por etapa.
-- Atualizacao VivaScroll em 2026-06-01: fundo vivo global em canvas aplicado ao site real, reagindo a scroll e mouse, com mapa de rede refinado.
+- Atualizacao VivaScroll em 2026-06-01: fundo vivo global em canvas aplicado ao site real, adaptado do beta local `zr-vivascroll-beta.html`, reagindo a scroll e mouse, com mapa de rede refinado.
 
 ## Feito
 
@@ -65,8 +65,10 @@ Site publicado, operacional e com base visual/copy aprovada em 2026-05-26.
   - motion mantido em CSS/GSAP, com foco em clareza consultiva e nao em efeito gratuito.
 - Aplicacao VivaScroll em 2026-06-01:
   - `livingCanvas` global adicionado como fundo vivo leve;
-  - movimento responde a scroll e mouse, respeitando `prefers-reduced-motion`;
-  - prototipo `prototypes/zr-vivascroll-prismic-test.html` e docs `11/12` usados como referencia;
+  - motor visual evoluido a partir de `C:/Users/User/Downloads/zr-vivascroll-beta.html`;
+  - movimento responde a scroll, velocidade e mouse, respeitando `prefers-reduced-motion`;
+  - presets visuais por secao real do site: territorio, analise, arquitetura, rede e convergencia;
+  - prototipo `prototypes/zr-vivascroll-prismic-test.html`, beta local e docs `11/12` usados como referencia;
   - mapa `Bancos / Cooperativas / Consorcios / Garantias` refinado com aneis, trilhas, pulso e melhor acabamento premium.
 
 ## Proxima Frente Recomendada

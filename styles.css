@@ -47,9 +47,11 @@ body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  opacity: 0.58;
+  opacity: 0.72;
   mix-blend-mode: multiply;
 }
+
+.living-background::selection { background: transparent; }
 
 main {
   position: relative;

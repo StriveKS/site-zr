@@ -83,7 +83,7 @@ Direcao historica ainda valida para futuras secoes, se necessario:
 - Mesa de decisao com cenario, rotas comparadas e estrutura indicada.
 - Diagrama de metodo com nucleo ZR e etapas conectadas.
 - Camadas de operacao com progresso visual e descricao curta.
-- Fundo vivo tipo VivaScroll: pontos, linhas e profundidade leve conectando a narrativa do site.
+- Fundo vivo tipo VivaScroll: pontos, linhas, profundidade, resposta ao mouse e comportamento por secao conectando a narrativa do site.
 - Mapa de rede com centro ZR, aneis, trilhas e conexoes institucionais.
 - Cards comparativos entrando em stagger.
 - Numeros e provas com contagem sutil.
