@@ -1,487 +1,90 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ZR Investimentos - Consultoria Financeira Estratégica</title>
-  <meta name="description" content="A ZR Investimentos estrutura decisões financeiras para quem quer comprar, captar capital, proteger patrimônio ou preparar o próximo passo." />
-  <link rel="canonical" href="https://zrinvestimentosltda.com/" />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&family=Cormorant+SC:wght@300;400;500;600&family=Jost:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZR Investimentos | Hub de Soluções Financeiras</title>
+<meta name="description" content="Crédito, consórcio, financiamento, capital com garantia, antecipação de recebíveis e seguros. A ZR entende seu objetivo e ajuda a estruturar o caminho financeiro.">
+<link rel="canonical" href="https://zrinvestimentosltda.com/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=116">
 </head>
 <body>
-  <canvas id="livingCanvas" class="living-background" aria-hidden="true"></canvas>
-  <div id="preloader" aria-hidden="true">
-    <img class="preloader-logo" src="assets/zr-logo-gold.svg" alt="" />
-    <div class="preloader-line"></div>
-    <p class="preloader-text">Consultoria financeira estratégica</p>
+
+<canvas id="silk" aria-hidden="true"></canvas>
+
+<!-- abertura -->
+<div id="intro">
+  <canvas id="shader" aria-hidden="true"></canvas>
+  <div class="ic">
+    <img class="limg" src="assets/zr-logo.png?v=116" alt="ZR">
+    <p>Soluções Financeiras</p>
+    <button class="btn" id="enter">Entrar</button>
   </div>
-  <header class="site-header">
-    <a class="brand" href="#inicio" aria-label="ZR Investimentos">
-      <img class="brand-logo" src="assets/zr-logo-gold.svg" alt="ZR" />
+</div>
+
+<button id="burger" aria-label="Abrir menu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 6h16M3 11h16M3 16h16"/></svg></button>
+<div id="scrim"></div>
+
+<aside id="side" aria-label="Menu principal">
+  <a class="logo" href="#inicio" aria-label="ZR Investimentos — voltar ao início">
+    <img class="limg" src="assets/zr-logo.png?v=116" alt="ZR Investimentos">
+    <small>Soluções Financeiras</small>
+  </a>
+  <nav id="nav" aria-label="Soluções"><span id="ind" aria-hidden="true"></span></nav>
+  <button class="btn" data-quiz>Quero analisar meu cenário</button>
+  <div class="socials">
+    <a class="sbtn" href="https://wa.me/5554996935056?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ZR%20e%20quero%20conversar." target="_blank" rel="noopener" aria-label="Falar com a ZR no WhatsApp" data-track="click_whatsapp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.3 1.1-1.8 1.2-.5.1-1 .3-3.4-.7-2.9-1.2-4.7-4-4.9-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.3-.1.6.2.3.9 1.5 2 2.4 1.4 1.2 2.5 1.6 2.9 1.8.3.2.5.1.7-.1l1-1.2c.2-.3.5-.2.7-.1l2 .9c.3.2.5.3.6.4.1.2.1.7-.2 1.3z"/></svg>
     </a>
-    <nav class="nav" aria-label="Navegação principal">
-      <a href="#quando">Onde a ZR atua</a>
-      <a href="#metodo">Método</a>
-      <a href="#solucoes">Soluções</a>
-      <a href="#diagnostico">Análise</a>
-    </nav>
-  </header>
+    <a class="sbtn" href="https://www.instagram.com/zrinvestimentos/" target="_blank" rel="noopener" aria-label="Instagram da ZR Investimentos" data-track="click_instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <span>Canais oficiais</span>
+  </div>
+  <!-- aba de recolher o menu (desktop): fica na borda direita do menu, desliza junto com ele -->
+  <button id="sideToggle" aria-label="Recolher menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>
+</aside>
 
-  <main>
-    <section id="inicio" class="hero section">
-      <div class="hero-bg" aria-hidden="true">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <canvas id="heroParticles"></canvas>
-        <svg class="hero-grid-svg" preserveAspectRatio="none" viewBox="0 0 1440 900" role="presentation">
-          <defs>
-            <pattern id="heroGridPattern" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
-              <path d="M72 0L0 0 0 72" fill="none" stroke="#b58b34" stroke-width="0.55" />
-            </pattern>
-          </defs>
-          <rect width="1440" height="900" fill="url(#heroGridPattern)" />
-        </svg>
-      </div>
-      <div class="hero-copy reveal">
-        <p class="eyebrow hero-eyebrow">Consultoria Financeira Estratégica</p>
-        <h1 class="hero-title" aria-label="Seu próximo passo começa aqui.">
-          <span class="hero-line">
-            <span class="hero-word"><span class="hero-word-inner">Seu</span></span>
-            <span class="hero-word"><span class="hero-word-inner hero-accent">próximo</span></span>
-          </span>
-          <span class="hero-line hero-line-middle">
-            <span class="hero-word"><span class="hero-word-inner">passo</span></span>
-            <span class="hero-word"><span class="hero-word-inner">começa</span></span>
-          </span>
-          <span class="hero-line hero-line-final">
-            <span class="hero-word"><span class="hero-word-inner hero-accent">aqui.</span></span>
-          </span>
-        </h1>
-        <p class="hero-title-secondary">Estratégia financeira para decisões que pedem clareza, critério e condução.</p>
-        <p class="hero-subtitle">A ZR entende seu cenário, organiza possibilidades e conduz a escolha com visão consultiva: crédito, consórcio, capital ou estruturação patrimonial no momento certo para o seu objetivo.</p>
-        <div class="hero-microproof" aria-label="Focos de atuação">
-          <span>PF e PJ</span>
-          <span>Compra patrimonial</span>
-          <span>Capital com garantia</span>
-        </div>
-        <div class="hero-actions">
-          <a class="primary-btn" href="#diagnostico">Quero minha análise ZR</a>
-          <a class="secondary-btn" href="#solucoes">Como a ZR atua</a>
-        </div>
-        <div class="hero-assurance">
-          <span>Atuação consultiva</span>
-          <span>Crédito sujeito à análise</span>
-          <span>Critério antes da indicação</span>
-        </div>
-      </div>
+<div id="bar" aria-hidden="true"></div>
+<main><div id="view"></div></main>
 
-      <aside class="hero-panel route-panel reveal" aria-label="Rota financeira ZR">
-        <div class="panel-kicker">Rota financeira ZR</div>
-        <h2>Clareza antes da decisão.</h2>
-        <p>Cada operação passa por leitura de objetivo, prazo, perfil, garantias e contexto antes de qualquer encaminhamento comercial.</p>
-
-        <div class="route-map decision-desk" aria-hidden="true">
-          <div class="desk-grid"></div>
-          <div class="desk-dossier">
-            <span class="desk-label">Cenário</span>
-            <div class="desk-row"><span>Objetivo</span><b>Compra</b></div>
-            <div class="desk-row"><span>Prazo</span><b>12-36m</b></div>
-            <div class="desk-row"><span>Garantia</span><b>Análise</b></div>
-          </div>
-
-          <div class="desk-orbit">
-            <div class="desk-seal">ZR</div>
-            <span class="orbit-dot dot-a"></span>
-            <span class="orbit-dot dot-b"></span>
-            <span class="orbit-dot dot-c"></span>
-          </div>
-
-          <div class="desk-routes">
-            <div class="route-option muted">
-              <span>Consórcio</span>
-              <i style="--route-size: 62%"></i>
-            </div>
-            <div class="route-option active">
-              <span>Crédito estruturado</span>
-              <i style="--route-size: 88%"></i>
-            </div>
-            <div class="route-option">
-              <span>Capital com garantia</span>
-              <i style="--route-size: 74%"></i>
-            </div>
-          </div>
-
-          <div class="desk-stack">
-            <span class="stack-label">Estrutura indicada</span>
-            <div class="stack-sheet sheet-back"></div>
-            <div class="stack-sheet sheet-mid"></div>
-            <div class="stack-sheet sheet-front">
-              <span>Critério</span>
-              <b>Rota final</b>
-            </div>
-          </div>
-        </div>
-
-        <div class="route-legend">
-          <span>Objetivo</span>
-          <span>Perfil</span>
-          <span>Garantia</span>
-          <span>Estrutura</span>
-        </div>
-      </aside>
-    </section>
-
-    <div class="marquee-strip" aria-label="Indicadores ZR">
-      <div class="marquee-track">
-        <span class="mq-item"><span class="mq-sep"></span>Consultoria financeira estratégica</span>
-        <span class="mq-item"><span class="mq-sep"></span>Consórcios autorizados pelo BACEN</span>
-        <span class="mq-item"><span class="mq-sep"></span>Cartas contempladas disponíveis</span>
-        <span class="mq-item"><span class="mq-sep"></span>Crédito com garantia</span>
-        <span class="mq-item"><span class="mq-sep"></span>Capital PF e PJ</span>
-        <span class="mq-item"><span class="mq-sep"></span>Estruturação patrimonial</span>
-        <span class="mq-item"><span class="mq-sep"></span>Atendimento em todo o Brasil</span>
-        <span class="mq-item"><span class="mq-sep"></span>Passo Fundo - RS</span>
-      </div>
+<!-- modal do quiz de consultoria -->
+<div id="modal" role="dialog" aria-modal="true" aria-label="Consulta ZR — descubra qual caminho financeiro faz sentido para você">
+  <div id="dlg">
+    <div class="dhead">
+      <span class="dt">Consulta personalizada<small>Descubra qual caminho faz sentido para o seu objetivo</small></span>
+      <button id="qx" aria-label="Fechar consulta">×</button>
     </div>
+    <iframe id="qframe" title="Consulta ZR — qual caminho financeiro faz sentido para o seu objetivo"></iframe>
+  </div>
+</div>
 
-    <section id="sobre" class="section signature-section">
-      <div class="signature-shell reveal">
-        <div class="signature-visual" aria-hidden="true">
-          <svg class="signature-svg" viewBox="0 0 620 430" role="presentation">
-            <defs>
-              <linearGradient id="signatureFrameInk" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0" stop-color="#171411" />
-                <stop offset="0.42" stop-color="#b58b34" />
-                <stop offset="1" stop-color="#191612" />
-              </linearGradient>
-              <linearGradient id="signatureInk" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#0f0e0d" />
-                <stop offset="0.55" stop-color="#191714" />
-                <stop offset="1" stop-color="#2b251c" />
-              </linearGradient>
-              <linearGradient id="signatureGold" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0" stop-color="#f3d98d" />
-                <stop offset="0.48" stop-color="#b58b34" />
-                <stop offset="1" stop-color="#7d5c1d" />
-              </linearGradient>
-              <filter id="signatureLift" x="-16%" y="-20%" width="132%" height="142%">
-                <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#241b10" flood-opacity="0.10" />
-              </filter>
-            </defs>
-            <path class="signature-frame" d="M176 78H514V344H108V292" />
-            <path class="signature-accent" d="M176 78H514V344" />
-            <path class="signature-sweep" d="M108 292C138 292 149 272 158 246" />
-            <path class="signature-accent signature-rule-top" d="M172 104H312" />
-            <path class="signature-sweep signature-rule-bottom" d="M168 326H402" />
-            <g class="signature-monogram" filter="url(#signatureLift)">
-              <text class="signature-letter signature-letter-z" x="124" y="286">Z</text>
-              <text class="signature-letter signature-letter-r" x="266" y="286">R</text>
-              <path class="signature-mark" d="M264 207H310" />
-            </g>
-          </svg>
-        </div>
-        <div class="signature-copy">
-          <p class="eyebrow">Sobre a ZR</p>
-          <h2>A ZR estrutura decisões financeiras com estratégia.</h2>
-          <p>A ZR nasceu no mercado de consórcios e evoluiu para uma consultoria financeira voltada a decisões patrimoniais, crédito estruturado e capital. Nosso papel é traduzir o cenário do cliente em caminhos viáveis, comparáveis e coerentes com o objetivo.</p>
-          <div class="signature-points">
-            <div><strong>Leitura</strong><span>Contexto, urgência, capacidade e objetivo analisados em conjunto.</span></div>
-            <div><strong>Estrutura</strong><span>Alternativas organizadas para tornar a decisão mais clara.</span></div>
-            <div><strong>Critério</strong><span>Indicação orientada pelo objetivo, não pela pressa comercial.</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
+<noscript>
+  <div style="max-width:640px;margin:40px auto;padding:24px;font-family:system-ui,sans-serif">
+    <h1>ZR Investimentos — Hub de Soluções Financeiras</h1>
+    <p>Para a experiência completa, ative o JavaScript. Enquanto isso, fale direto com a ZR:</p>
+    <p><a href="https://wa.me/5554996935056">WhatsApp: +55 54 99693-5056</a> · <a href="https://www.instagram.com/zrinvestimentos/">Instagram @zrinvestimentos</a></p>
+    <p><a href="quiz/index.html">Iniciar consulta — descubra qual caminho financeiro faz sentido para você</a></p>
+  </div>
+</noscript>
 
-    <section class="section friction-section">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Onde a decisão costuma travar</p>
-        <h2>O problema raramente é falta de opção. Normalmente é falta de leitura estratégica antes de escolher.</h2>
-        <p>Quando a decisão começa sem contexto, a operação perde eficiência, tempo e qualidade de enquadramento.</p>
-      </div>
-      <div class="friction-grid">
-        <article class="friction-card reveal">
-          <span>01</span>
-          <h3>Escolha precoce da rota</h3>
-          <p>Muita gente compara taxa antes de entender prazo, liquidez, garantia e risco da estrutura escolhida.</p>
-        </article>
-        <article class="friction-card reveal">
-          <span>02</span>
-          <h3>Perfil entra mal preparado</h3>
-          <p>Documentação, renda, histórico e patrimônio mal apresentados reduzem qualidade de análise e poder de negociação.</p>
-        </article>
-        <article class="friction-card reveal">
-          <span>03</span>
-          <h3>Capital sem lógica de objetivo</h3>
-          <p>Liquidez, compra, reorganização e expansão exigem estruturas diferentes. Misturar isso custa clareza e desempenho.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="quando" class="section situations-section">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Quando a ZR entra</p>
-        <h2>Quando a decisão envolve patrimônio, crédito ou capital, o caminho precisa ser desenhado antes da proposta.</h2>
-        <p>A ZR entra quando a escolha precisa de critério: comparar rotas, proteger patrimônio, melhorar enquadramento e chegar a uma estrutura mais coerente.</p>
-      </div>
-      <div class="situation-grid">
-        <article class="situation-card reveal">
-          <span>Comprar</span>
-          <h3>Imóvel, veículo, equipamento ou bem de maior valor.</h3>
-          <p>Leitura de prazo, liquidez e custo de decisão para comparar crédito, consórcio e carta contemplada com mais critério.</p>
-        </article>
-        <article class="situation-card reveal">
-          <span>Capitalizar</span>
-          <h3>Transformar patrimônio em capital sem vender o ativo.</h3>
-          <p>Estruturação com foco em garantia, capacidade, finalidade do recurso e coerência financeira da operação.</p>
-        </article>
-        <article class="situation-card reveal">
-          <span>Reorganizar</span>
-          <h3>Empresa que precisa de fôlego financeiro ou capital de giro.</h3>
-          <p>Análise de alternativas para caixa, reorganização e expansão com leitura mais precisa de risco e enquadramento.</p>
-        </article>
-        <article class="situation-card reveal">
-          <span>Preparar</span>
-          <h3>Perfil que precisa se preparar para uma decisão financeira relevante.</h3>
-          <p>Leitura de documentação, histórico, renda, garantias e pontos de atenção que podem enfraquecer a operação.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="metodo" class="section method-section">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Método ZR</p>
-        <h2>Um processo consultivo para reduzir improviso, proteger patrimônio e aumentar clareza de decisão.</h2>
-      </div>
-      <div class="method-layout">
-        <div class="method-visual reveal" aria-hidden="true">
-          <div class="method-grid"></div>
-          <div class="method-flow">
-            <span class="method-line line-one"></span>
-            <span class="method-line line-two"></span>
-            <span class="method-line line-three"></span>
-          </div>
-          <div class="method-core">ZR</div>
-          <div class="method-stage method-stage-one"><span>01</span><strong>Objetivo</strong></div>
-          <div class="method-stage method-stage-two"><span>02</span><strong>Perfil</strong></div>
-          <div class="method-stage method-stage-three"><span>03</span><strong>Rotas</strong></div>
-          <div class="method-stage method-stage-four"><span>04</span><strong>Estrutura</strong></div>
-          <div class="method-stage method-stage-five"><span>05</span><strong>Acompanhamento</strong></div>
-          <span class="method-pulse pulse-one"></span>
-          <span class="method-pulse pulse-two"></span>
-          <span class="method-pulse pulse-three"></span>
-        </div>
-        <div class="steps reveal">
-          <div><span>01</span><strong>Leitura do objetivo</strong><p>Entendimento do que você quer resolver, em quanto tempo e com qual nível de urgência.</p></div>
-          <div><span>02</span><strong>Leitura de perfil</strong><p>Avaliação de renda, patrimônio, documentação, garantias, histórico e capacidade.</p></div>
-          <div><span>03</span><strong>Comparação de rotas</strong><p>Crédito, consórcio, carta contemplada ou preparação financeira são comparados pelo objetivo.</p></div>
-          <div><span>04</span><strong>Estruturação</strong><p>Organização dos caminhos mais coerentes para o momento, o perfil e o objetivo.</p></div>
-          <div><span>05</span><strong>Acompanhamento</strong><p>Orientação dos próximos passos até a proposta, análise ou execução escolhida.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section operation-section">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Como a operação ganha forma</p>
-        <h2>Antes de existir uma proposta, existe uma arquitetura de decisão.</h2>
-        <p>A ZR estrutura a operação em camadas para evitar leitura superficial, comparação rasa e uso ineficiente de patrimônio ou capital.</p>
-      </div>
-      <div class="operation-shell reveal">
-        <div class="operation-layers" aria-hidden="true">
-          <div class="operation-stage stage-one">
-            <span>01</span>
-            <strong>Objetivo e prazo</strong>
-            <p>Qual decisão precisa ser tomada e em quanto tempo.</p>
-          </div>
-          <div class="operation-stage stage-two">
-            <span>02</span>
-            <strong>Perfil e capacidade</strong>
-            <p>Renda, histórico, documentação e fôlego financeiro.</p>
-          </div>
-          <div class="operation-stage stage-three">
-            <span>03</span>
-            <strong>Garantia e contexto</strong>
-            <p>Patrimônio, finalidade do recurso e riscos da operação.</p>
-          </div>
-          <div class="operation-stage stage-four">
-            <span>04</span>
-            <strong>Comparação e enquadramento</strong>
-            <p>Rotas viáveis são comparadas antes da recomendação.</p>
-          </div>
-        </div>
-        <div class="operation-notes">
-          <article>
-            <span>Leitura inicial</span>
-            <h3>O que precisa ser resolvido, com qual urgência e com qual tipo de impacto.</h3>
-            <p>Uma decisão de liquidez, compra ou reorganização muda totalmente a estrutura da operação.</p>
-          </article>
-          <article>
-            <span>Composicao</span>
-            <h3>O caso é visto como um conjunto: renda, patrimônio, histórico, documentação e narrativa financeira.</h3>
-            <p>Uma boa estrutura não depende de um dado isolado. Ela depende da leitura coerente do todo.</p>
-          </article>
-          <article>
-            <span>Encaminhamento</span>
-            <h3>Só depois disso a ZR compara rotas e orienta os próximos passos compatíveis.</h3>
-            <p>Isso reduz ruído comercial e melhora a qualidade da decisão antes de qualquer encaminhamento.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="solucoes" class="section solutions-section">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Soluções</p>
-        <h2>Você não precisa chegar com uma solução pronta. Precisa chegar com um objetivo claro.</h2>
-        <p>A ZR avalia o cenário, organiza alternativas e orienta a rota mais coerente para o seu momento financeiro.</p>
-      </div>
-      <div class="premium-grid">
-        <article class="solution-card reveal">
-          <span class="card-index">01</span>
-          <h3>Aquisição patrimonial</h3>
-          <p>Imóvel, veículo ou bem de maior valor com mais estratégia. A comparação entre consórcio, carta contemplada e crédito parte do seu prazo, capital e objetivo.</p>
-        </article>
-        <article class="solution-card reveal">
-          <span class="card-index">02</span>
-          <h3>Capital com garantia</h3>
-          <p>Tem imóvel ou veículo quitado e precisa de capital sem vender o patrimônio. Home Equity e Auto Equity avaliados com leitura real de finalidade, prazo e enquadramento.</p>
-        </article>
-        <article class="solution-card reveal">
-          <span class="card-index">03</span>
-          <h3>Capital para empresas</h3>
-          <p>Capital de giro, expansão ou reorganização financeira para PJ com leitura de caixa, risco, prazo e finalidade do recurso.</p>
-        </article>
-        <article class="solution-card reveal">
-          <span class="card-index">04</span>
-          <h3>Preparação estratégica</h3>
-          <p>Organização de cenário, documentação e pontos de atenção para melhorar a qualidade da análise e chegar ao mercado com mais clareza.</p>
-        </article>
-        <article class="solution-card reveal">
-          <span class="card-index">05</span>
-          <h3>Organização de perfil</h3>
-          <p>Antes de buscar uma alternativa, organizamos documentação, narrativa financeira e pontos de atenção para sustentar melhor a decisão.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="estrutura" class="section structure-section">
-      <div class="structure-box reveal">
-        <div>
-          <p class="eyebrow">Estrutura e confiança</p>
-          <h2>Uma consultoria para organizar caminhos, não apenas apresentar propostas.</h2>
-          <p>A ZR combina leitura de cenário, experiência de mercado e relacionamento com instituições autorizadas para construir alternativas coerentes com cada objetivo. O foco é dar clareza para a decisão, com transparência sobre limites, riscos e próximos passos.</p>
-          <div class="trust-list" aria-label="Princípios de atuação">
-            <span>Bancos regulados pelo BACEN</span>
-            <span>Administradoras autorizadas</span>
-            <span>Atendimento em todo o Brasil</span>
-          </div>
-        </div>
-        <div class="network-map" aria-hidden="true">
-          <span class="network-ring ring-one"></span>
-          <span class="network-ring ring-two"></span>
-          <span class="network-node center">ZR</span>
-          <span class="network-node n1">Bancos</span>
-          <span class="network-node n2">Cooperativas</span>
-          <span class="network-node n3">Consórcios</span>
-          <span class="network-node n4">Garantias</span>
-          <span class="network-orbit-dot dot-one"></span>
-          <span class="network-orbit-dot dot-two"></span>
-          <span class="network-line l1"></span>
-          <span class="network-line l2"></span>
-          <span class="network-line l3"></span>
-          <span class="network-line l4"></span>
-        </div>
-      </div>
-    </section>
-
-    <section id="diagnostico" class="section contact-section">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Análise personalizada</p>
-        <h2>Conte seu cenário. A ZR estrutura o próximo passo.</h2>
-        <p>Preencha o formulário. A equipe ZR vai entender seu momento, organizar o contexto e retornar com uma orientação inicial coerente com o seu objetivo.</p>
-      </div>
-      <form id="leadForm" class="lead-form reveal">
-        <div class="form-intro">
-          <span>Triagem consultiva</span>
-          <strong>Recebemos o contexto, lemos a operação e retornamos com os próximos passos mais coerentes.</strong>
-        </div>
-        <label>Nome completo<input name="nome" type="text" required autocomplete="name" /></label>
-        <label>WhatsApp<input name="whatsapp" type="tel" required autocomplete="tel" /></label>
-        <label>E-mail<input name="email" type="email" required autocomplete="email" /></label>
-        <label>Onde você está agora?
-          <select name="objetivo" required>
-            <option value="">Selecione</option>
-            <option>Quero comprar um imóvel</option>
-            <option>Quero comprar um veículo ou equipamento</option>
-            <option>Preciso de capital para minha empresa</option>
-            <option>Tenho imóvel e quero gerar capital</option>
-            <option>Tenho veículo quitado e quero gerar liquidez</option>
-            <option>Quero avaliar consórcio ou carta contemplada</option>
-            <option>Quero revisar as alternativas que recebi</option>
-            <option>Quero me preparar para uma análise de crédito</option>
-            <option>Ainda não sei qual caminho seguir</option>
-          </select>
-        </label>
-        <label>Qual ponto precisa resolver primeiro?
-          <select name="problema" required>
-            <option value="">Selecione</option>
-            <option>Comparar crédito, consórcio e carta contemplada</option>
-            <option>Gerar capital usando patrimônio como garantia</option>
-            <option>Comprar com mais estratégia e menos improviso</option>
-            <option>Organizar capital de giro ou fluxo da empresa</option>
-            <option>Preparar perfil e documentação para análise</option>
-            <option>Entender qual rota faz mais sentido</option>
-            <option>Outro</option>
-          </select>
-        </label>
-        <label class="full">Quando resolver isso, qual será seu próximo passo?
-          <textarea name="proximo_passo" rows="4" placeholder="Exemplo: comprar um imóvel, investir na empresa, trocar de carro, reorganizar dívidas, expandir meu negócio..." required></textarea>
-        </label>
-        <button class="primary-btn form-submit" type="submit">Receber minha análise ZR</button>
-        <p id="formStatus" class="form-status" role="status"></p>
-        <p class="form-note">Crédito, consórcio e operações financeiras dependem de análise, documentação e enquadramento.</p>
-      </form>
-    </section>
-
-    <section class="section faq-section">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Perguntas frequentes</p>
-        <h2>As dúvidas mais comuns antes de iniciar uma leitura com a ZR.</h2>
-      </div>
-      <div class="faq-list">
-        <article class="faq-item reveal">
-          <h3>A ZR garante resultado?</h3>
-          <p>Não. A função da consultoria é estruturar o caminho mais coerente e melhorar a qualidade da decisão e do enquadramento. Toda operação depende de análise, documentação e critérios das instituições envolvidas.</p>
-        </article>
-        <article class="faq-item reveal">
-          <h3>A ZR atende apenas quem já sabe qual solução quer?</h3>
-          <p>Não. Em muitos casos o trabalho começa justamente quando a pessoa ou a empresa ainda não sabe qual rota faz mais sentido.</p>
-        </article>
-        <article class="faq-item reveal">
-          <h3>Só faz sentido para valores altos?</h3>
-          <p>Faz sentido quando a decisão envolve patrimônio, prazo, capital, risco ou impacto financeiro relevante para a pessoa ou para a empresa.</p>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <img class="footer-logo" src="assets/zr-logo-gold.svg" alt="ZR" />
-    <p>ZR Investimentos. Consultoria financeira estratégica. Crédito sujeito à análise e enquadramento. Consórcio sujeito às regras da administradora e legislação aplicável.</p>
-  </footer>
-
-  <script>
-    window.setTimeout(function () {
-      document.body.classList.add("is-loaded");
-    }, 3500);
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="scripts/main.js" defer></script>
+<script src="js/config.js?v=116"></script>
+<script src="js/shaders.js?v=116"></script>
+<script src="js/analytics.js?v=116"></script>
+<script src="js/content.js?v=116"></script>
+<script src="js/pages/inicio.js?v=116"></script>
+<script src="js/pages/consorcio.js?v=116"></script>
+<script src="js/pages/financiamento.js?v=116"></script>
+<script src="js/pages/home-equity.js?v=116"></script>
+<script src="js/pages/auto-equity.js?v=116"></script>
+<script src="js/pages/recebiveis.js?v=116"></script>
+<script src="js/pages/seguros.js?v=116"></script>
+<script src="js/pages/como.js?v=116"></script>
+<script src="js/pages/contato.js?v=116"></script>
+<script src="js/app.js?v=116"></script>
 </body>
 </html>

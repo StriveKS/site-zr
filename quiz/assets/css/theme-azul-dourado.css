@@ -1,0 +1,11 @@
+/* theme-azul-dourado.css
+   Base: Midnight Navy / Deep Navy + acento Noble Gold */
+:root {
+  --bg: #07131F;
+  --surface: #0D1B2A;
+  --text: #F5F4F0;
+  --text-muted: rgba(245, 244, 240, 0.62);
+  --border: rgba(245, 244, 240, 0.12);
+  --accent: #C5A059;
+  --accent-text: #07131F;
+}

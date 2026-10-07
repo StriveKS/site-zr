@@ -1,0 +1,11 @@
+/* theme-preto-dourado.css
+   Base: Dark Graphite / Graphite Slate + acento Noble Gold */
+:root {
+  --bg: #151C23;
+  --surface: #263442;
+  --text: #F5F4F0;
+  --text-muted: rgba(245, 244, 240, 0.62);
+  --border: rgba(245, 244, 240, 0.12);
+  --accent: #C5A059;
+  --accent-text: #151C23;
+}

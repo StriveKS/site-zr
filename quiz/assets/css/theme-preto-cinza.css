@@ -1,0 +1,11 @@
+/* theme-preto-cinza.css
+   Base: Dark Graphite / Graphite Slate + acento neutro (sem dourado) */
+:root {
+  --bg: #151C23;
+  --surface: #263442;
+  --text: #F5F4F0;
+  --text-muted: rgba(245, 244, 240, 0.62);
+  --border: rgba(245, 244, 240, 0.12);
+  --accent: #F5F4F0;
+  --accent-text: #151C23;
+}

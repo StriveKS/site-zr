@@ -1,0 +1,39 @@
+/* theme-zr-claro.css — tema do quiz na identidade da nova versão do site:
+   marfim claro + dourado ZR (substitui o tema escuro original, mantendo a
+   estrutura de variáveis que o styles.css consome) */
+:root {
+  --bg: #FDFCF8;
+  --surface: #FFFFFF;
+  --text: #1E1A12;
+  --text-muted: #5E574A;
+  --border: #E6DCC3;
+  --accent: #C8A24A;
+  --accent-text: #1E1A12;
+}
+
+/* acabamento coerente com o site */
+.option-btn:hover { background: #FBF6E8; }
+button#btn-iniciar,
+button#btn-enviar { background: linear-gradient(135deg, #DDBB63, #B98F2F); }
+button#btn-iniciar:hover:not(:disabled),
+button#btn-enviar:hover:not(:disabled) { filter: brightness(1.04); }
+
+/* link "voltar ao site" — só aparece no modo página dedicada */
+#back-site {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+}
+#back-site:hover { color: var(--text); border-color: var(--accent); }
+
+/* modo embed (dentro do modal do site): sem chrome de página, fluxo a partir do topo */
+body.embed #back-site { display: none; }
+body.embed { display: block; }
+body.embed .quiz-container { margin: 0 auto; padding: 28px 22px 20px; }
