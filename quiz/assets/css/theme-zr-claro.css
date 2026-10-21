@@ -14,9 +14,9 @@
 /* acabamento coerente com o site */
 .option-btn:hover { background: #FBF6E8; }
 button#btn-iniciar,
-button#btn-enviar { background: linear-gradient(135deg, #DDBB63, #B98F2F); }
+button#btn-enviar { background: var(--accent); }
 button#btn-iniciar:hover:not(:disabled),
-button#btn-enviar:hover:not(:disabled) { filter: brightness(1.04); }
+button#btn-enviar:hover:not(:disabled) { background: #B98F2F; }
 
 /* link "voltar ao site" — só aparece no modo página dedicada */
 #back-site {

@@ -3,14 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FBF6E8">
 <title>ZR Investimentos | Hub de Soluções Financeiras</title>
 <meta name="description" content="Crédito, consórcio, financiamento, capital com garantia, antecipação de recebíveis e seguros. A ZR entende seu objetivo e ajuda a estruturar o caminho financeiro.">
 <link rel="canonical" href="https://zrinvestimentosltda.com/">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/zr-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site.css?v=116">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=117">
 
 <!-- Open Graph -->
 <meta property="og:title" content="ZR Investimentos | Hub de Soluções Financeiras">
@@ -41,15 +43,34 @@
 </head>
 <body>
 
-<canvas id="silk" aria-hidden="true"></canvas>
+<canvas id="metal" aria-hidden="true"></canvas>
 
-<!-- abertura -->
-<div id="intro">
-  <canvas id="shader" aria-hidden="true"></canvas>
-  <div class="ic">
-    <img class="limg" src="assets/zr-logo.png?v=116" alt="ZR">
-    <p>Soluções Financeiras</p>
-    <button class="btn" id="enter">Entrar</button>
+<!-- abertura: escultura de partículas líquidas com o monograma ZR -->
+<div id="intro" class="sh-root">
+  <div class="sh-backdrop" aria-hidden="true">ZR</div>
+  <div class="sh-stage" aria-hidden="true">
+    <img class="sh-fallback" src="assets/zr-logo.png?v=117" alt="" draggable="false">
+  </div>
+  <nav class="sh-nav" aria-hidden="true">
+    <img class="sh-brand-img" src="assets/zr-logo.png?v=117" alt="">
+  </nav>
+  <div class="sh-hint" aria-hidden="true">Mova o cursor pela forma</div>
+  <div class="sh-spacer"></div>
+  <div class="sh-content">
+    <div>
+      <p class="sh-eyebrow">ZR Investimentos — Soluções Financeiras</p>
+      <h1 class="sh-h1">
+        <span class="sh-line">Estrutura antes</span>
+        <span class="sh-line">da <span class="sh-accent">decisão.</span></span>
+      </h1>
+    </div>
+    <div class="sh-aside">
+      <p class="sh-body">Crédito, consórcio, capital com garantia e proteção patrimonial. A ZR entende o seu objetivo e encontra o caminho coerente para o seu momento.</p>
+      <div class="sh-ctas">
+        <button class="btn" id="enter">Entrar</button>
+        <button class="lnk" data-quiz>Analisar meu cenário</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -58,7 +79,7 @@
 
 <aside id="side" aria-label="Menu principal">
   <a class="logo" href="#inicio" aria-label="ZR Investimentos — voltar ao início">
-    <img class="limg" src="assets/zr-logo.png?v=116" alt="ZR Investimentos">
+    <img class="limg" src="assets/zr-logo.png?v=117" alt="ZR Investimentos">
     <small>Soluções Financeiras</small>
   </a>
   <nav id="nav" aria-label="Soluções"><span id="ind" aria-hidden="true"></span></nav>
@@ -99,19 +120,20 @@
   </div>
 </noscript>
 
-<script src="js/config.js?v=116"></script>
-<script src="js/shaders.js?v=116"></script>
-<script src="js/analytics.js?v=116"></script>
-<script src="js/content.js?v=116"></script>
-<script src="js/pages/inicio.js?v=116"></script>
-<script src="js/pages/consorcio.js?v=116"></script>
-<script src="js/pages/financiamento.js?v=116"></script>
-<script src="js/pages/home-equity.js?v=116"></script>
-<script src="js/pages/auto-equity.js?v=116"></script>
-<script src="js/pages/recebiveis.js?v=116"></script>
-<script src="js/pages/seguros.js?v=116"></script>
-<script src="js/pages/como.js?v=116"></script>
-<script src="js/pages/contato.js?v=116"></script>
-<script src="js/app.js?v=116"></script>
+<script src="js/config.js?v=117"></script>
+<script src="js/intro-engine.js?v=117"></script>
+<script src="js/metal-bg.js?v=117"></script>
+<script src="js/analytics.js?v=117"></script>
+<script src="js/content.js?v=117"></script>
+<script src="js/pages/inicio.js?v=117"></script>
+<script src="js/pages/consorcio.js?v=117"></script>
+<script src="js/pages/financiamento.js?v=117"></script>
+<script src="js/pages/home-equity.js?v=117"></script>
+<script src="js/pages/auto-equity.js?v=117"></script>
+<script src="js/pages/recebiveis.js?v=117"></script>
+<script src="js/pages/seguros.js?v=117"></script>
+<script src="js/pages/como.js?v=117"></script>
+<script src="js/pages/contato.js?v=117"></script>
+<script src="js/app.js?v=117"></script>
 </body>
 </html>

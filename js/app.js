@@ -94,21 +94,40 @@ window.ZR = window.ZR || {};
   }
 
   /* ================= MODAL DO QUIZ (iframe do quiz integrado) ================= */
-  let opener = null, quizLoaded = false;
+  let opener = null, quizLoaded = false, lockY = 0;
+  function lockScroll() {
+    // iOS Safari ignora overflow:hidden no body: trava via position:fixed e restaura depois
+    lockY = window.scrollY;
+    const s = document.body.style;
+    s.position = 'fixed';
+    s.top = -lockY + 'px';
+    s.left = '0';
+    s.right = '0';
+    s.width = '100%';
+  }
+  function unlockScroll() {
+    const s = document.body.style;
+    s.position = '';
+    s.top = '';
+    s.left = '';
+    s.right = '';
+    s.width = '';
+    window.scrollTo(0, lockY);
+  }
   function openQuiz(source) {
     const modal = $('#modal'), frame = $('#qframe');
     opener = source || document.activeElement;
     if (!quizLoaded) { frame.src = C.quizUrl; quizLoaded = true; }
     modal.classList.add('open');
     closeMenu();
-    document.body.style.overflow = 'hidden';
+    lockScroll();
     ZR.track('quiz_open', { origin_route: cur });
     $('#qx').focus();
   }
   function closeQuiz() {
     const modal = $('#modal');
     modal.classList.remove('open');
-    document.body.style.overflow = '';
+    unlockScroll();
     if (opener && opener.focus) opener.focus();
   }
 
@@ -204,21 +223,26 @@ window.ZR = window.ZR || {};
 
   /* ================= INICIALIZAÇÃO ================= */
   document.addEventListener('DOMContentLoaded', () => {
-    const sh = ZR.shaders.init();
-    
-    // abrir intro ao carregar página (hash sem rotra entra direto)
+    // fundo vivo do site (fitas de metal) + abertura com escultura de partículas
+    ZR.metal.init();
+    const introApi = ZR.intro.init();
+
+    // abrir intro ao carregar página (hash com rota entra direto)
     const intro = $('#intro');
     const enterBtn = $('#enter');
     function enterSite() {
-      if (intro.classList.contains('out')) return;
+      if (!intro || intro.classList.contains('out')) return;
       entered = true;
       intro.classList.add('out');
-      setTimeout(() => { intro.remove(); sh && sh.lines && sh.lines.stop(); }, 1200);
+      setTimeout(() => {
+        if (introApi) introApi.destroy();
+        if (intro && intro.isConnected) intro.remove();
+      }, 1200);
     }
     let entered = false;
     if (enterBtn) enterBtn.onclick = enterSite;
     if (location.hash && location.hash.length > 1) setTimeout(enterSite, 400);
-    
+
     buildNav();
     addEventListener('hashchange', () => { render(); closeMenu(); });
     render(true);
@@ -246,11 +270,17 @@ window.ZR = window.ZR || {};
       if (t) ZR.track(t.dataset.track);
     });
 
-    // fechar modal: X, clique fora, Esc
+    // fechar modal: X, clique fora, Esc — Esc também fecha o drawer no mobile
     $('#qx').onclick = closeQuiz;
     $('#modal').onclick = e => { if (e.target === $('#modal')) closeQuiz(); };
     addEventListener('keydown', e => {
-      if (e.key === 'Escape' && $('#modal').classList.contains('open')) closeQuiz();
+      if (e.key !== 'Escape') return;
+      if ($('#modal').classList.contains('open')) { closeQuiz(); return; }
+      if (inDrawerMode() && $('#side').classList.contains('open')) {
+        closeMenu();
+        const b = $('#burger');
+        if (b) b.focus();
+      }
     });
 
     // eventos enviados pelo quiz (iframe) para analytics
