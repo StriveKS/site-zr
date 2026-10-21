@@ -23,6 +23,7 @@ uniform float u_count;
 uniform float u_iridescence;
 uniform float u_pull;
 uniform float u_dark;
+uniform float u_thin;
 uniform vec2 u_mouse;
 uniform vec2 u_light;
 uniform vec3 u_f0;
@@ -107,7 +108,8 @@ void main() {
   vec3 L = normalize(vec3(u_light, 0.85));
   float count = u_count;
   float spread = mix(0.0, 0.3, clamp((count - 1.0) / 4.0, 0.0, 1.0)) + 0.08 * step(1.5, count);
-  float baseWidth = mix(0.13, 0.075, clamp((count - 1.0) / 4.0, 0.0, 1.0));
+  // u_thin: multiplicador de espessura das fitas (1 = original; <1 = fitas mais finas/delicadas)
+  float baseWidth = mix(0.13, 0.075, clamp((count - 1.0) / 4.0, 0.0, 1.0)) * u_thin;
 
   vec3 col = vec3(0.0);
   float alpha = 0.0;
@@ -132,8 +134,10 @@ void main() {
     float hw = baseWidth * (0.82 + 0.22 * sin(0.9 * x + 0.35 * tk + 2.3 * k));
     float proj = hw * max(abs(ct), 0.035);
 
-    float sd = d + 0.045;
-    float shadowW = proj + 0.05;
+    // sombra de contato suave atrás da fita — offset e largura escalam com u_thin
+    // (v1.1.2: no mobile a sombra fica proporcional à fita fina; thin=1 = original)
+    float sd = d + 0.045 * u_thin;
+    float shadowW = proj + 0.05 * u_thin;
     float shadow = (1.0 - smoothstep(0.35, 1.0, abs(sd) / shadowW)) * mix(0.2, 0.32, u_dark);
     col *= 1.0 - shadow;
     alpha = alpha + shadow * (1.0 - alpha);
@@ -249,7 +253,7 @@ void main() {
     if (!gl) return null;
 
     let vs = null, fs = null, program = null, buf = null;
-    let uResolution, uTime, uCount, uIridescence, uPull, uDark, uMouse, uLight, uF0;
+    let uResolution, uTime, uCount, uIridescence, uPull, uDark, uMouse, uLight, uF0, uThin;
 
     const initGl = () => {
       vs = compileShader(gl, gl.VERTEX_SHADER, VERT);
@@ -286,6 +290,7 @@ void main() {
       uMouse = u('u_mouse');
       uLight = u('u_light');
       uF0 = u('u_f0');
+      uThin = u('u_thin');
       return true;
     };
     if (!initGl()) return null;
@@ -363,6 +368,7 @@ void main() {
       gl.uniform1f(uTime, clock * speed * 3 + 11);
       gl.uniform1f(uCount, Math.round(numberOr(options.ribbons, 3, 1, 5)));
       gl.uniform1f(uIridescence, numberOr(options.iridescence, 0.18, 0, 1));
+      gl.uniform1f(uThin, numberOr(options.thin, 1, 0.1, 1));
       gl.uniform1f(uPull, options.interactive === false ? 0 : pull);
       gl.uniform1f(uDark, darkMix);
       gl.uniform2f(uMouse, mouse.x, mouse.y);
@@ -479,7 +485,10 @@ void main() {
       ribbons: lowPower ? 2 : 3,
       speed: 0.22,
       iridescence: 0.18,
-      interactive: true
+      interactive: true,
+      // mobile: fitas mais finas — no viewport estreito a espessura original cobria
+      // ~52% da largura da tela (vs ~12% no desktop aprovado); 0.3 devolve a delicadeza
+      thin: lowPower ? 0.3 : 1
     });
     return instance;
   }

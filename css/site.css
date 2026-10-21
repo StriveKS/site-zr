@@ -49,10 +49,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .sh-backdrop{position:absolute;left:50%;z-index:0;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;user-select:none;
   font-family:var(--font-display);font-weight:600;letter-spacing:-.06em;line-height:.8;color:color-mix(in srgb,var(--ink) 5%,transparent)}
 
-.sh-nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:24px;
-  padding:26px clamp(20px,3.2cqw,48px) 0;pointer-events:none}
-.sh-nav .sh-brand-img{display:block;height:44px;width:auto}
-
 .sh-hint{position:absolute;z-index:1;transform:translate(-50%,0);display:flex;align-items:center;gap:10px;white-space:nowrap;
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.5;pointer-events:none;transition:opacity .8s ease}
 .sh-hint::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;animation:sh-pulse 2.4s ease-in-out infinite}
@@ -85,8 +81,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .sh-h1{font-size:clamp(38px,min(9.5cqw,9cqh),96px)}
 }
 @container (max-width:639px){
-  .sh-nav{padding-top:20px}
-  .sh-nav .sh-brand-img{height:38px}
   .sh-h1{font-size:clamp(34px,min(11cqw,7cqh),60px);line-height:.94}
   .sh-body{font-size:15px;margin-bottom:20px}
   .sh-eyebrow{font-size:11px}

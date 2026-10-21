@@ -997,7 +997,9 @@ ZR.intro = (function () {
       if (!w || !h) return;
       const mob = w < 640;
       const band = {
-        top: nav ? nav.offsetTop + nav.offsetHeight + 8 : 16,
+        // sem o nav de marca (v1.1.2): desktop mantém 78px (o antigo fundo do nav + 8,
+        // para não alterar a composição aprovada); mobile sobe para 16px (mais ar)
+        top: nav ? nav.offsetTop + nav.offsetHeight + 8 : (w < 640 ? 16 : 78),
         bottom: content ? content.offsetTop - 8 : h
       };
       // ZR (v1.1.1): sem dissolução no copy — o texto desta abertura é mais alto que
