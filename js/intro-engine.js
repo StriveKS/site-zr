@@ -1000,9 +1000,11 @@ ZR.intro = (function () {
         top: nav ? nav.offsetTop + nav.offsetHeight + 8 : 16,
         bottom: content ? content.offsetTop - 8 : h
       };
-      // escultura vertical no celular se dissolve no topo do copy
-      if (mob && aspect < 1.3 && content) band.bottom += content.offsetHeight * 0.3;
-      const rect = computeRect(w, h, aspect, band, { scale: 1, mobileScale: 1, x: 0, y: 0 });
+      // ZR (v1.1.1): sem dissolução no copy — o texto desta abertura é mais alto que
+      // o do modelo original, e a extensão de 30% empurrava a escultura para dentro
+      // do eyebrow. Sem extensão, o maxH do computeRect garante que a escultura
+      // caiba inteira na faixa [nav, copy] em qualquer aparelho.
+      const rect = computeRect(w, h, aspect, band, { scale: 1, mobileScale: 0.94, x: 0, y: 0 });
       if (backdrop) {
         const chars = Math.max(1, (backdrop.textContent || '').length);
         backdrop.style.fontSize = Math.min((band.bottom - band.top) * 0.95, (w * 0.92) / (chars * 0.56)) + 'px';

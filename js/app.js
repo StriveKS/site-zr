@@ -253,6 +253,23 @@ window.ZR = window.ZR || {};
       $('#bar').style.transform = `scaleX(${scrollY / Math.max(1, h.scrollHeight - innerHeight)})`;
     }, { passive: true });
 
+    // burger (mobile): some ao rolar para baixo, volta ao rolar para cima ou no topo.
+    // Nunca esconde com o drawer aberto (o burger é o botão de fechar).
+    let lastY = scrollY;
+    addEventListener('scroll', () => {
+      const burger = $('#burger');
+      if (!burger) return;
+      if (!inDrawerMode() || $('#side').classList.contains('open')) {
+        burger.classList.remove('bk-hide');
+        return;
+      }
+      const y = scrollY;
+      if (y < 8) burger.classList.remove('bk-hide');
+      else if (y > lastY + 6) burger.classList.add('bk-hide');
+      else if (y < lastY - 6) burger.classList.remove('bk-hide');
+      lastY = y;
+    }, { passive: true });
+
     // brilho dos botões que segue o mouse
     document.addEventListener('pointermove', e => {
       const b = e.target.closest && e.target.closest('.btn');

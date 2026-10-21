@@ -4,7 +4,7 @@ window.ZR = window.ZR || {};
 
 ZR.CONFIG = {
   // Quiz de consultoria (integrado, embutido via iframe no modal; ?v= quebra cache entre versões)
-  quizUrl: 'quiz/index.html?embed=1&v=117',
+  quizUrl: 'quiz/index.html?embed=1&v=118',
 
   // Automação de leads (Google Apps Script — ficha em PDF por e-mail; mesma do quiz)
   leadEndpoint: 'https://script.google.com/macros/s/AKfycbzpm3wx1ceiTZCh7I1kUBjX5d3rRbb7hfAbBDzjVVKMQ11i-grcQ8rS0PI7bfY-cLFcew/exec',
@@ -19,5 +19,5 @@ ZR.CONFIG = {
   clarity: 'wwf25gobgk',
 
   // Versão deste pacote
-  version: '1.1.0'
+  version: '1.1.1'
 };
